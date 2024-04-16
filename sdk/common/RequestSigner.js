@@ -123,7 +123,7 @@ class RequestSigner {
     return this.getDateTime().substr(0, 8);
   }
 
-  signature(secret = "1234567") {
+  signature(secret) {
     let kCredentials = secret;
     let strTosign = this.stringToSign();
     // console.log(strTosign);
