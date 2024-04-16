@@ -1,0 +1,5 @@
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+node_modules
