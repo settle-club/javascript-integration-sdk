@@ -1,13 +1,13 @@
 ### Usage
 
 ```
-npm install git+https://github.com/potlee-finance/javascript-integration-sdk.git 
+npm install git+https://github.com/settle-finance/javascript-integration-sdk.git 
 ```
 
 or
 
 ```
-yarn add https://github.com/potlee-finance/javascript-integration-sdk 
+yarn add https://github.com/settle-finance/javascript-integration-sdk 
 ```
 
 ### Sample Usage
