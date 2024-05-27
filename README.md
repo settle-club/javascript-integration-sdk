@@ -13,7 +13,7 @@ yarn add https://github.com/settle-finance/javascript-integration-sdk
 ### Sample Usage
 
 ```javascript
-const { PlatformConfig, PlatformClient } = require("potlee");
+const { PlatformConfig, PlatformClient } = require("settle");
 
 const platformConfig = new PlatformConfig({
     key: "API_KEY",
