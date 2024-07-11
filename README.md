@@ -1,13 +1,13 @@
 ### Usage
 
 ```
-npm install git+https://github.com/settle-finance/javascript-integration-sdk.git 
+npm install git+https://github.com/settle-club/javascript-integration-sdk.git 
 ```
 
 or
 
 ```
-yarn add https://github.com/settle-finance/javascript-integration-sdk 
+yarn add https://github.com/settle-club/javascript-integration-sdk 
 ```
 
 ### Sample Usage
@@ -20,7 +20,7 @@ const platformConfig = new PlatformConfig({
     token: "API_TOKEN",
     secret: "API_SECRET",
     companyId: "COMPANY_ID",
-    domain: "https://api.potlee.co.in",
+    domain: "https://api.settle.club",
     useAutoRenewTimer: true,
 });
 
