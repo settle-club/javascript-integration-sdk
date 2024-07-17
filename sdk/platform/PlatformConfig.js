@@ -12,7 +12,7 @@ class PlatformConfig {
   constructor(config) {
     this.companyId = config.companyId;
     this.organizationId = config.organizationId;
-    this.domain = config.domain || "https://api.potlee.co.in";
+    this.domain = config.domain || "https://api.potleex0.de";
     this.apiKey = config.key;
     this.apiSecret = config.token;
     this.topSecret = config.secret;
