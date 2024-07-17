@@ -32,7 +32,7 @@ async function verifyCustomer() {
     // Call APIs using their correponding methods
     const result = await client.customer.verify({
         organizationId: "COMPANY_ID",
-        disbursalRequest: {
+        body: {
             "customer": {
                 "uid": "1",
                 "countryCode": "91",

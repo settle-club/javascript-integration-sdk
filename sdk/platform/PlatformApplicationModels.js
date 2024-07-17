@@ -1,6 +1,42 @@
 const Joi = require("joi");
 
 class Validator {
+  static RefundResponse() {
+    return Joi.object({
+      status: Joi.string().allow(""),
+
+      message: Joi.string().allow(""),
+
+      transactionId: Joi.string().allow(""),
+
+      refundId: Joi.string().allow(""),
+
+      __headers: Joi.any(),
+    });
+  }
+
+  static UserSource() {
+    return Joi.object({
+      userId: Joi.string().allow(""),
+
+      type: Joi.string().allow(""),
+
+      sourceId: Joi.string().allow(""),
+
+      meta: Joi.any(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      app: Joi.string().allow(""),
+
+      entityId: Joi.string().allow(""),
+
+      userMerchants: Joi.array().items(Joi.string().allow("")),
+    });
+  }
+
   static UserSchema() {
     return Joi.object({
       id: Joi.string().allow(""),
@@ -427,8 +463,6 @@ class Validator {
 
       uid: Joi.string().allow("").required(),
 
-      emiTenure: Joi.number(),
-
       items: Joi.array().items(this.Items()),
 
       shippingAddress: this.OrderAddress(),
@@ -488,13 +522,13 @@ class Validator {
       meta: Joi.any(),
 
       fetchLimitOptions: Joi.boolean(),
+
+      fetchPlans: Joi.boolean(),
     });
   }
 
   static CreateTransaction() {
     return Joi.object({
-      autoCapture: Joi.boolean(),
-
       redirectUrl: Joi.string().allow("").required(),
 
       customer: this.CustomerObject().required(),
@@ -504,13 +538,17 @@ class Validator {
       device: this.Device().required(),
 
       meta: Joi.any(),
+
+      emiTenure: Joi.number(),
+
+      lenderSlug: Joi.string().allow(""),
+
+      consents: Joi.array().items(this.Consents()),
     });
   }
 
   static ResendPaymentRequest() {
     return Joi.object({
-      autoCapture: Joi.boolean(),
-
       redirectUrl: Joi.string().allow(""),
 
       customer: this.CustomerObject().required(),
@@ -521,11 +559,15 @@ class Validator {
 
   static VerifyCustomerSuccess() {
     return Joi.object({
-      status: Joi.string().allow(""),
+      status: Joi.string().allow("").required(),
 
-      userStatus: Joi.string().allow(""),
+      userStatus: Joi.string().allow("").required(),
 
-      message: Joi.string().allow(""),
+      message: Joi.string().allow("").required(),
+
+      schemes: Joi.array().items(this.SchemeResponse()),
+
+      limit: this.LimitResponse(),
 
       __headers: Joi.any(),
     });
@@ -1121,6 +1163,8 @@ class Validator {
       type: Joi.string().allow(""),
 
       text: Joi.string().allow(""),
+
+      purpose: Joi.string().allow(""),
     });
   }
 
@@ -1268,7 +1312,7 @@ class Validator {
     return Joi.object({
       fingerprint: Joi.string().allow(""),
 
-      customer: this.CustomerObject().required(),
+      customer: this.CustomerObject(),
 
       refundItems: Joi.array().items(this.Items()),
 
@@ -1277,6 +1321,8 @@ class Validator {
       refundId: Joi.string().allow("").required(),
 
       refundAmount: Joi.number().required(),
+
+      redirectionUrl: Joi.string().allow(""),
     });
   }
 
@@ -1435,8 +1481,6 @@ class Validator {
       refreshTokenExpiryIn: Joi.string().allow(""),
 
       scope: Joi.array().items(Joi.string().allow("")),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1449,8 +1493,6 @@ class Validator {
       tokenExpireAt: Joi.string().allow(""),
 
       tokenExpiryIn: Joi.string().allow(""),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1501,6 +1543,16 @@ class Validator {
       loanAccountNumber: Joi.string().allow(""),
 
       refund: Joi.array().items(this.RefundStatusList()),
+
+      __headers: Joi.any(),
+    });
+  }
+
+  static GetSchemesSuccess() {
+    return Joi.object({
+      userId: Joi.string().allow(""),
+
+      lenders: Joi.array().items(this.SchemeResponse()).required(),
 
       __headers: Joi.any(),
     });
@@ -1562,6 +1614,126 @@ class Validator {
     });
   }
 
+  static SchemeResponse() {
+    return Joi.object({
+      slug: Joi.string().allow("").required(),
+
+      isDefault: Joi.boolean().required(),
+
+      logoUrl: Joi.string().allow("").required(),
+
+      name: Joi.string().allow("").required(),
+
+      title: Joi.string().allow("").required(),
+
+      subtitle: Joi.string().allow("").required(),
+
+      amount: Joi.number(),
+
+      paymentOptions: this.SchemePaymentOptionsResponse().required(),
+    });
+  }
+
+  static SchemePaymentOptionsResponse() {
+    return Joi.object({
+      emis: Joi.array().items(this.SchemeEmiPaymentOptionResponse()),
+
+      payLater: this.SchemePayLaterPaymentOptionResponse(),
+    });
+  }
+
+  static SchemeEmiPaymentOptionResponse() {
+    return Joi.object({
+      id: Joi.string().allow("").required(),
+
+      isDefault: Joi.boolean().required(),
+
+      description: Joi.string().allow("").required(),
+
+      title: Joi.string().allow("").required(),
+
+      subtitle: Joi.string().allow("").required(),
+
+      amount: Joi.number().required(),
+
+      interest: Joi.number(),
+
+      processingFee: Joi.number().required(),
+
+      tenure: Joi.number().required(),
+
+      emiSchedule: Joi.array()
+        .items(this.SchemeEmiScheduleResponse())
+        .required(),
+    });
+  }
+
+  static SchemeEmiScheduleResponse() {
+    return Joi.object({
+      installmentNo: Joi.number().required(),
+
+      installmentAmount: Joi.number().required(),
+
+      dueDate: Joi.string().allow("").required(),
+    });
+  }
+
+  static SchemePayLaterPaymentOptionResponse() {
+    return Joi.object({
+      id: Joi.string().allow("").required(),
+
+      title: Joi.string().allow("").required(),
+
+      subtitle: Joi.string().allow("").required(),
+
+      description: Joi.string().allow("").required(),
+
+      tenure: Joi.number().required(),
+
+      interest: Joi.number().required(),
+
+      processingFee: Joi.number().required(),
+
+      amount: Joi.number().required(),
+
+      isDefault: Joi.boolean().required(),
+    });
+  }
+
+  static LimitResponse() {
+    return Joi.object({
+      available: Joi.array().items(this.AvailableOrPossibleLender()),
+
+      possible: Joi.array().items(this.AvailableOrPossibleLender()),
+    });
+  }
+
+  static AvailableOrPossibleLender() {
+    return Joi.object({
+      limit: Joi.number().required(),
+
+      lenderName: Joi.string().allow("").required(),
+
+      slug: Joi.string().allow("").required(),
+
+      isDefault: Joi.boolean().required(),
+
+      logo: Joi.string().allow("").required(),
+    });
+  }
+
+  static GetSchemesRequest() {
+    return Joi.object({
+      customer: this.CustomerObject().required(),
+
+      order: this.Order().required(),
+
+      device: this.Device().required(),
+
+      meta: Joi.any(),
+    });
+  }
+
   static CustomerMetricsResponse() {
     return Joi.object({
       data: this.CustomerMetrics(),
@@ -1585,6 +1757,8 @@ class Validator {
   static SourceAnalyticsRequest() {
     return Joi.object({
       filters: Joi.array().items(this.CustomerMetricsFilters()),
+
+      merchantId: Joi.string().allow(""),
     });
   }
 
@@ -1626,11 +1800,11 @@ class Validator {
 
   static DocumentItems() {
     return Joi.object({
-      number: Joi.string().allow(""),
+      number: Joi.string().allow("").required(),
 
       category: Joi.string().allow(""),
 
-      type: Joi.string().allow(""),
+      type: Joi.string().allow("").required(),
 
       name: Joi.string().allow(""),
 
@@ -1668,11 +1842,7 @@ class Validator {
 
       redirectUrl: Joi.string().allow(""),
 
-      callbackUrl: Joi.string().allow(""),
-
       creditLimits: Joi.array().items(this.CreditLimitObject()),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1696,13 +1866,93 @@ class Validator {
     });
   }
 
-  static GetSchemesSuccess() {
+  static EmiSchedule() {
     return Joi.object({
-      userId: Joi.string().allow(""),
+      installmentNo: Joi.number(),
 
-      lenders: Joi.array().items(undefined).required(),
+      installmentAmount: Joi.number(),
 
-      __headers: Joi.any(),
+      dueDate: Joi.string().allow(""),
+    });
+  }
+
+  static PaymentOption() {
+    return Joi.object({
+      id: Joi.string().allow(""),
+
+      title: Joi.string().allow(""),
+
+      subtitle: Joi.string().allow(""),
+
+      description: Joi.string().allow(""),
+
+      tenure: Joi.number(),
+
+      processingFee: Joi.number(),
+
+      amount: Joi.number(),
+
+      isDefault: Joi.boolean(),
+
+      emiSchedule: Joi.array().items(this.EmiSchedule()),
+    });
+  }
+
+  static PaymentOptions() {
+    return Joi.object({
+      payLater: this.PaymentOption(),
+
+      emis: Joi.array().items(this.PaymentOption()),
+    });
+  }
+
+  static LenderAndPaymentOption() {
+    return Joi.object({
+      id: Joi.string().allow(""),
+
+      name: Joi.string().allow("").required(),
+
+      title: Joi.string().allow(""),
+
+      subtitle: Joi.string().allow(""),
+
+      isDefault: Joi.boolean(),
+
+      logoUrl: Joi.string().allow("").required(),
+
+      amount: Joi.number(),
+
+      paymentOptions: this.PaymentOptions(),
+    });
+  }
+
+  static GetSchemesSuccessOld() {
+    return Joi.object({
+      userId: Joi.string().allow("").required(),
+
+      lenders: Joi.array().items(this.LenderAndPaymentOption()),
+    });
+  }
+
+  static PageSchemaResponse() {
+    return Joi.object({
+      slug: Joi.string().allow(""),
+
+      description: Joi.string().allow(""),
+
+      sections: Joi.any(),
+
+      settings: Joi.any(),
+    });
+  }
+
+  static userCountRequest() {
+    return Joi.object({
+      merchantId: Joi.string().allow(""),
+
+      startDate: Joi.string().allow(""),
+
+      endDate: Joi.string().allow(""),
     });
   }
 
@@ -1774,6 +2024,52 @@ class Validator {
     );
   }
 
+  static IntegrationResponseMeta() {
+    return Joi.object({
+      timestamp: Joi.string().allow("").required(),
+
+      version: Joi.string().allow("").required(),
+
+      product: Joi.string().allow("").required(),
+
+      requestId: Joi.string().allow("").allow(null),
+    });
+  }
+
+  static IntegrationResponseError() {
+    return Joi.object({
+      code: Joi.string().allow("").required(),
+
+      message: Joi.string().allow("").required(),
+
+      exception: Joi.string().allow("").required(),
+
+      field: Joi.string().allow("").allow(null),
+
+      in: Joi.string().allow("").allow(null),
+    });
+  }
+
+  static IntegrationSuccessResponse() {
+    return Joi.object({
+      message: Joi.string().allow("").required(),
+
+      meta: this.IntegrationResponseMeta().required(),
+
+      data: Joi.any().required(),
+    });
+  }
+
+  static IntegrationErrorResponse() {
+    return Joi.object({
+      message: Joi.string().allow("").required(),
+
+      meta: this.IntegrationResponseMeta().required(),
+
+      errors: Joi.array().items(this.IntegrationResponseError()),
+    });
+  }
+
   static DisbursalRequest() {
     return Joi.object({
       fingerprint: Joi.string().allow(""),
@@ -1789,6 +2085,12 @@ class Validator {
       downpaymentAmount: Joi.number(),
 
       loanAmount: Joi.number(),
+
+      data: Joi.any(),
+
+      transactionId: Joi.string().allow(""),
+
+      lenderSlug: Joi.string().allow(""),
     });
   }
 
@@ -1839,8 +2141,6 @@ class Validator {
       status: Joi.string().allow(""),
 
       message: Joi.string().allow(""),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1908,8 +2208,6 @@ class Validator {
 
       loanType: Joi.string().allow(""),
 
-      repaymentTransactionId: Joi.string().allow(""),
-
       nextDueDate: Joi.string().allow(""),
 
       paidPercent: Joi.number(),
@@ -1953,18 +2251,6 @@ class Validator {
       page: this.PageResponse().required(),
 
       transactions: Joi.array().items(this.Transactions()).required(),
-    });
-  }
-
-  static MerchantTransactions() {
-    return Joi.object({
-      outstandingAmount: Joi.string().allow(""),
-    });
-  }
-
-  static MerchantTransactionSummary() {
-    return Joi.object({
-      merchantOutstandingSummary: this.MerchantTransactions(),
     });
   }
 
@@ -2384,17 +2670,117 @@ class Validator {
     });
   }
 
-  static LenderTheme() {
+  static TransactionOrder() {
     return Joi.object({
-      logoUrl: Joi.string().allow("").required(),
+      id: Joi.string().allow("").required(),
 
-      iconUrl: Joi.string().allow("").required(),
+      amount: Joi.number().required(),
+    });
+  }
 
-      landscapeBgUrl: Joi.string().allow("").required(),
+  static TransactionMerchant() {
+    return Joi.object({
+      name: Joi.string().allow("").required(),
 
-      portraitBgUrl: Joi.string().allow("").required(),
+      logo: Joi.string().allow("").required(),
+    });
+  }
+
+  static TransactionLoan() {
+    return Joi.object({
+      number: Joi.string().allow("").required(),
+
+      amount: Joi.number().required(),
+
+      type: Joi.string().allow("").required(),
+    });
+  }
+
+  static TransactionLender() {
+    return Joi.object({
+      name: Joi.string().allow("").required(),
+
+      slug: Joi.string().allow("").required(),
+
+      logo: Joi.string().allow("").required(),
 
       shortName: Joi.string().allow("").required(),
+    });
+  }
+
+  static UserTransaction() {
+    return Joi.object({
+      id: Joi.string().allow("").required(),
+
+      amount: Joi.number().required(),
+
+      type: Joi.string().allow("").required(),
+
+      status: Joi.string().allow("").required(),
+
+      settlementUtr: Joi.string().allow("").allow(null),
+
+      refundId: Joi.string().allow("").allow(null),
+
+      createdAt: Joi.string().allow("").required(),
+
+      isMasked: Joi.boolean().required(),
+
+      order: this.TransactionOrder(),
+
+      merchant: this.TransactionMerchant().required(),
+
+      loan: this.TransactionLoan(),
+
+      lender: this.TransactionLender(),
+    });
+  }
+
+  static Pagination() {
+    return Joi.object({
+      type: Joi.string().allow(""),
+
+      current: Joi.number().required(),
+
+      hasPrevious: Joi.boolean().required(),
+
+      hasNext: Joi.boolean().required(),
+
+      size: Joi.number().required(),
+
+      itemTotal: Joi.number().required(),
+    });
+  }
+
+  static GetTransactionsData() {
+    return Joi.object({
+      transactions: Joi.array().items(this.UserTransaction()).required(),
+
+      page: this.Pagination().required(),
+    });
+  }
+
+  static GetTransactionsResponse() {
+    return Joi.object({
+      message: Joi.string().allow("").required(),
+
+      meta: this.IntegrationResponseMeta().required(),
+
+      data: this.GetTransactionsData().required(),
+
+      __headers: Joi.any(),
+    });
+  }
+
+  static SummaryRequest() {
+    return Joi.object({
+      startDate: Joi.string().allow(""),
+
+      endDate: Joi.string().allow(""),
+
+      merchantId: Joi.string().allow(""),
+
+      type: Joi.string().allow(""),
     });
   }
 
@@ -2410,7 +2796,7 @@ class Validator {
 
       slug: Joi.string().allow(""),
 
-      theme: this.LenderTheme(),
+      theme: Joi.any(),
 
       b2b: Joi.boolean(),
 
@@ -2421,8 +2807,6 @@ class Validator {
       createdAt: Joi.string().allow(""),
 
       updatedAt: Joi.string().allow(""),
-
-      approvedLimit: Joi.number(),
 
       deletedAt: Joi.string().allow(""),
 
@@ -2696,6 +3080,90 @@ class Validator {
     });
   }
 
+  static EntityMapDto() {
+    return Joi.object({
+      id: Joi.string().allow("").required(),
+
+      merchantId: Joi.string().allow(""),
+
+      status: Joi.string().allow(""),
+
+      lenderId: Joi.string().allow("").required(),
+
+      limit: Joi.number(),
+
+      creditType: Joi.string().allow(""),
+
+      userId: Joi.string().allow("").required(),
+
+      entityId: Joi.string().allow("").required(),
+    });
+  }
+
+  static EntityDto() {
+    return Joi.object({
+      id: Joi.string().allow("").required(),
+
+      type: Joi.string().allow(""),
+
+      address: Joi.string().allow(""),
+
+      name: Joi.string().allow(""),
+
+      gender: Joi.string().allow(""),
+
+      dob: Joi.string().allow(""),
+
+      userId: Joi.string().allow("").required(),
+    });
+  }
+
+  static MerchantSchema() {
+    return Joi.object({
+      id: Joi.string().allow("").required(),
+
+      name: Joi.string().allow(""),
+
+      logo: Joi.string().allow(""),
+
+      website: Joi.string().allow(""),
+
+      apiHook: Joi.string().allow(""),
+
+      epikId: Joi.string().allow(""),
+
+      disbursementAccountHolderName: Joi.string().allow(""),
+
+      disbursementAccountNumber: Joi.string().allow(""),
+
+      disbursementIfsc: Joi.string().allow(""),
+
+      createdBy: Joi.string().allow(""),
+
+      active: Joi.boolean(),
+
+      category: Joi.string().allow(""),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      deletedAt: Joi.string().allow(""),
+
+      businessName: Joi.string().allow(""),
+
+      email: Joi.string().allow(""),
+
+      businessAddress: Joi.string().allow(""),
+
+      pincode: Joi.string().allow(""),
+
+      b2b: Joi.boolean(),
+
+      b2c: Joi.boolean(),
+    });
+  }
+
   static Consent() {
     return Joi.object({
       text: Joi.string().allow("").required(),
@@ -2747,6 +3215,8 @@ class Validator {
       entity: Joi.string().allow(""),
 
       merchantId: Joi.string().allow(""),
+
+      onboardingToken: Joi.string().allow(""),
     });
   }
 
@@ -2948,7 +3418,17 @@ class Validator {
 
       data: Joi.any().required(),
 
-      entityMapId: Joi.string().allow(""),
+      merchantId: Joi.string().allow(""),
+    });
+  }
+
+  static LenderOnboardRequestV1() {
+    return Joi.object({
+      entityMapId: Joi.string().allow("").required(),
+
+      ack: Joi.string().allow(""),
+
+      data: Joi.any().required(),
 
       merchantId: Joi.string().allow(""),
     });
@@ -3116,7 +3596,11 @@ class Validator {
 
   static RegisterGstRequest() {
     return Joi.object({
-      gstTin: Joi.string().allow("").required(),
+      gstin: Joi.string().allow("").required(),
+
+      skipGst: Joi.boolean(),
+
+      onboardingToken: Joi.string().allow(""),
     });
   }
 
@@ -3236,41 +3720,67 @@ class Validator {
     });
   }
 
-  static EntityMapDto() {
+  static BusinessDetail() {
     return Joi.object({
-      id: Joi.string().allow("").required(),
+      category: Joi.string().allow("").required(),
 
-      merchantId: Joi.string().allow(""),
+      shopName: Joi.string().allow(""),
 
-      status: Joi.string().allow(""),
-
-      lenderId: Joi.string().allow("").required(),
-
-      limit: Joi.number(),
-
-      creditType: Joi.string().allow(""),
-
-      userId: Joi.string().allow("").required(),
-
-      entityId: Joi.string().allow("").required(),
-    });
-  }
-
-  static EntityDto() {
-    return Joi.object({
-      id: Joi.string().allow("").required(),
-
-      type: Joi.string().allow(""),
+      legalName: Joi.string().allow("").required(),
 
       address: Joi.string().allow(""),
 
+      type: Joi.string().allow(""),
+
+      pincode: Joi.string().allow(""),
+    });
+  }
+
+  static VintageData() {
+    return Joi.object({
+      month: Joi.number().required(),
+
+      year: Joi.number().required(),
+
+      totalTransactions: Joi.number().required(),
+
+      totalTransactionAmount: Joi.number().required(),
+
+      totalCancellations: Joi.number(),
+
+      totalCancellationAmount: Joi.number(),
+    });
+  }
+
+  static DocumentObjects() {
+    return Joi.object({
+      number: Joi.string().allow("").required(),
+
+      category: Joi.string().allow("").required(),
+
+      type: Joi.string().allow("").required(),
+
       name: Joi.string().allow(""),
 
-      gender: Joi.string().allow(""),
+      issuedOn: Joi.string().allow(""),
 
-      dob: Joi.string().allow(""),
+      issuedAt: Joi.string().allow(""),
 
-      userId: Joi.string().allow("").required(),
+      issuedBy: Joi.string().allow(""),
+
+      expiryOn: Joi.string().allow(""),
+    });
+  }
+
+  static KycCountByStatus() {
+    return Joi.object({
+      startDate: Joi.string().allow(""),
+
+      endDate: Joi.string().allow(""),
+
+      merchantId: Joi.string().allow(""),
+
+      lenderId: Joi.string().allow(""),
     });
   }
 
@@ -3279,8 +3789,6 @@ class Validator {
       status: Joi.string().allow("").required(),
 
       info: Joi.string().allow("").required(),
-
-      number: Joi.string().allow("").required(),
 
       details: Joi.any(),
 
@@ -3395,6 +3903,12 @@ class Validator {
       actionIsForm: Joi.boolean().required(),
 
       actionForm: this.Form(),
+
+      merchantId: Joi.string().allow(""),
+
+      actionName: Joi.string().allow(""),
+
+      actionDescription: Joi.string().allow(""),
     });
   }
 
@@ -3445,12 +3959,6 @@ class Validator {
       updatedAt: Joi.any(),
 
       deletedAt: Joi.any(),
-    });
-  }
-
-  static GetKycDocsResponse() {
-    return Joi.object({
-      documents: Joi.array().items(this.FindDocResponse()).required(),
     });
   }
 
@@ -3518,6 +4026,24 @@ class Validator {
     });
   }
 
+  static GetAllUserLendersByEnityId() {
+    return Joi.object({
+      entityId: Joi.string().allow("").required(),
+
+      entityMapId: Joi.string().allow("").required(),
+
+      userId: Joi.string().allow("").required(),
+
+      status: Joi.string().allow("").required(),
+
+      lender: this.Lender(),
+
+      partnerId: Joi.string().allow(""),
+
+      approvedLimit: Joi.number(),
+    });
+  }
+
   static ApprovedLenders() {
     return Joi.object({
       status: Joi.string().allow("").required(),
@@ -3531,22 +4057,6 @@ class Validator {
       status: Joi.string().allow("").required(),
 
       approvedLenders: Joi.array().items(this.BreOutput()),
-    });
-  }
-
-  static GetAllUserLendersByEnityId() {
-    return Joi.object({
-      entityId: Joi.string().allow("").required(),
-
-      entityMapId: Joi.string().allow("").required(),
-
-      userId: Joi.string().allow("").required(),
-
-      status: Joi.string().allow("").required(),
-
-      lender: this.Lender().required(),
-
-      partnerId: Joi.string().allow(""),
     });
   }
 
@@ -3754,6 +4264,20 @@ class Validator {
     });
   }
 
+  static Action() {
+    return Joi.object({
+      step: Joi.string().allow("").required(),
+
+      status: Joi.string().allow("").required(),
+
+      index: Joi.number().required(),
+
+      isForm: Joi.boolean(),
+
+      form: this.Form().required(),
+    });
+  }
+
   static InitiateKycResponse() {
     return Joi.object({
       kycResult: this.UserKycDetail().required(),
@@ -3769,6 +4293,8 @@ class Validator {
       data: Joi.any(),
 
       remark: Joi.string().allow(""),
+
+      reasons: Joi.string().allow("").required(),
 
       kycResult: this.UserKycDetail().required(),
 
@@ -3874,7 +4400,7 @@ class Validator {
 
       id: Joi.string().allow("").required(),
 
-      theme: this.LenderTheme(),
+      theme: Joi.any(),
     });
   }
 
@@ -4032,7 +4558,7 @@ class Validator {
 
       slug: Joi.string().allow(""),
 
-      theme: this.LenderTheme(),
+      theme: Joi.any(),
 
       name: Joi.any(),
     });
@@ -4055,6 +4581,8 @@ class Validator {
   static IngtrAvailableLimit() {
     return Joi.object({
       available: Joi.array().items(this.IntgrAvailableCreditLimit()).required(),
+
+      possible: Joi.array().items(this.IntgrAvailableCreditLimit()),
     });
   }
 
@@ -4246,7 +4774,7 @@ class Validator {
 
   static GstDetails() {
     return Joi.object({
-      gstTin: Joi.string().allow("").required(),
+      gstin: Joi.string().allow("").required(),
 
       businessName: Joi.string().allow("").required(),
     });
@@ -4292,14 +4820,6 @@ class Validator {
     });
   }
 
-  static ManualKycResponse() {
-    return Joi.object({
-      message: Joi.string().allow("").required(),
-
-      step: this.UserKycLenderStepMap().required(),
-    });
-  }
-
   static BreOutput() {
     return Joi.object({
       id: Joi.string().allow("").required(),
@@ -4330,9 +4850,951 @@ class Validator {
     });
   }
 
+  static ManualKycResponse() {
+    return Joi.object({
+      message: Joi.string().allow("").required(),
+
+      step: this.UserKycLenderStepMap().required(),
+    });
+  }
+
   static CustomerKycDetailsReponse() {
     return Joi.object({
       data: this.UserKycLenderStepMap().required(),
+    });
+  }
+
+  static BlockUserRequestSchema() {
+    return Joi.object({
+      status: Joi.boolean(),
+
+      userid: Joi.array().items(Joi.string().allow("")),
+
+      reason: Joi.string().allow(""),
+    });
+  }
+
+  static EditEmailRequestSchema() {
+    return Joi.object({
+      email: Joi.string().allow(""),
+    });
+  }
+
+  static SendVerificationLinkMobileRequestSchema() {
+    return Joi.object({
+      verified: Joi.boolean(),
+
+      active: Joi.boolean(),
+
+      countryCode: Joi.string().allow(""),
+
+      phone: Joi.string().allow(""),
+
+      primary: Joi.boolean(),
+    });
+  }
+
+  static EditMobileRequestSchema() {
+    return Joi.object({
+      countryCode: Joi.string().allow(""),
+
+      phone: Joi.string().allow(""),
+    });
+  }
+
+  static UpdateEmail() {
+    return Joi.object({
+      email: Joi.string().allow("").required(),
+
+      additionalProperties: Joi.string().allow(""),
+    });
+  }
+
+  static EditProfileRequestSchema() {
+    return Joi.object({
+      firstName: Joi.string().allow("").required(),
+
+      lastName: Joi.string().allow("").required(),
+
+      countryCode: Joi.string().allow(""),
+
+      mobile: Joi.string().allow(""),
+
+      email: Joi.string().allow(""),
+
+      gender: Joi.string().allow(""),
+
+      registrationToken: Joi.string().allow(""),
+    });
+  }
+
+  static EditProfileMobileSchema() {
+    return Joi.object({
+      phone: Joi.string().allow(""),
+
+      countryCode: Joi.string().allow(""),
+    });
+  }
+
+  static SendEmailOtpRequestSchema() {
+    return Joi.object({
+      email: Joi.string().allow(""),
+
+      action: Joi.string().allow(""),
+
+      token: Joi.string().allow(""),
+
+      registerToken: Joi.string().allow(""),
+    });
+  }
+
+  static VerifyEmailOtpRequestSchema() {
+    return Joi.object({
+      email: Joi.string().allow(""),
+
+      action: Joi.string().allow(""),
+
+      registerToken: Joi.string().allow(""),
+
+      otp: Joi.string().allow(""),
+    });
+  }
+
+  static ReSendMobileOtpRequestSchema() {
+    return Joi.object({
+      captchaCode: Joi.string().allow(""),
+
+      token: Joi.string().allow("").required(),
+
+      androidHash: Joi.string().allow(""),
+    });
+  }
+
+  static ResetPasswordSuccess() {
+    return Joi.object({
+      status: Joi.string().allow(""),
+    });
+  }
+
+  static RegisterFormSuccess() {
+    return Joi.object({
+      email: Joi.string().allow(""),
+
+      resendTimer: Joi.number(),
+
+      resendToken: Joi.string().allow(""),
+
+      resendEmailToken: Joi.string().allow(""),
+
+      registerToken: Joi.string().allow(""),
+
+      success: Joi.boolean(),
+
+      requestId: Joi.string().allow(""),
+
+      message: Joi.string().allow(""),
+
+      mobile: Joi.string().allow(""),
+
+      countryCode: Joi.string().allow(""),
+
+      verifyEmailOtp: Joi.boolean(),
+
+      verifyMobileOtp: Joi.boolean(),
+
+      userExists: Joi.boolean(),
+    });
+  }
+
+  static VerifyEmailSuccess() {
+    return Joi.object({
+      message: Joi.string().allow(""),
+    });
+  }
+
+  static BlockUserSuccess() {
+    return Joi.object({
+      success: Joi.boolean(),
+    });
+  }
+
+  static EmailOtpSuccess() {
+    return Joi.object({
+      success: Joi.boolean(),
+    });
+  }
+
+  static VerifyEmailOTPSuccess() {
+    return Joi.object({
+      user: this.UserSchema(),
+
+      verifyEmailLink: Joi.boolean(),
+    });
+  }
+
+  static SendMobileVerifyLinkSuccess() {
+    return Joi.object({
+      verifyMobileLink: Joi.boolean(),
+    });
+  }
+
+  static SendEmailVerifyLinkSuccess() {
+    return Joi.object({
+      verifyEmailLink: Joi.boolean(),
+    });
+  }
+
+  static UserSearchResponseSchema() {
+    return Joi.object({
+      users: Joi.array().items(this.UserSchema()),
+    });
+  }
+
+  static CustomerListResponseSchema() {
+    return Joi.object({
+      items: Joi.array().items(this.UserSchema()),
+
+      page: this.PaginationSchema(),
+    });
+  }
+
+  static PaginationSchema() {
+    return Joi.object({
+      size: Joi.number(),
+
+      itemTotal: Joi.number(),
+
+      hasNext: Joi.boolean(),
+
+      type: Joi.string().allow(""),
+
+      current: Joi.number(),
+    });
+  }
+
+  static UserObjectSchema() {
+    return Joi.object({
+      user: this.UserSchema(),
+    });
+  }
+
+  static CreateOrganization() {
+    return Joi.object({
+      name: Joi.string().allow(""),
+
+      logo: Joi.string().allow(""),
+
+      website: Joi.string().allow(""),
+
+      disbursementAccountHolderName: Joi.string().allow(""),
+
+      disbursementAccountNumber: Joi.string().allow(""),
+
+      disbursementIfsc: Joi.string().allow(""),
+
+      businessName: Joi.string().allow(""),
+
+      email: Joi.string().allow(""),
+
+      businessAddress: Joi.string().allow(""),
+
+      pincode: Joi.string().allow(""),
+
+      b2b: Joi.boolean(),
+
+      b2c: Joi.boolean(),
+
+      docType: Joi.string().allow(""),
+
+      docNumber: Joi.string().allow(""),
+
+      organizationId: Joi.string().allow(""),
+    });
+  }
+
+  static UpdateLogo() {
+    return Joi.object({
+      logo: Joi.string().allow(""),
+    });
+  }
+
+  static AddMetaSchemaResponse() {
+    return Joi.object({
+      merchantId: Joi.string().allow(""),
+
+      lenderId: Joi.string().allow(""),
+
+      mid: Joi.string().allow(""),
+
+      data: Joi.any(),
+    });
+  }
+
+  static UpdateOrganization() {
+    return Joi.object({
+      id: Joi.string().allow("").required(),
+
+      name: Joi.any(),
+
+      logo: Joi.any(),
+
+      website: Joi.any(),
+
+      disbursementAccountHolderName: Joi.any(),
+
+      disbursementAccountNumber: Joi.any(),
+
+      disbursementIfsc: Joi.any(),
+
+      active: Joi.boolean(),
+    });
+  }
+
+  static UpdateFinancials() {
+    return Joi.object({
+      disbursementAccountHolderName: Joi.string().allow("").required(),
+
+      disbursementAccountNumber: Joi.string().allow("").required(),
+
+      disbursementIfsc: Joi.string().allow("").required(),
+    });
+  }
+
+  static Documents() {
+    return Joi.object({
+      docType: Joi.string().allow("").required(),
+
+      docNumber: Joi.string().allow("").required(),
+    });
+  }
+
+  static FinancialDetails() {
+    return Joi.object({
+      disbursementAccountHolderName: Joi.string().allow(""),
+
+      disbursementAccountNumber: Joi.string().allow(""),
+
+      disbursementIfsc: Joi.string().allow(""),
+
+      b2b: Joi.boolean(),
+
+      b2c: Joi.boolean(),
+
+      businessName: Joi.string().allow(""),
+
+      email: Joi.string().allow(""),
+
+      businessAddress: Joi.string().allow(""),
+
+      pincode: Joi.string().allow(""),
+
+      documents: Joi.array().items(this.Documents()),
+    });
+  }
+
+  static GetOrganization() {
+    return Joi.object({
+      organizationId: Joi.string().allow(""),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      isAdmin: Joi.boolean(),
+
+      name: Joi.string().allow(""),
+
+      isActive: Joi.boolean(),
+    });
+  }
+
+  static OrganizationDetails() {
+    return Joi.object({
+      name: Joi.string().allow(""),
+
+      organizationId: Joi.string().allow(""),
+
+      isAdmin: Joi.boolean(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      deletedAt: Joi.string().allow(""),
+
+      isActive: Joi.boolean(),
+
+      logo: Joi.string().allow(""),
+
+      website: Joi.string().allow(""),
+
+      disbursementAccountHolderName: Joi.string().allow(""),
+
+      disbursementAccountNumber: Joi.string().allow(""),
+
+      disbursementIfsc: Joi.string().allow(""),
+    });
+  }
+
+  static Organization() {
+    return Joi.object({
+      id: Joi.string().allow(""),
+
+      name: Joi.string().allow(""),
+
+      active: Joi.boolean(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      deletedAt: Joi.string().allow(""),
+    });
+  }
+
+  static OrganizationList() {
+    return Joi.object({
+      name: Joi.string().allow(""),
+
+      logo: Joi.string().allow(""),
+
+      id: Joi.boolean(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      deletedAt: Joi.string().allow(""),
+
+      isActive: Joi.boolean(),
+
+      epikId: Joi.string().allow(""),
+
+      website: Joi.string().allow(""),
+
+      disbursementAccountHolderName: Joi.string().allow(""),
+
+      disbursementAccountNumber: Joi.string().allow(""),
+
+      disbursementIfsc: Joi.string().allow(""),
+    });
+  }
+
+  static OrganizationCount() {
+    return Joi.object({
+      count: Joi.string().allow(""),
+    });
+  }
+
+  static TeamMembers() {
+    return Joi.object({
+      members: Joi.array().items(this.Member()),
+    });
+  }
+
+  static Member() {
+    return Joi.object({
+      id: Joi.string().allow(""),
+
+      userId: Joi.string().allow(""),
+
+      organizationId: Joi.string().allow(""),
+
+      isAdmin: Joi.boolean(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      deletedAt: Joi.string().allow(""),
+
+      profile: this.Profile(),
+    });
+  }
+
+  static Profile() {
+    return Joi.object({
+      id: Joi.string().allow(""),
+
+      userId: Joi.string().allow(""),
+
+      organizationId: Joi.string().allow(""),
+
+      isAdmin: Joi.boolean(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      deletedAt: Joi.string().allow(""),
+    });
+  }
+
+  static AddTeamMember() {
+    return Joi.object({
+      countryCode: Joi.string().allow(""),
+
+      mobile: Joi.string().allow(""),
+
+      email: Joi.string().allow(""),
+
+      userIsAdmin: Joi.boolean(),
+    });
+  }
+
+  static UpdateTeamMemberRole() {
+    return Joi.object({
+      userIsAdmin: Joi.boolean(),
+
+      userId: Joi.string().allow(""),
+    });
+  }
+
+  static RemoveTeamMemberResponse() {
+    return Joi.object({
+      success: Joi.boolean(),
+    });
+  }
+
+  static AddTeamMemberResponse() {
+    return Joi.object({
+      id: Joi.string().allow(""),
+
+      userId: Joi.string().allow(""),
+
+      organizationId: Joi.string().allow(""),
+
+      isAdmin: Joi.boolean(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      deletedAt: Joi.string().allow(""),
+    });
+  }
+
+  static ApiKey() {
+    return Joi.object({
+      key: Joi.string().allow(""),
+
+      secret: Joi.string().allow(""),
+    });
+  }
+
+  static UpdateApiHook() {
+    return Joi.object({
+      apiKey: Joi.string().allow("").required(),
+
+      url: Joi.string().allow("").required(),
+
+      customHeaders: Joi.any(),
+    });
+  }
+
+  static ApiHookDetails() {
+    return Joi.object({
+      apiKey: Joi.string().allow("").required(),
+
+      url: Joi.string().allow("").required(),
+
+      customHeaders: Joi.any(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+    });
+  }
+
+  static UpdateApiHookResponse() {
+    return Joi.object({
+      success: Joi.boolean(),
+    });
+  }
+
+  static OrganizationIp() {
+    return Joi.object({
+      id: Joi.string().allow(""),
+
+      ip: Joi.string().allow("").required(),
+    });
+  }
+
+  static AddOrganizationIpDetails() {
+    return Joi.object({
+      organizationIps: Joi.array().items(this.OrganizationIp()),
+
+      delete: Joi.string().allow(""),
+    });
+  }
+
+  static AddUpdateCsvFileResponse() {
+    return Joi.object({
+      message: Joi.string().allow(""),
+    });
+  }
+
+  static AddUpdateCsvFileRequest() {
+    return Joi.object({
+      csv: Joi.string().allow(""),
+
+      organizationId: Joi.string().allow(""),
+    });
+  }
+
+  static CsvFile() {
+    return Joi.object({
+      csv: Joi.string().allow(""),
+    });
+  }
+
+  static AddReportCsvFileResponse() {
+    return Joi.object({
+      message: Joi.string().allow(""),
+    });
+  }
+
+  static AddReportCsvFileRequest() {
+    return Joi.object({
+      csv: Joi.string().allow(""),
+
+      organizationId: Joi.string().allow(""),
+
+      name: Joi.string().allow(""),
+
+      type: Joi.string().allow(""),
+    });
+  }
+
+  static ReportCsvFileResponse() {
+    return Joi.object({
+      csv: Joi.string().allow(""),
+    });
+  }
+
+  static AddReportRequestArray() {
+    return Joi.object({
+      mobile: Joi.string().allow(""),
+
+      merchantId: Joi.string().allow(""),
+
+      category: Joi.string().allow(""),
+
+      shopName: Joi.string().allow(""),
+
+      legalName: Joi.string().allow(""),
+
+      firstName: Joi.string().allow(""),
+
+      middleName: Joi.string().allow(""),
+
+      lastName: Joi.string().allow(""),
+
+      aadhaar: Joi.string().allow(""),
+
+      nameOnPan: Joi.string().allow(""),
+
+      gstNumber: Joi.string().allow(""),
+
+      gstBusinessName: Joi.string().allow(""),
+
+      panNumber: Joi.string().allow(""),
+
+      udyam: Joi.string().allow(""),
+
+      ownershipType: Joi.string().allow(""),
+
+      address: Joi.string().allow(""),
+
+      pincode: Joi.string().allow(""),
+
+      license1Type: Joi.string().allow(""),
+
+      license1: Joi.string().allow(""),
+
+      license2Type: Joi.string().allow(""),
+
+      license2: Joi.string().allow(""),
+    });
+  }
+
+  static AddReportRequest() {
+    return Joi.object({
+      businessDetails: Joi.array().items(Joi.any()),
+    });
+  }
+
+  static AddReportResponseArray() {
+    return Joi.object({
+      mobile: Joi.string().allow(""),
+
+      merchantId: Joi.string().allow(""),
+
+      anchorId: Joi.string().allow(""),
+
+      category: Joi.string().allow(""),
+
+      shopName: Joi.string().allow(""),
+
+      legalName: Joi.string().allow(""),
+
+      firstName: Joi.string().allow(""),
+
+      middleName: Joi.string().allow(""),
+
+      lastName: Joi.string().allow(""),
+
+      aadhaar: Joi.string().allow(""),
+
+      nameOnPan: Joi.string().allow(""),
+
+      gstNumber: Joi.string().allow(""),
+
+      gstBusinessName: Joi.string().allow(""),
+
+      panNumber: Joi.string().allow(""),
+
+      udyam: Joi.string().allow(""),
+
+      ownershipType: Joi.string().allow(""),
+
+      address: Joi.string().allow(""),
+
+      pincode: Joi.string().allow(""),
+
+      license1Type: Joi.string().allow(""),
+
+      license1: Joi.string().allow(""),
+
+      license2Type: Joi.string().allow(""),
+
+      license2: Joi.string().allow(""),
+    });
+  }
+
+  static AddReportResponse() {
+    return Joi.object({
+      businessDetails: Joi.array().items(this.AddReportResponseArray()),
+    });
+  }
+
+  static VintageDataResponseObject() {
+    return Joi.object({
+      month: Joi.string().allow(""),
+
+      year: Joi.number(),
+
+      revenue: Joi.string().allow(""),
+
+      businessId: Joi.string().allow(""),
+
+      createdBy: Joi.string().allow(""),
+
+      id: Joi.string().allow(""),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedBy: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+    });
+  }
+
+  static VintageDataResponse() {
+    return Joi.object({
+      vintageData: Joi.array().items(this.VintageDataResponseObject()),
+    });
+  }
+
+  static AddSkuRequestArray() {
+    return Joi.object({
+      sku: Joi.string().allow("").required(),
+
+      productName: Joi.string().allow("").required(),
+
+      creditPurchaseOptionFlag: Joi.string().allow("").required(),
+
+      effectiveDates: Joi.string().allow("").required(),
+
+      organizationId: Joi.string().allow("").required(),
+    });
+  }
+
+  static AddSkuRequest() {
+    return Joi.object({
+      skuDetails: Joi.array().items(this.AddSkuRequestArray()),
+    });
+  }
+
+  static AddSkuResponse() {
+    return Joi.object({
+      message: Joi.string().allow(""),
+    });
+  }
+
+  static RestrictedSkuSchema() {
+    return Joi.object({
+      skuDetails: Joi.array().items(Joi.any()),
+    });
+  }
+
+  static OrganizationIpResponse() {
+    return Joi.object({
+      organizationId: Joi.string().allow("").required(),
+
+      ip: Joi.string().allow("").required(),
+
+      createdAt: Joi.string().allow(""),
+
+      updatedAt: Joi.string().allow(""),
+
+      id: Joi.string().allow("").required(),
+    });
+  }
+
+  static OrganizationIpDetails() {
+    return Joi.object({
+      organizationIps: Joi.array().items(this.OrganizationIpResponse()),
+    });
+  }
+
+  static RefundSuccess() {
+    return Joi.object({
+      status: Joi.string().allow("").required(),
+
+      message: Joi.number().required(),
+
+      transactionId: Joi.string().allow("").required(),
+
+      refundId: Joi.string().allow("").required(),
+    });
+  }
+
+  static RefundItem() {
+    return Joi.object({
+      items: Joi.array().items(Joi.any()).required(),
+    });
+  }
+
+  static PaymentLinkResponse() {
+    return Joi.object({
+      status: Joi.string().allow(""),
+
+      message: Joi.string().allow(""),
+
+      paymentLink: Joi.string().allow(""),
+    });
+  }
+
+  static ApplicationCutomer() {
+    return Joi.object({
+      countryCode: Joi.string().allow(""),
+
+      mobile: Joi.string().allow("").required(),
+
+      uid: Joi.string().allow(""),
+
+      email: Joi.string().allow(""),
+    });
+  }
+
+  static GeoLocation() {
+    return Joi.object({
+      latitude: Joi.number().required(),
+
+      longitude: Joi.number().required(),
+    });
+  }
+
+  static Address() {
+    return Joi.object({
+      line1: Joi.string().allow(""),
+
+      line2: Joi.string().allow(""),
+
+      city: Joi.string().allow(""),
+
+      state: Joi.string().allow(""),
+
+      country: Joi.string().allow(""),
+
+      pincode: Joi.string().allow(""),
+
+      type: Joi.string().allow(""),
+
+      geoLocation: this.GeoLocation(),
+    });
+  }
+
+  static OrderItems() {
+    return Joi.object({
+      category: Joi.string().allow(""),
+
+      sku: Joi.string().allow(""),
+
+      rate: Joi.number(),
+
+      quantity: Joi.number(),
+    });
+  }
+
+  static PaymentLinkRequest() {
+    return Joi.object({
+      autoCapture: Joi.boolean(),
+
+      lenderId: Joi.string().allow(""),
+
+      emiTenure: Joi.number(),
+
+      customer: this.ApplicationCutomer().required(),
+
+      order: this.Order().required(),
+
+      device: this.Device(),
+
+      meta: Joi.object().pattern(/\S/, Joi.any()),
+    });
+  }
+
+  static UpdateLenderStatusSchemaRequest() {
+    return Joi.object({
+      merchantId: Joi.string().allow(""),
+
+      enable: Joi.boolean(),
+    });
+  }
+
+  static UpdateLenderStatusSchemaResponse() {
+    return Joi.object({
+      merchantId: Joi.string().allow(""),
+
+      lenderId: Joi.string().allow(""),
+
+      mid: Joi.string().allow(""),
+
+      enable: Joi.boolean(),
+
+      data: Joi.any(),
+    });
+  }
+
+  static CreateUserRequestSchema() {
+    return Joi.object({
+      mobile: Joi.string().allow("").required(),
+
+      email: Joi.string().allow(""),
+
+      firstName: Joi.string().allow(""),
+
+      lastName: Joi.string().allow(""),
+
+      gender: Joi.string().allow(""),
+    });
+  }
+
+  static CreateUserResponseSchema() {
+    return Joi.object({
+      user: this.UserSchema(),
     });
   }
 }

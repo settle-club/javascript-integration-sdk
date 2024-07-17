@@ -4,19 +4,20 @@ export class CustomerValidator {
     static createOrder(): any;
     static link(): any;
     static unlink(): any;
-    static getAccessToken(): any;
-    static renewAccessToken(): any;
     static refund(): any;
     static refundStatus(): any;
     static getSchemes(): any;
-    static checkEligibility(): any;
 }
 export class CreditValidator {
-    static disburse(): any;
     static getOrderStatus(): any;
     static getEligiblePlans(): any;
+    static getTransactions(): any;
 }
 export class MultiKycValidator {
     static approvedLenders(): any;
     static getLimit(): any;
+}
+export class MerchantValidator {
+    static getAccessToken(): any;
+    static renewAccessToken(): any;
 }

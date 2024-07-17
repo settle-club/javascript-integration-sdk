@@ -6,85 +6,13 @@
 
 ## Credit Methods
 Transaction Service
-* [disburse](#disburse)
 * [getOrderStatus](#getorderstatus)
 * [getEligiblePlans](#geteligibleplans)
+* [getTransactions](#gettransactions)
 
 
 
 ## Methods with example and description
-
-
-### disburse
-Disburse the credit
-
-
-
-```javascript
-// Promise
-const promise =  
-        credit.disburse(
-            { 
-              disbursalRequest : value
-            
-         }
-        );
-
-// Async/Await
-const data = await 
-                    credit.disburse(
-                    { 
-                       disbursalRequest : value
-                    
-                     });
-```
-
-
-
-
-
-| Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
-| body | [DisbursalRequest](#DisbursalRequest) | yes | Request body |
-
-
-Use this API to disburse the credit.
-
-*Returned Response:*
-
-
-
-
-[DisbursalResponse](#DisbursalResponse)
-
-Success. Returns a JSON object as shown below. Refer `DisbursalResponse` for more details.
-
-
-
-
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
-
-
-<details>
-<summary><i>&nbsp; success</i></summary>
-
-```json
-true
-```
-</details>
-
-</details>
-
-
-
-
-
-
-
-
-
----
 
 
 ### getOrderStatus
@@ -195,7 +123,7 @@ const promise =
         credit.getEligiblePlans(
             { 
              lenderSlug : value,
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -205,7 +133,7 @@ const data = await
                     credit.getEligiblePlans(
                     { 
                       lenderSlug : value,
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -259,6 +187,165 @@ true
 ---
 
 
+### getTransactions
+Get list of user transactions
+
+
+
+```javascript
+// Promise
+const promise =  
+        credit.getTransactions(
+            { 
+             mobile : value,
+             page : value,
+             type : value,
+             status : value,
+             limit : value,
+             countryCode : value,
+             orderId : value,
+             transactionId : value,
+             onlySelf : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    credit.getTransactions(
+                    { 
+                      mobile : value,
+                      page : value,
+                      type : value,
+                      status : value,
+                      limit : value,
+                      countryCode : value,
+                      orderId : value,
+                      transactionId : value,
+                      onlySelf : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- |  
+| page | number | no | The page number of the transaction list |    
+| type | Object | no | The transaction type |    
+| status | Object | no | The transaction status |    
+| limit | number | no | The number of transactions to fetch |    
+| countryCode | string | no | The country code of the user's mobile number. |   
+| mobile | string | yes | The mobile number of the user |    
+| orderId | string | no | The order ID |    
+| transactionId | string | no | The transaction ID |    
+| onlySelf | boolean | no | Set this flag to true to fetch transactions exclusively for your organization, excluding other organizations. |  
+
+
+
+Retrieves a paginated list of transactions associated with a specific organization, sorted from the latest to the oldest. This endpoint allows filtering transactions based on various criteria and supports pagination.
+
+*Returned Response:*
+
+
+
+
+[GetTransactionsResponse](#GetTransactionsResponse)
+
+Success. The request has been processed successfully and the response contains the requested data.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; IntegrationGetTransactionsExample</i></summary>
+
+```json
+{
+  "value": {
+    "message": "The request has been processed successfully.",
+    "data": {
+      "transactions": [
+        {
+          "id": "TXN1234PKoGu",
+          "amount": 5000,
+          "type": "DEBIT",
+          "status": "SUCCESS",
+          "settlementUtr": null,
+          "createdAt": "2024-06-10T12:56:46.396Z",
+          "merchant": {
+            "name": "J Company",
+            "logo": "https://cdn.pixelbin.io/v2/muddy-glitter-1091e5/original/public/logos/j.png"
+          },
+          "order": {
+            "id": "ORD1234",
+            "amount": 5000
+          },
+          "loan": {
+            "number": "LN123456",
+            "amount": 5000,
+            "type": "EMI"
+          },
+          "lender": {
+            "name": "Bank of J Limited",
+            "slug": "j-bank",
+            "logo": "https://cdn.pixelbin.io/v2/muddy-glitter-1091e5/original/public/logos/j.png",
+            "shortName": "J Bank"
+          },
+          "isMasked": false
+        },
+        {
+          "id": "XXXXXPKoGu",
+          "amount": 500,
+          "type": "DEBIT",
+          "status": "SUCCESS",
+          "settlementUtr": null,
+          "createdAt": "2024-07-01T11:56:46.396Z",
+          "merchant": {
+            "name": "Other Merchant",
+            "logo": "https://cdn.pixelbin.io/v2/potlee/t.grey()/public/logos/settle/square-dark.png"
+          },
+          "isMasked": true
+        }
+      ],
+      "page": {
+        "type": "number",
+        "current": 1,
+        "hasPrevious": false,
+        "hasNext": false,
+        "size": 25,
+        "itemTotal": 1
+      }
+    },
+    "meta": {
+      "timestamp": "2024-07-10T13:56:46.396Z",
+      "version": "v1.0",
+      "product": "Settle Checkout"
+    }
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
 
 ### Schemas
 
@@ -279,6 +366,61 @@ true
 
  
  
+ #### [IntegrationResponseMeta](#IntegrationResponseMeta)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | timestamp | string |  yes  | The timestamp when the response was generated. |
+ | version | string |  yes  | The version of the API. |
+ | product | string |  yes  | The name of the product or service. |
+ | requestId | string |  no  | An optional request identifier. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseError](#IntegrationResponseError)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | code | string |  yes  | Error code representing the type of error. |
+ | message | string |  yes  | A human-readable message providing more details about the error. |
+ | exception | string |  yes  | The exception name or type. |
+ | field | string |  no  | The field associated with the error, if applicable. |
+ | in | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationSuccessResponse](#IntegrationSuccessResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the success of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | string |  yes  | The data payload of the response. The structure of this object will vary depending on the specific API endpoint. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationErrorResponse](#IntegrationErrorResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the failure of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | errors | [[IntegrationResponseError](#IntegrationResponseError)] |  no  |  |
+
+---
+
+
+ 
+ 
  #### [DisbursalRequest](#DisbursalRequest)
 
  | Properties | Type | Nullable | Description |
@@ -290,6 +432,9 @@ true
  | isDownpaymentRequired | boolean |  no  |  |
  | downpaymentAmount | number |  no  |  |
  | loanAmount | number |  no  |  |
+ | data | string |  no  |  |
+ | transactionId | string |  no  |  |
+ | lenderSlug | string |  no  |  |
 
 ---
 
@@ -355,7 +500,6 @@ true
  | transactionId | string |  no  |  |
  | status | string |  no  |  |
  | message | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -413,7 +557,6 @@ true
  | lenderName | string |  no  |  |
  | lenderLogo | string |  no  |  |
  | loanType | string |  no  |  |
- | repaymentTransactionId | string |  no  |  |
  | nextDueDate | string |  no  |  |
  | paidPercent | number |  no  |  |
  | lenderDetail | [LenderDetail](#LenderDetail) |  no  |  |
@@ -518,28 +661,6 @@ true
  | filters | [[Filters](#Filters)] |  yes  |  |
  | page | [PageResponse](#PageResponse) |  yes  |  |
  | transactions | [[Transactions](#Transactions)] |  yes  |  |
-
----
-
-
- 
- 
- #### [MerchantTransactions](#MerchantTransactions)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | outstandingAmount | string |  no  |  |
-
----
-
-
- 
- 
- #### [MerchantTransactionSummary](#MerchantTransactionSummary)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | merchantOutstandingSummary | [MerchantTransactions](#MerchantTransactions) |  no  |  |
 
 ---
 
@@ -1042,6 +1163,135 @@ true
  | merchantId | string |  no  |  |
  | lenderId | string |  no  |  |
  | pivotPoints | number |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [TransactionOrder](#TransactionOrder)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  | Unique identifier of the order. |
+ | amount | number |  yes  | Total amount of the order. |
+
+---
+
+
+ 
+ 
+ #### [TransactionMerchant](#TransactionMerchant)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | name | string |  yes  | Name of the merchant. |
+ | logo | string |  yes  | URL to the merchant's logo. |
+
+---
+
+
+ 
+ 
+ #### [TransactionLoan](#TransactionLoan)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | number | string |  yes  | Loan account number. |
+ | amount | number |  yes  | Loan amount. |
+ | type | string |  yes  | Type of loan. |
+
+---
+
+
+ 
+ 
+ #### [TransactionLender](#TransactionLender)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | name | string |  yes  | Name of the lender. |
+ | slug | string |  yes  | A slug representing the lender. |
+ | logo | string |  yes  | URL to the lender's logo. |
+ | shortName | string |  yes  | Short name of the lender. |
+
+---
+
+
+ 
+ 
+ #### [UserTransaction](#UserTransaction)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  | Unique identifier of the transaction. |
+ | amount | number |  yes  | Amount of the transaction. |
+ | type | string |  yes  | Type of the transaction. |
+ | status | string |  yes  | Status of the transaction. |
+ | settlementUtr | string |  no  | Settlement UTR for the transaction. |
+ | refundId | string |  no  | Refund ID if the transaction is a refund. |
+ | createdAt | string |  yes  | Timestamp when the transaction was created. |
+ | isMasked | boolean |  yes  | Indicates if the transaction details are masked. This field is true of the transaction if done on some other merchant |
+ | order | [TransactionOrder](#TransactionOrder) |  no  |  |
+ | merchant | [TransactionMerchant](#TransactionMerchant) |  yes  |  |
+ | loan | [TransactionLoan](#TransactionLoan) |  no  |  |
+ | lender | [TransactionLender](#TransactionLender) |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [Pagination](#Pagination)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | type | string |  no  | The type of pagination. |
+ | current | number |  yes  | The current page number. |
+ | hasPrevious | boolean |  yes  | Indicates if there is a previous page. |
+ | hasNext | boolean |  yes  | Indicates if there is a next page. |
+ | size | number |  yes  | The number of items per page. |
+ | itemTotal | number |  yes  | The total number of items across all pages. |
+
+---
+
+
+ 
+ 
+ #### [GetTransactionsData](#GetTransactionsData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | transactions | [[UserTransaction](#UserTransaction)] |  yes  |  |
+ | page | [Pagination](#Pagination) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [GetTransactionsResponse](#GetTransactionsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [GetTransactionsData](#GetTransactionsData) |  yes  |  |
+ | __headers | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [SummaryRequest](#SummaryRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | startDate | string |  no  |  |
+ | endDate | string |  no  |  |
+ | merchantId | string |  no  |  |
+ | type | string |  no  |  |
 
 ---
 

@@ -84,7 +84,7 @@ Get limit
 const promise =  
         multiKyc.getLimit(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -93,7 +93,7 @@ const promise =
 const data = await 
                     multiKyc.getLimit(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -145,21 +145,6 @@ const data = await
 
  
  
- #### [LenderTheme](#LenderTheme)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | logoUrl | string |  yes  |  |
- | iconUrl | string |  yes  |  |
- | landscapeBgUrl | string |  yes  |  |
- | portraitBgUrl | string |  yes  |  |
- | shortName | string |  yes  |  |
-
----
-
-
- 
- 
  #### [Lender](#Lender)
 
  | Properties | Type | Nullable | Description |
@@ -169,13 +154,12 @@ const data = await
  | active | boolean |  no  |  |
  | imageUrl | string |  no  |  |
  | slug | string |  no  |  |
- | theme | [LenderTheme](#LenderTheme) |  no  |  |
+ | theme | any |  no  |  |
  | b2b | boolean |  no  |  |
  | b2c | boolean |  no  |  |
  | merchantConfigSchema | string |  no  |  |
  | createdAt | string |  no  |  |
  | updatedAt | string |  no  |  |
- | approvedLimit | number |  no  |  |
  | deletedAt | string |  no  |  |
  | meta | any |  no  |  |
  | metaSchema | any |  no  |  |
@@ -397,6 +381,72 @@ const data = await
 
  
  
+ #### [EntityMapDto](#EntityMapDto)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  |  |
+ | merchantId | string |  no  |  |
+ | status | string |  no  |  |
+ | lenderId | string |  yes  |  |
+ | limit | number |  no  |  |
+ | creditType | string |  no  |  |
+ | userId | string |  yes  |  |
+ | entityId | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [EntityDto](#EntityDto)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  |  |
+ | type | string |  no  |  |
+ | address | string |  no  |  |
+ | name | string |  no  |  |
+ | gender | string |  no  |  |
+ | dob | string |  no  |  |
+ | userId | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [MerchantSchema](#MerchantSchema)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  |  |
+ | name | string |  no  |  |
+ | logo | string |  no  |  |
+ | website | string |  no  |  |
+ | apiHook | string |  no  |  |
+ | epikId | string |  no  |  |
+ | disbursementAccountHolderName | string |  no  |  |
+ | disbursementAccountNumber | string |  no  |  |
+ | disbursementIfsc | string |  no  |  |
+ | createdBy | string |  no  |  |
+ | active | boolean |  no  |  |
+ | category | string |  no  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
+ | deletedAt | string |  no  |  |
+ | businessName | string |  no  |  |
+ | email | string |  no  |  |
+ | businessAddress | string |  no  |  |
+ | pincode | string |  no  |  |
+ | b2b | boolean |  no  |  |
+ | b2c | boolean |  no  |  |
+
+---
+
+
+ 
+ 
  #### [Consent](#Consent)
 
  | Properties | Type | Nullable | Description |
@@ -458,6 +508,7 @@ const data = await
  | name | string |  yes  |  |
  | entity | string |  no  |  |
  | merchantId | string |  no  |  |
+ | onboardingToken | string |  no  |  |
 
 ---
 
@@ -694,7 +745,20 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | ack | string |  no  |  |
  | data | any |  yes  |  |
- | entityMapId | string |  no  |  |
+ | merchantId | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [LenderOnboardRequestV1](#LenderOnboardRequestV1)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | entityMapId | string |  yes  |  |
+ | ack | string |  no  |  |
+ | data | any |  yes  |  |
  | merchantId | string |  no  |  |
 
 ---
@@ -926,7 +990,9 @@ const data = await
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | gstTin | string |  yes  |  |
+ | gstin | string |  yes  |  |
+ | skipGst | boolean |  no  |  |
+ | onboardingToken | string |  no  |  |
 
 ---
 
@@ -1063,35 +1129,82 @@ const data = await
 
  
  
- #### [EntityMapDto](#EntityMapDto)
+ #### [BusinessDetail](#BusinessDetail)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | id | string |  yes  |  |
- | merchantId | string |  no  |  |
- | status | string |  no  |  |
- | lenderId | string |  yes  |  |
- | limit | number |  no  |  |
- | creditType | string |  no  |  |
- | userId | string |  yes  |  |
- | entityId | string |  yes  |  |
+ | category | string |  yes  |  |
+ | shopName | string |  no  |  |
+ | legalName | string |  yes  |  |
+ | address | string |  no  |  |
+ | type | string |  no  |  |
+ | pincode | string |  no  |  |
 
 ---
 
 
  
  
- #### [EntityDto](#EntityDto)
+ #### [VintageData](#VintageData)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | id | string |  yes  |  |
- | type | string |  no  |  |
- | address | string |  no  |  |
+ | month | number |  yes  |  |
+ | year | number |  yes  |  |
+ | totalTransactions | number |  yes  |  |
+ | totalTransactionAmount | number |  yes  |  |
+ | totalCancellations | number |  no  |  |
+ | totalCancellationAmount | number |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [DocumentObjects](#DocumentObjects)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | number | string |  yes  |  |
+ | category | string |  yes  |  |
+ | type | string |  yes  |  |
  | name | string |  no  |  |
- | gender | string |  no  |  |
- | dob | string |  no  |  |
- | userId | string |  yes  |  |
+ | issuedOn | string |  no  |  |
+ | issuedAt | string |  no  |  |
+ | issuedBy | string |  no  |  |
+ | expiryOn | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [CheckEligibilityRequest](#CheckEligibilityRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | user | any |  yes  |  |
+ | entity | [EntityDto](#EntityDto) |  no  |  |
+ | businessDetails | [BusinessDetail](#BusinessDetail) |  yes  |  |
+ | vintageData | [VintageData](#VintageData) |  yes  |  |
+ | documents | [DocumentObjects](#DocumentObjects) |  yes  |  |
+ | isPreApproved | boolean |  yes  |  |
+ | merchant | [MerchantSchema](#MerchantSchema) |  yes  |  |
+ | fetchLimit | boolean |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [KycCountByStatus](#KycCountByStatus)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | startDate | string |  no  |  |
+ | endDate | string |  no  |  |
+ | merchantId | string |  no  |  |
+ | lenderId | string |  no  |  |
 
 ---
 
@@ -1104,7 +1217,6 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | status | string |  yes  |  |
  | info | string |  yes  |  |
- | number | string |  yes  |  |
  | details | any |  no  |  |
  | name | string |  no  |  |
 
@@ -1218,6 +1330,9 @@ const data = await
  | entityMapId | string |  yes  |  |
  | actionIsForm | boolean |  yes  |  |
  | actionForm | [Form](#Form) |  no  |  |
+ | merchantId | string |  no  |  |
+ | actionName | string |  no  |  |
+ | actionDescription | string |  no  |  |
 
 ---
 
@@ -1259,17 +1374,6 @@ const data = await
  | createdAt | any |  no  |  |
  | updatedAt | any |  no  |  |
  | deletedAt | any |  no  |  |
-
----
-
-
- 
- 
- #### [GetKycDocsResponse](#GetKycDocsResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | documents | [[FindDocResponse](#FindDocResponse)] |  yes  |  |
 
 ---
 
@@ -1356,6 +1460,23 @@ const data = await
 
  
  
+ #### [GetAllUserLendersByEnityId](#GetAllUserLendersByEnityId)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | entityId | string |  yes  |  |
+ | entityMapId | string |  yes  |  |
+ | userId | string |  yes  |  |
+ | status | string |  yes  |  |
+ | lender | [Lender](#Lender) |  no  |  |
+ | partnerId | string |  no  |  |
+ | approvedLimit | number |  no  |  |
+
+---
+
+
+ 
+ 
  #### [ApprovedLenders](#ApprovedLenders)
 
  | Properties | Type | Nullable | Description |
@@ -1374,22 +1495,6 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | status | string |  yes  |  |
  | approvedLenders | [[BreOutput](#BreOutput)] |  no  |  |
-
----
-
-
- 
- 
- #### [GetAllUserLendersByEnityId](#GetAllUserLendersByEnityId)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | entityId | string |  yes  |  |
- | entityMapId | string |  yes  |  |
- | userId | string |  yes  |  |
- | status | string |  yes  |  |
- | lender | [Lender](#Lender) |  yes  |  |
- | partnerId | string |  no  |  |
 
 ---
 
@@ -1620,6 +1725,7 @@ const data = await
  | status | string |  yes  |  |
  | data | any |  no  |  |
  | remark | string |  no  |  |
+ | reasons | string |  yes  |  |
  | kycResult | [UserKycDetail](#UserKycDetail) |  yes  |  |
  | action | [Action](#Action) |  yes  |  |
 
@@ -1752,7 +1858,7 @@ const data = await
  | slug | string |  yes  |  |
  | active | boolean |  yes  |  |
  | id | string |  yes  |  |
- | theme | [LenderTheme](#LenderTheme) |  no  |  |
+ | theme | any |  no  |  |
 
 ---
 
@@ -1957,7 +2063,7 @@ const data = await
  | deletedAt | string |  no  |  |
  | approvedLimit | number |  yes  |  |
  | slug | string |  no  |  |
- | theme | [LenderTheme](#LenderTheme) |  no  |  |
+ | theme | any |  no  |  |
  | name | any |  no  |  |
 
 ---
@@ -1985,6 +2091,7 @@ const data = await
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | available | [[IntgrAvailableCreditLimit](#IntgrAvailableCreditLimit)] |  yes  |  |
+ | possible | [[IntgrAvailableCreditLimit](#IntgrAvailableCreditLimit)] |  no  |  |
 
 ---
 
@@ -2272,7 +2379,7 @@ const data = await
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | gstTin | string |  yes  |  |
+ | gstin | string |  yes  |  |
  | businessName | string |  yes  |  |
 
 ---
@@ -2340,18 +2447,6 @@ const data = await
 
  
  
- #### [ManualKycResponse](#ManualKycResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | message | string |  yes  |  |
- | step | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
-
----
-
-
- 
- 
  #### [BreOutput](#BreOutput)
 
  | Properties | Type | Nullable | Description |
@@ -2369,6 +2464,18 @@ const data = await
  | createdAt | string |  yes  |  |
  | updatedAt | string |  yes  |  |
  | deletedAt | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [ManualKycResponse](#ManualKycResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  |  |
+ | step | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
 
 ---
 

@@ -11,12 +11,9 @@ Authentication Service
 * [createOrder](#createorder)
 * [link](#link)
 * [unlink](#unlink)
-* [getAccessToken](#getaccesstoken)
-* [renewAccessToken](#renewaccesstoken)
 * [refund](#refund)
 * [refundStatus](#refundstatus)
 * [getSchemes](#getschemes)
-* [checkEligibility](#checkeligibility)
 
 
 
@@ -33,7 +30,7 @@ Verify Customer
 const promise =  
         customer.verify(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -42,7 +39,7 @@ const promise =
 const data = await 
                     customer.verify(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -75,10 +72,30 @@ Success. Returns a JSON object as shown below. Refer `VerifyCustomerSuccess` for
 
 
 <details>
-<summary><i>&nbsp; status</i></summary>
+<summary><i>&nbsp; VerifyCustomerEnabledResponseExample</i></summary>
 
 ```json
-"enabled"
+{
+  "value": {
+    "status": "ENABLED",
+    "userStatus": "USER_AUTHORISED",
+    "message": "Kindly proceed to complete your order"
+  }
+}
+```
+</details>
+
+<details>
+<summary><i>&nbsp; VerifyCustomerDisabledResponseExample</i></summary>
+
+```json
+{
+  "value": {
+    "status": "DISABLED",
+    "userStatus": "CREDIT_EXAHUSTED",
+    "message": "Order value exceeds the available limit of ₹36,452"
+  }
+}
 ```
 </details>
 
@@ -105,7 +122,7 @@ Resend Payment Request
 const promise =  
         customer.resendPaymentRequest(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -114,7 +131,7 @@ const promise =
 const data = await 
                     customer.resendPaymentRequest(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -193,7 +210,7 @@ Create Order
 const promise =  
         customer.createOrder(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -202,7 +219,7 @@ const promise =
 const data = await 
                     customer.createOrder(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -235,18 +252,16 @@ Success. Returns a JSON object as shown below. Refer `CreateTransactionSuccess` 
 
 
 <details>
-<summary><i>&nbsp; chargeToken</i></summary>
+<summary><i>&nbsp; CreateTransactionResponseExample</i></summary>
 
 ```json
-"19be735d-5a4a-4c44-8f2b-d640f7509c4d"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; transactionId</i></summary>
-
-```json
-"6b5e3348-23b0-43cb-af98-37d603385369"
+{
+  "value": {
+    "redirectUrl": "https://account.potlee.co.in/auth/login?onboardingToken=e738521b-a763-460d-a440-d9570e79be47&redirectUrl=https://url.merchant.com/callback",
+    "message": "Payment Authorised",
+    "userStatus": "PAYMENT_AUTHORISED"
+  }
+}
 ```
 </details>
 
@@ -273,7 +288,7 @@ Link account
 const promise =  
         customer.link(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -282,7 +297,7 @@ const promise =
 const data = await 
                     customer.link(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -345,7 +360,7 @@ Unlink account
 const promise =  
         customer.unlink(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -354,7 +369,7 @@ const promise =
 const data = await 
                     customer.unlink(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -407,226 +422,6 @@ true
 ---
 
 
-### getAccessToken
-Get Access Token
-
-
-
-```javascript
-// Promise
-const promise =  
-        customer.getAccessToken(
-            
-            
-        
-        );
-
-// Async/Await
-const data = await 
-                    customer.getAccessToken(
-                    
-                    
-                    );
-```
-
-
-
-
-
-
-Use this API to get access token
-
-*Returned Response:*
-
-
-
-
-[GetAccessTokenResponse](#GetAccessTokenResponse)
-
-Success. Returns a JSON object as shown below. Refer `GetAccessTokenResponse` for more details.
-
-
-
-
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
-
-
-<details>
-<summary><i>&nbsp; success</i></summary>
-
-```json
-true
-```
-</details>
-
-<details>
-<summary><i>&nbsp; accessToken</i></summary>
-
-```json
-"oa-0a7a064dd15ef22fe002946f90c1e7b22eea47de"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; refreshToken</i></summary>
-
-```json
-"oa-d2f33b6be9957050386be051501b84b008f5ef6f"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; tokenExpireAt</i></summary>
-
-```json
-"2023-06-27T09:43:07.818Z"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; tokenExpiryIn</i></summary>
-
-```json
-"600"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; refreshTokenExpiryAt</i></summary>
-
-```json
-"2023-06-27T10:33:07.822Z"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; refreshTokenExpiryIn</i></summary>
-
-```json
-"3600"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; scope</i></summary>
-
-```json
-[
-  "transaction"
-]
-```
-</details>
-
-</details>
-
-
-
-
-
-
-
-
-
----
-
-
-### renewAccessToken
-Renew Access Token
-
-
-
-```javascript
-// Promise
-const promise =  
-        customer.renewAccessToken(
-            { 
-              disbursalRequest : value
-            
-         }
-        );
-
-// Async/Await
-const data = await 
-                    customer.renewAccessToken(
-                    { 
-                       disbursalRequest : value
-                    
-                     });
-```
-
-
-
-
-
-| Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
-| body | [RefreshTokenRequest](#RefreshTokenRequest) | yes | Request body |
-
-
-Use this API to renew access token
-
-*Returned Response:*
-
-
-
-
-[RefreshTokenResponse](#RefreshTokenResponse)
-
-Success. Returns a JSON object as shown below. Refer `RefreshTokenResponse` for more details.
-
-
-
-
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
-
-
-<details>
-<summary><i>&nbsp; success</i></summary>
-
-```json
-true
-```
-</details>
-
-<details>
-<summary><i>&nbsp; accessToken</i></summary>
-
-```json
-"oa-de1496c16c91c45396ba87a888eed20fb223995d"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; tokenExpireAt</i></summary>
-
-```json
-"2023-06-26T19:23:46.977Z"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; tokenExpiryIn</i></summary>
-
-```json
-"600"
-```
-</details>
-
-</details>
-
-
-
-
-
-
-
-
-
----
-
-
 ### refund
 Refund customer order amount
 
@@ -637,7 +432,7 @@ Refund customer order amount
 const promise =  
         customer.refund(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -646,7 +441,7 @@ const promise =
 const data = await 
                     customer.refund(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -667,9 +462,9 @@ Use this API to verify the refund customer order amount
 
 
 
-[VerifyCustomerSuccess](#VerifyCustomerSuccess)
+[RefundResponse](#RefundResponse)
 
-Success. Returns a JSON object as shown below. Refer `RefundSuccess` for more details.
+Success. Returns a JSON object as shown below. Refer `RefundResponse` for more details.
 
 
 
@@ -682,7 +477,31 @@ Success. Returns a JSON object as shown below. Refer `RefundSuccess` for more de
 <summary><i>&nbsp; status</i></summary>
 
 ```json
-"enabled"
+"SUCCESS"
+```
+</details>
+
+<details>
+<summary><i>&nbsp; message</i></summary>
+
+```json
+"Refund request has been successfully recorded."
+```
+</details>
+
+<details>
+<summary><i>&nbsp; refundId</i></summary>
+
+```json
+"R123"
+```
+</details>
+
+<details>
+<summary><i>&nbsp; transactionId</i></summary>
+
+```json
+"TXN1234567dsfg"
 ```
 </details>
 
@@ -731,7 +550,7 @@ const data = await
 
 | Argument  |  Type  | Required | Description |
 | --------- | -----  | -------- | ----------- |  
-| refundId | string | no | This is the refundId |    
+| refundId | string | no | This is the refund ID |    
 | orderId | string | no | This is the order ID |  
 
 
@@ -836,7 +655,7 @@ Fetch schemes
 const promise =  
         customer.getSchemes(
             { 
-              disbursalRequest : value
+              body : value
             
          }
         );
@@ -845,7 +664,7 @@ const promise =
 const data = await 
                     customer.getSchemes(
                     { 
-                       disbursalRequest : value
+                       body : value
                     
                      });
 ```
@@ -856,7 +675,7 @@ const data = await
 
 | Argument  |  Type  | Required | Description |
 | --------- | -----  | -------- | ----------- |
-| body | [VerifyCustomer](#VerifyCustomer) | yes | Request body |
+| body | [GetSchemesRequest](#GetSchemesRequest) | yes | Request body |
 
 
 Use this API to fetch available schemes for user order.
@@ -891,7 +710,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 ```json
 [
   {
-    "id": "315f60f4-1238-462c-8108-cfff9fbc400f",
+    "slug": "cashe",
     "name": "CASHe",
     "title": "CASHe",
     "subtitle": "Bhanix Finance and Investment Limited",
@@ -963,122 +782,42 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 ---
 
 
-### checkEligibility
-Check Credit Eligibility
 
+### Schemas
 
+ 
+ 
+ #### [RefundResponse](#RefundResponse)
 
-```javascript
-// Promise
-const promise =  
-        customer.checkEligibility(
-            { 
-              disbursalRequest : value
-            
-         }
-        );
-
-// Async/Await
-const data = await 
-                    customer.checkEligibility(
-                    { 
-                       disbursalRequest : value
-                    
-                     });
-```
-
-
-
-
-
-| Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
-| body | [CheckEligibilityRequest](#CheckEligibilityRequest) | yes | Request body |
-
-
-Use this API to pre approve by checking the customer's credit eligibility based on  mobile number and countryCode and vintage data of monthly transactions.
-
-*Returned Response:*
-
-
-
-
-[EligibilitySuccess](#EligibilitySuccess)
-
-Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for more details.
-
-
-
-
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
-
-
-<details>
-<summary><i>&nbsp; status</i></summary>
-
-```json
-"ENABLED"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; message</i></summary>
-
-```json
-"User is eligible to transact"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; redirectUrl</i></summary>
-
-```json
-"https://account.potlee.co.in"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; callbackUrl</i></summary>
-
-```json
-"https://www.google.com"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; creditLimit</i></summary>
-
-```json
-[
-  {
-    "availableLimit": 300000,
-    "possibleLimit": 500000,
-    "lender": {
-      "slug": "ugro",
-      "name": "UGRO",
-      "logo": "https://cdn.pixelbin.io/v2/potlee/original/public/ugro/ugro_logo"
-    }
-  }
-]
-```
-</details>
-
-</details>
-
-
-
-
-
-
-
-
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | status | string |  no  |  |
+ | message | string |  no  |  |
+ | transactionId | string |  no  |  |
+ | refundId | string |  no  |  |
+ | __headers | string |  no  |  |
 
 ---
 
 
+ 
+ 
+ #### [UserSource](#UserSource)
 
-### Schemas
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | userId | string |  no  |  |
+ | type | string |  no  |  |
+ | sourceId | string |  no  |  |
+ | meta | string |  no  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
+ | app | string |  no  |  |
+ | entityId | string |  no  |  |
+ | userMerchants | [any] |  no  |  |
+
+---
+
 
  
  
@@ -1538,7 +1277,6 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | ---------- | ---- | -------- | ----------- |
  | valueInPaise | number |  yes  |  |
  | uid | string |  yes  |  |
- | emiTenure | number |  no  |  |
  | items | [[Items](#Items)] |  no  |  |
  | shippingAddress | [OrderAddress](#OrderAddress) |  no  |  |
  | billingAddress | [OrderAddress](#OrderAddress) |  no  |  |
@@ -1601,6 +1339,7 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | device | [Device](#Device) |  yes  |  |
  | meta | string |  no  |  |
  | fetchLimitOptions | boolean |  no  |  |
+ | fetchPlans | boolean |  no  |  |
 
 ---
 
@@ -1611,12 +1350,14 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | autoCapture | boolean |  no  |  |
- | redirectUrl | string |  yes  |  |
+ | redirectUrl | string |  yes  | User will be redirected back to this URL after a successful or a failed transaction. |
  | customer | [CustomerObject](#CustomerObject) |  yes  |  |
  | order | [Order](#Order) |  yes  |  |
  | device | [Device](#Device) |  yes  |  |
- | meta | string |  no  |  |
+ | meta | string |  no  | Any additional details |
+ | emiTenure | number |  no  | EMI tenure selected by customer |
+ | lenderSlug | string |  no  | slug of lender selected by customer |
+ | consents | [[Consents](#Consents)] |  no  | Consent for AUTO_DISBURSAL is mandatory while calling createOrder API. |
 
 ---
 
@@ -1627,7 +1368,6 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | autoCapture | boolean |  no  |  |
  | redirectUrl | string |  no  |  |
  | customer | [CustomerObject](#CustomerObject) |  yes  |  |
  | order | [OrderUid](#OrderUid) |  yes  |  |
@@ -1641,9 +1381,11 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | status | string |  no  |  |
- | userStatus | string |  no  |  |
- | message | string |  no  |  |
+ | status | string |  yes  | Indicates whether a user is allowed to perform the transaction or not |
+ | userStatus | string |  yes  | Represents the status of the user for transaction eligibility |
+ | message | string |  yes  | Message to be displayed to the user |
+ | schemes | [[SchemeResponse](#SchemeResponse)] |  no  | An array of possible schemes of lenders available for a transaction. |
+ | limit | [LimitResponse](#LimitResponse) |  no  | Limit details of available and possible lenders for a transaction. |
  | __headers | string |  no  |  |
 
 ---
@@ -1655,12 +1397,12 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | chargeToken | string |  no  |  |
- | redirectUrl | string |  no  |  |
- | message | string |  yes  |  |
- | transactionId | string |  no  |  |
- | status | string |  no  |  |
- | userStatus | string |  no  |  |
+ | chargeToken | string |  no  | A unique token for completing the transaction. Charge token is received only if a valid user session is passed in request and auto capture is false. ASP merchants do not receive charge token. |
+ | redirectUrl | string |  no  | URL to which the user should be redirected to complete the transaction. |
+ | message | string |  yes  | A message or information related to the transaction. |
+ | transactionId | string |  no  | A unique identifier for the transaction. This is received only if session is passed and auto capture is true in request. ASP merchants do not receive transaction ID in this response. |
+ | status | string |  no  | Indicates transaction status in case of auto disbursal. |
+ | userStatus | string |  no  | Represents the status of the user for transaction eligibility |
  | __headers | string |  no  |  |
 
 ---
@@ -2339,6 +2081,7 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | ---------- | ---- | -------- | ----------- |
  | type | string |  no  |  |
  | text | string |  no  |  |
+ | purpose | string |  no  | If consent type is AUTO_DISBURSAL, purpose will be uid of order. |
 
 ---
 
@@ -2532,11 +2275,12 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | fingerprint | string |  no  |  |
- | customer | [CustomerObject](#CustomerObject) |  yes  |  |
+ | customer | [CustomerObject](#CustomerObject) |  no  |  |
  | refundItems | [[Items](#Items)] |  no  |  |
  | orderId | string |  yes  |  |
  | refundId | string |  yes  |  |
  | refundAmount | number |  yes  |  |
+ | redirectionUrl | string |  no  |  |
 
 ---
 
@@ -2720,7 +2464,6 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | refreshTokenExpiryAt | string |  no  |  |
  | refreshTokenExpiryIn | string |  no  |  |
  | scope | [string] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2735,7 +2478,6 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | accessToken | string |  no  |  |
  | tokenExpireAt | string |  no  |  |
  | tokenExpiryIn | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2793,6 +2535,19 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | lenderId | string |  no  |  |
  | loanAccountNumber | string |  no  |  |
  | refund | [[RefundStatusList](#RefundStatusList)] |  no  |  |
+ | __headers | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [GetSchemesSuccess](#GetSchemesSuccess)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | userId | string |  no  |  |
+ | lenders | [[SchemeResponse](#SchemeResponse)] |  yes  |  |
  | __headers | string |  no  |  |
 
 ---
@@ -2868,6 +2623,129 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
 
  
  
+ #### [SchemeResponse](#SchemeResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | slug | string |  yes  | A slug identifier for the lender. |
+ | isDefault | boolean |  yes  | Indicates if this is the default lender |
+ | logoUrl | string |  yes  | URL to the logo of the lender |
+ | name | string |  yes  | Name of the lender |
+ | title | string |  yes  | Title of the lender |
+ | subtitle | string |  yes  | Subtitle or additional information about the lender |
+ | amount | number |  no  | Transaction amount |
+ | paymentOptions | [SchemePaymentOptionsResponse](#SchemePaymentOptionsResponse) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [SchemePaymentOptionsResponse](#SchemePaymentOptionsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | emis | [[SchemeEmiPaymentOptionResponse](#SchemeEmiPaymentOptionResponse)] |  no  |  |
+ | payLater | [SchemePayLaterPaymentOptionResponse](#SchemePayLaterPaymentOptionResponse) |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [SchemeEmiPaymentOptionResponse](#SchemeEmiPaymentOptionResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  | Unique identifier for the payment option. |
+ | isDefault | boolean |  yes  | Indicates if this is the default payment option. |
+ | description | string |  yes  | Description of the payment option. |
+ | title | string |  yes  | Title of the payment option. |
+ | subtitle | string |  yes  | Subtitle or additional information about the payment option. |
+ | amount | number |  yes  | Total amount for this EMI. |
+ | interest | number |  no  | Interest rate applicable to the EMIn. |
+ | processingFee | number |  yes  | Processing fee associated with the EMI. |
+ | tenure | number |  yes  | Tenure of the EMI in months. |
+ | emiSchedule | [[SchemeEmiScheduleResponse](#SchemeEmiScheduleResponse)] |  yes  | Schedule of EMIs. |
+
+---
+
+
+ 
+ 
+ #### [SchemeEmiScheduleResponse](#SchemeEmiScheduleResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | installmentNo | number |  yes  | The installment number. |
+ | installmentAmount | number |  yes  | The total amount due for this installment. |
+ | dueDate | string |  yes  | The date by which the installment is due, in ISO 8601 format. |
+
+---
+
+
+ 
+ 
+ #### [SchemePayLaterPaymentOptionResponse](#SchemePayLaterPaymentOptionResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  | Unique identifier for the PayLater option |
+ | title | string |  yes  | Title of the PayLater option |
+ | subtitle | string |  yes  | Subtitle or additional descriptor for the PayLater option |
+ | description | string |  yes  | Detailed description of the PayLater option |
+ | tenure | number |  yes  | The tenure of the PayLater option, in months |
+ | interest | number |  yes  | Interest amount for the PayLater option |
+ | processingFee | number |  yes  | Processing fee for the PayLater option |
+ | amount | number |  yes  | The amount to be paid in Rupees |
+ | isDefault | boolean |  yes  | Indicates if this is the default payment option |
+
+---
+
+
+ 
+ 
+ #### [LimitResponse](#LimitResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | available | [[AvailableOrPossibleLender](#AvailableOrPossibleLender)] |  no  |  |
+ | possible | [[AvailableOrPossibleLender](#AvailableOrPossibleLender)] |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [AvailableOrPossibleLender](#AvailableOrPossibleLender)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | limit | number |  yes  | The available credit limit from the lender. |
+ | lenderName | string |  yes  | The name of the lender. |
+ | slug | string |  yes  | A slug identifier for the lender. |
+ | isDefault | boolean |  yes  | Indicates if this is the default lender option. |
+ | logo | string |  yes  | URL to the lender's logo. |
+
+---
+
+
+ 
+ 
+ #### [GetSchemesRequest](#GetSchemesRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | customer | [CustomerObject](#CustomerObject) |  yes  |  |
+ | order | [Order](#Order) |  yes  |  |
+ | device | [Device](#Device) |  yes  |  |
+ | meta | string |  no  |  |
+
+---
+
+
+ 
+ 
  #### [CustomerMetricsResponse](#CustomerMetricsResponse)
 
  | Properties | Type | Nullable | Description |
@@ -2899,6 +2777,7 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | filters | [[CustomerMetricsFilters](#CustomerMetricsFilters)] |  no  |  |
+ | merchantId | string |  no  |  |
 
 ---
 
@@ -2951,9 +2830,9 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | number | string |  no  |  |
+ | number | string |  yes  |  |
  | category | string |  no  |  |
- | type | string |  no  |  |
+ | type | string |  yes  |  |
  | name | string |  no  |  |
  | issuedOn | string |  no  |  |
  | issuedAt | string |  no  |  |
@@ -2988,9 +2867,7 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
  | status | string |  no  |  |
  | message | string |  no  |  |
  | redirectUrl | string |  no  |  |
- | callbackUrl | string |  no  |  |
  | creditLimits | [[CreditLimitObject](#CreditLimitObject)] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -3015,13 +2892,101 @@ Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for mo
 
  
  
- #### [GetSchemesSuccess](#GetSchemesSuccess)
+ #### [EmiSchedule](#EmiSchedule)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | userId | string |  no  |  |
- | lenders | [undefined] |  yes  |  |
- | __headers | string |  no  |  |
+ | installmentNo | number |  no  |  |
+ | installmentAmount | number |  no  |  |
+ | dueDate | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [PaymentOption](#PaymentOption)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  no  |  |
+ | title | string |  no  |  |
+ | subtitle | string |  no  |  |
+ | description | string |  no  |  |
+ | tenure | number |  no  |  |
+ | processingFee | number |  no  |  |
+ | amount | number |  no  |  |
+ | isDefault | boolean |  no  |  |
+ | emiSchedule | [[EmiSchedule](#EmiSchedule)] |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [PaymentOptions](#PaymentOptions)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | payLater | [PaymentOption](#PaymentOption) |  no  |  |
+ | emis | [[PaymentOption](#PaymentOption)] |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [LenderAndPaymentOption](#LenderAndPaymentOption)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  no  |  |
+ | name | string |  yes  |  |
+ | title | string |  no  |  |
+ | subtitle | string |  no  |  |
+ | isDefault | boolean |  no  |  |
+ | logoUrl | string |  yes  |  |
+ | amount | number |  no  |  |
+ | paymentOptions | [PaymentOptions](#PaymentOptions) |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [GetSchemesSuccessOld](#GetSchemesSuccessOld)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | userId | string |  yes  |  |
+ | lenders | [[LenderAndPaymentOption](#LenderAndPaymentOption)] |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [PageSchemaResponse](#PageSchemaResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | slug | string |  no  |  |
+ | description | string |  no  |  |
+ | sections | string |  no  |  |
+ | settings | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [userCountRequest](#userCountRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | merchantId | string |  no  |  |
+ | startDate | string |  no  |  |
+ | endDate | string |  no  |  |
 
 ---
 
