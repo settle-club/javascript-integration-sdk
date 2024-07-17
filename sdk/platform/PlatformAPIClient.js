@@ -7,9 +7,9 @@ class APIClient {
    * @param {string} url
    * @param {object} query
    * @param {string} session
-   * @param {object} disbursalRequest
+   * @param {object} body
    */
-  static async execute(conf, method, url, query, disbursalRequest, session) {
+  static async execute(conf, method, url, query, body, session) {
     const token = await conf.oauthClient.getAccessToken();
 
     let extraHeaders = conf.extraHeaders.reduce((acc, curr) => {
@@ -27,7 +27,7 @@ class APIClient {
       method: method,
       url: url,
       params: query,
-      data: disbursalRequest,
+      data: body,
       headers: {
         Authorization: "Bearer " + token,
         ...extraHeaders,
