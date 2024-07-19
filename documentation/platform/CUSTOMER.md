@@ -7,13 +7,13 @@
 ## Customer Methods
 Authentication Service
 * [verify](#verify)
-* [resendPaymentRequest](#resendpaymentrequest)
 * [createOrder](#createorder)
 * [link](#link)
 * [unlink](#unlink)
 * [refund](#refund)
 * [refundStatus](#refundstatus)
 * [getSchemes](#getschemes)
+* [getRepaymentLink](#getrepaymentlink)
 
 
 
@@ -96,94 +96,6 @@ Success. Returns a JSON object as shown below. Refer `VerifyCustomerSuccess` for
     "message": "Order value exceeds the available limit of ₹36,452"
   }
 }
-```
-</details>
-
-</details>
-
-
-
-
-
-
-
-
-
----
-
-
-### resendPaymentRequest
-Resend Payment Request
-
-
-
-```javascript
-// Promise
-const promise =  
-        customer.resendPaymentRequest(
-            { 
-              body : value
-            
-         }
-        );
-
-// Async/Await
-const data = await 
-                    customer.resendPaymentRequest(
-                    { 
-                       body : value
-                    
-                     });
-```
-
-
-
-
-
-| Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
-| body | [ResendPaymentRequest](#ResendPaymentRequest) | yes | Request body |
-
-
-Use this API to resend payment request to user
-
-*Returned Response:*
-
-
-
-
-[CreateTransactionSuccess](#CreateTransactionSuccess)
-
-Success. Returns a JSON object as shown below. Refer `CreateTransactionSuccess` for more details.
-
-
-
-
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
-
-
-<details>
-<summary><i>&nbsp; redirectUrl</i></summary>
-
-```json
-"https://account.potleex0.de/auth/login?onboardingToken=e738521b-a763-460d-a440-d9570e79be47&redirectUrl=https://local.potleex0.de:3003/callback?apiKey=0c8e7bbf-6c0c-41b1-8a37-7e066e8fbd4a&apiSecret=48a7d96f46868f78297be845b6afb5da50893d0b&domain=https://api.potleex0.de"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; message</i></summary>
-
-```json
-"Payment Authorised"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; userStatus</i></summary>
-
-```json
-"PAYMENT_AUTHORISED"
 ```
 </details>
 
@@ -782,8 +694,147 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 ---
 
 
+### getRepaymentLink
+Repayment link
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.getRepaymentLink(
+            { 
+              body : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.getRepaymentLink(
+                    { 
+                       body : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- |
+| body | [RepaymentRequest](#RepaymentRequest) | yes | Request body |
+
+
+Use this API to get repayment link. User should be redirected to this URL to complete the repayment.
+
+*Returned Response:*
+
+
+
+
+[RepaymentResponse](#RepaymentResponse)
+
+Success. The request has been processed successfully and the response contains the requested data.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; RepaymentUrlResponseExample</i></summary>
+
+```json
+{
+  "value": {
+    "message": "The request has been processed successfully.",
+    "data": {
+      "repaymentUrl": "https://account.settle.club/magic-link/65bafe6a-f665-4378-964f-fc7457585ac7"
+    },
+    "meta": {
+      "timestamp": "2024-07-16T13:30:10.663Z",
+      "version": "v1.0",
+      "product": "Settle Checkout"
+    }
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
 
 ### Schemas
+
+ 
+ 
+ #### [IntegrationResponseMeta](#IntegrationResponseMeta)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | timestamp | string |  yes  | The timestamp when the response was generated. |
+ | version | string |  yes  | The version of the API. |
+ | product | string |  yes  | The name of the product or service. |
+ | requestId | string |  no  | An optional request identifier. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseError](#IntegrationResponseError)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | code | string |  yes  | Error code representing the type of error. |
+ | message | string |  yes  | A human-readable message providing more details about the error. |
+ | exception | string |  yes  | The exception name or type. |
+ | field | string |  no  | The field associated with the error, if applicable. |
+ | in | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationSuccessResponse](#IntegrationSuccessResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the success of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | string |  yes  | The data payload of the response. The structure of this object will vary depending on the specific API endpoint. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationErrorResponse](#IntegrationErrorResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the failure of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | errors | [[IntegrationResponseError](#IntegrationResponseError)] |  no  |  |
+
+---
+
 
  
  
@@ -1260,7 +1311,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | ---------- | ---- | -------- | ----------- |
  | countryCode | string |  no  |  |
  | mobile | string |  yes  |  |
- | uid | string |  yes  |  |
+ | uid | string |  no  |  |
  | email | string |  no  |  |
  | firstname | string |  no  |  |
  | middleName | string |  no  |  |
@@ -1505,6 +1556,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | order | [Order](#Order) |  no  |  |
  | isAsp | boolean |  no  |  |
  | merchant | [MerchantDetails](#MerchantDetails) |  no  |  |
+ | redirectUrl | string |  no  |  |
 
 ---
 
@@ -1878,6 +1930,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | ---------- | ---- | -------- | ----------- |
  | tabs | [[TabsSchema](#TabsSchema)] |  yes  |  |
  | profileSections | [[ProfileSectionSchema](#ProfileSectionSchema)] |  yes  |  |
+ | footer | string |  no  |  |
 
 ---
 
@@ -2555,6 +2608,17 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 
  
  
+ #### [ActiveEntityResponse](#ActiveEntityResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | activeEntity | string |  no  |  |
+
+---
+
+
+ 
+ 
  #### [CustomerMetricsPivots](#CustomerMetricsPivots)
 
  | Properties | Type | Nullable | Description |
@@ -2991,6 +3055,72 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 ---
 
 
+ 
+ 
+ #### [RepaymentRequest](#RepaymentRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | mobile | string |  yes  |  |
+ | countryCode | string |  no  |  |
+ | target | string |  no  |  |
+ | callbackUrl | string |  yes  |  |
+ | lenderSlug | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [RepaymentResponse](#RepaymentResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [RepaymentResponseData](#RepaymentResponseData) |  yes  |  |
+ | __headers | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [RepaymentResponseData](#RepaymentResponseData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | repaymentUrl | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [VerifyMagicLinkResponse](#VerifyMagicLinkResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | user | [UserSchema](#UserSchema) |  yes  |  |
+ | scope | [string] |  no  |  |
+ | redirectPath | string |  yes  |  |
+ | callbackUrl | string |  no  |  |
+ | meta | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [VerifyMagicLinkRequest](#VerifyMagicLinkRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | token | string |  yes  |  |
+
+---
+
+
 
 
 ### Enums
@@ -3034,6 +3164,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | upiRepayment | upiRepayment | Symbolic link for UPI Repayment: /repayment/upi |
  | sanctionLetter | sanctionLetter | Symbolic link for Sanction Letter: /sanction/:userId |
  | kfs | kfs | Symbolic link for KFS: /kfs/:userId |
+ | dynamicPage | dynamicPage | Symbolic link for Dynamic Page: /page/:slug |
 
 ---
 

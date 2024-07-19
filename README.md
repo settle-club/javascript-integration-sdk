@@ -20,7 +20,7 @@ const platformConfig = new PlatformConfig({
     token: "API_TOKEN",
     secret: "API_SECRET",
     companyId: "COMPANY_ID",
-    domain: "https://api.settle.club",
+    domain: "https://api.uat.potleex0.de",
     useAutoRenewTimer: true,
 });
 

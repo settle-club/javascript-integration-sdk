@@ -8,6 +8,7 @@
 Authentication Service
 * [getAccessToken](#getaccesstoken)
 * [renewAccessToken](#renewaccesstoken)
+* [validateCredentials](#validatecredentials)
 
 
 
@@ -218,6 +219,96 @@ true
 
 ```json
 "600"
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
+### validateCredentials
+Validate organization's credentials
+
+
+
+```javascript
+// Promise
+const promise =  
+        merchant.validateCredentials(
+            
+            
+        
+        );
+
+// Async/Await
+const data = await 
+                    merchant.validateCredentials(
+                    
+                    
+                    );
+```
+
+
+
+
+
+
+Use this API to validate organization's credentials
+
+*Returned Response:*
+
+
+
+
+[ValidateCredentialsResponse](#ValidateCredentialsResponse)
+
+Success. Returns a JSON object as shown below. Refer `ValidateCredentialsResponse` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; message</i></summary>
+
+```json
+"The request has been processed successfully."
+```
+</details>
+
+<details>
+<summary><i>&nbsp; data</i></summary>
+
+```json
+{
+  "success": true,
+  "organizationId": "d5a2db76-499d-45fc-af67-435481af9a87",
+  "organizationName": "Priti Org"
+}
+```
+</details>
+
+<details>
+<summary><i>&nbsp; meta</i></summary>
+
+```json
+{
+  "timestamp": "2024-07-15T12:57:06.818Z",
+  "version": "v1.0",
+  "product": "Settle Checkout"
+}
 ```
 </details>
 
@@ -1458,6 +1549,75 @@ true
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | token | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseMeta](#IntegrationResponseMeta)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | timestamp | string |  yes  | The timestamp when the response was generated. |
+ | version | string |  yes  | The version of the API. |
+ | product | string |  yes  | The name of the product or service. |
+ | requestId | string |  no  | An optional request identifier. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseError](#IntegrationResponseError)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | code | string |  yes  | Error code representing the type of error. |
+ | message | string |  yes  | A human-readable message providing more details about the error. |
+ | exception | string |  yes  | The exception name or type. |
+ | field | string |  no  | The field associated with the error, if applicable. |
+ | in | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationErrorResponse](#IntegrationErrorResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the failure of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | error | [IntegrationResponseError](#IntegrationResponseError) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [ValidateCredentialsData](#ValidateCredentialsData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | success | boolean |  yes  |  |
+ | organizationId | string |  yes  |  |
+ | organizationName | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [ValidateCredentialsResponse](#ValidateCredentialsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [ValidateCredentialsData](#ValidateCredentialsData) |  yes  |  |
+ | __headers | string |  no  |  |
 
 ---
 

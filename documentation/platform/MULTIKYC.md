@@ -184,6 +184,7 @@ const data = await
  | approvedLimit | number |  yes  |  |
  | entityId | string |  no  |  |
  | entityMapId | string |  no  |  |
+ | lenderUserId | string |  yes  |  |
 
 ---
 
@@ -203,6 +204,8 @@ const data = await
  | score | string |  yes  |  |
  | report | string |  yes  |  |
  | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
+ | deletedAt | string |  no  |  |
 
 ---
 
@@ -219,8 +222,8 @@ const data = await
  | number | string |  yes  |  |
  | detail | any |  yes  |  |
  | valid | boolean |  yes  |  |
- | createdAt | string |  yes  |  |
- | updatedAt | string |  yes  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
  | deletedAt | string |  no  |  |
  | entityId | string |  no  |  |
 
@@ -266,6 +269,9 @@ const data = await
  | form | any |  no  |  |
  | uiSchema | any |  no  |  |
  | workflowId | string |  no  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
+ | deletedAt | string |  no  |  |
 
 ---
 
@@ -313,8 +319,8 @@ const data = await
  | active | boolean |  yes  |  |
  | status | string |  yes  |  |
  | documentId | string |  no  |  |
- | createdAt | string |  yes  |  |
- | updatedAt | string |  yes  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
  | deletedAt | string |  no  |  |
  | lenderKycStepMap | [LenderKycStepMap](#LenderKycStepMap) |  no  |  |
  | entityMapId | string |  no  |  |
@@ -1059,31 +1065,6 @@ const data = await
 
  
  
- #### [StonewallCustomer](#StonewallCustomer)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | mobile | string |  no  |  |
- | uid | string |  no  |  |
-
----
-
-
- 
- 
- #### [GetLimitRequest](#GetLimitRequest)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | lenderSlugs | [any] |  no  |  |
- | onlyDefaultLender | boolean |  no  |  |
- | customer | [StonewallCustomer](#StonewallCustomer) |  yes  |  |
-
----
-
-
- 
- 
  #### [DocumentObject](#DocumentObject)
 
  | Properties | Type | Nullable | Description |
@@ -1123,6 +1104,44 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | stepId | string |  yes  |  |
  | data | any |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [RetriggerLenderOnboardRequestV2](#RetriggerLenderOnboardRequestV2)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | lenderUserId | string |  yes  |  |
+ | stepName | string |  yes  |  |
+ | data | any |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [StonewallCustomer](#StonewallCustomer)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | mobile | string |  no  |  |
+ | uid | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [GetLimitRequest](#GetLimitRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | lenderSlugs | [any] |  no  |  |
+ | onlyDefaultLender | boolean |  no  |  |
+ | customer | [StonewallCustomer](#StonewallCustomer) |  yes  |  |
 
 ---
 
@@ -1217,6 +1236,7 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | status | string |  yes  |  |
  | info | string |  yes  |  |
+ | number | string |  yes  |  |
  | details | any |  no  |  |
  | name | string |  no  |  |
 
@@ -1374,6 +1394,17 @@ const data = await
  | createdAt | any |  no  |  |
  | updatedAt | any |  no  |  |
  | deletedAt | any |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [GetKycDocsResponse](#GetKycDocsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | documents | [[FindDocResponse](#FindDocResponse)] |  yes  |  |
 
 ---
 
@@ -1582,6 +1613,9 @@ const data = await
  | id | string |  yes  |  |
  | name | string |  yes  |  |
  | active | boolean |  yes  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
+ | deletedAt | string |  no  |  |
 
 ---
 
@@ -1599,6 +1633,9 @@ const data = await
  | lenderId | string |  yes  |  |
  | pgId | string |  yes  |  |
  | active | boolean |  yes  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
+ | deletedAt | string |  no  |  |
 
 ---
 
@@ -1661,6 +1698,23 @@ const data = await
  | createdAt | string |  no  |  |
  | updatedAt | string |  no  |  |
  | deletedAt | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [Commercial](#Commercial)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  no  |  |
+ | lenderId | string |  yes  |  |
+ | merchantId | string |  yes  |  |
+ | commercial | any |  yes  |  |
+ | active | boolean |  yes  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
 
 ---
 
@@ -1838,8 +1892,8 @@ const data = await
  | status | string |  yes  |  |
  | active | boolean |  yes  |  |
  | proposedLimit | number |  yes  |  |
- | createdAt | any |  yes  |  |
- | updatedAt | any |  yes  |  |
+ | createdAt | any |  no  |  |
+ | updatedAt | any |  no  |  |
  | deletedAt | any |  no  |  |
  | isDefault | boolean |  no  |  |
  | __headers | string |  no  |  |
@@ -1883,6 +1937,7 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | availableLimit | number |  yes  |  |
  | approvedLimit | number |  yes  |  |
+ | isEligibleToDrawdown | boolean |  yes  |  |
 
 ---
 
@@ -2447,6 +2502,18 @@ const data = await
 
  
  
+ #### [ManualKycResponse](#ManualKycResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  |  |
+ | step | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
+
+---
+
+
+ 
+ 
  #### [BreOutput](#BreOutput)
 
  | Properties | Type | Nullable | Description |
@@ -2470,23 +2537,34 @@ const data = await
 
  
  
- #### [ManualKycResponse](#ManualKycResponse)
+ #### [CustomerKycDetailsReponse](#CustomerKycDetailsReponse)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | message | string |  yes  |  |
- | step | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
+ | data | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
 
 ---
 
 
  
  
- #### [CustomerKycDetailsReponse](#CustomerKycDetailsReponse)
+ #### [PlatformFees](#PlatformFees)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | data | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
+ | customerAcquisitionFee | number |  yes  |  |
+ | transactionFee | number |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [CommercialResponse](#CommercialResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | data | [Commercial](#Commercial) |  yes  |  |
 
 ---
 
