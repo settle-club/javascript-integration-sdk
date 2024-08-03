@@ -1,12 +1,15 @@
 export class CustomerValidator {
-    static verify(): any;
-    static createOrder(): any;
+    static validate(): any;
+    static createTransaction(): any;
     static link(): any;
     static unlink(): any;
     static refund(): any;
     static refundStatus(): any;
     static getSchemes(): any;
+    static checkEligibility(): any;
     static getRepaymentLink(): any;
+    static getAll(): any;
+    static addVintageData(): any;
 }
 export class CreditValidator {
     static getOrderStatus(): any;
@@ -22,4 +25,7 @@ export class MerchantValidator {
     static getAccessToken(): any;
     static renewAccessToken(): any;
     static validateCredentials(): any;
+}
+export class PaymentsValidator {
+    static getOutStandingDetails(): any;
 }

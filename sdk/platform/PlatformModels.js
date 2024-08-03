@@ -22,7 +22,7 @@ class Validator {
 
       field: Joi.string().allow("").allow(null),
 
-      in: Joi.string().allow("").allow(null),
+      location: Joi.string().allow("").allow(null),
     });
   }
 
@@ -516,6 +516,20 @@ class Validator {
     });
   }
 
+  static VerifyOrder() {
+    return Joi.object({
+      valueInPaise: Joi.number().required(),
+
+      uid: Joi.string().allow(""),
+
+      items: Joi.array().items(this.Items()),
+
+      shippingAddress: this.OrderAddress(),
+
+      billingAddress: this.OrderAddress(),
+    });
+  }
+
   static OrderUid() {
     return Joi.object({
       valueInPaise: Joi.number(),
@@ -556,11 +570,11 @@ class Validator {
     });
   }
 
-  static VerifyCustomer() {
+  static ValidateCustomer() {
     return Joi.object({
       customer: this.CustomerObject().required(),
 
-      order: this.Order().required(),
+      order: this.VerifyOrder().required(),
 
       device: this.Device().required(),
 
@@ -602,7 +616,7 @@ class Validator {
     });
   }
 
-  static VerifyCustomerSuccess() {
+  static ValidateCustomerSuccess() {
     return Joi.object({
       status: Joi.string().allow("").required(),
 
@@ -1066,6 +1080,8 @@ class Validator {
     return Joi.object({
       title: Joi.string().allow("").required(),
 
+      action: this.ActionSchema(),
+
       page: this.PageSchema().required(),
 
       icon: Joi.string().allow("").required(),
@@ -1432,6 +1448,8 @@ class Validator {
       page: this.PageResponse().required(),
 
       listOfUsers: Joi.array().items(this.UserSchema()).required(),
+
+      __headers: Joi.any(),
     });
   }
 
@@ -1898,6 +1916,8 @@ class Validator {
       redirectUrl: Joi.string().allow(""),
 
       creditLimits: Joi.array().items(this.CreditLimitObject()),
+
+      __headers: Joi.any(),
     });
   }
 
@@ -1907,13 +1927,7 @@ class Validator {
 
       order: this.Order(),
 
-      businessDetails: this.BusinessDetails(),
-
-      documents: Joi.array().items(this.DocumentItems()),
-
       device: this.Device().required(),
-
-      vintage: Joi.array().items(this.VintageItems()),
 
       meta: Joi.object().pattern(/\S/, Joi.any()),
 
@@ -2060,6 +2074,34 @@ class Validator {
   static VerifyMagicLinkRequest() {
     return Joi.object({
       token: Joi.string().allow("").required(),
+    });
+  }
+
+  static VintageData() {
+    return Joi.object({
+      customer: this.CustomerObject(),
+
+      businessDetails: this.BusinessDetails().required(),
+
+      documents: Joi.array().items(this.DocumentItems()),
+
+      device: this.Device(),
+
+      vintage: Joi.array().items(this.VintageItems()).required(),
+
+      meta: Joi.object().pattern(/\S/, Joi.any()),
+    });
+  }
+
+  static AddVintageResponse() {
+    return Joi.object({
+      mesasge: Joi.string().allow(""),
+
+      meta: this.IntegrationResponseMeta(),
+
+      data: Joi.any(),
+
+      __headers: Joi.any(),
     });
   }
 
@@ -2772,6 +2814,28 @@ class Validator {
       amount: Joi.number().required(),
 
       type: Joi.string().allow("").required(),
+
+      dueDate: Joi.string().allow("").required(),
+
+      repaidAmount: Joi.number().required(),
+
+      isSettled: Joi.boolean().required(),
+
+      emis: Joi.array().items(this.TransactionLoanEmi()),
+    });
+  }
+
+  static TransactionLoanEmi() {
+    return Joi.object({
+      amount: Joi.number().required(),
+
+      dueDate: Joi.string().allow("").required(),
+
+      installmentNo: Joi.number().required(),
+
+      repaidAmount: Joi.number().required(),
+
+      isSettled: Joi.boolean().required(),
     });
   }
 
@@ -2809,7 +2873,7 @@ class Validator {
 
       merchant: this.TransactionMerchant().required(),
 
-      loan: this.TransactionLoan(),
+      loans: Joi.array().items(this.TransactionLoan()),
 
       lender: this.TransactionLender(),
     });
@@ -3947,22 +4011,6 @@ class Validator {
     });
   }
 
-  static VintageData() {
-    return Joi.object({
-      month: Joi.number().required(),
-
-      year: Joi.number().required(),
-
-      totalTransactions: Joi.number().required(),
-
-      totalTransactionAmount: Joi.number().required(),
-
-      totalCancellations: Joi.number(),
-
-      totalCancellationAmount: Joi.number(),
-    });
-  }
-
   static DocumentObjects() {
     return Joi.object({
       number: Joi.string().allow("").required(),
@@ -3980,6 +4028,20 @@ class Validator {
       issuedBy: Joi.string().allow(""),
 
       expiryOn: Joi.string().allow(""),
+    });
+  }
+
+  static AddVintageRequest() {
+    return Joi.object({
+      user: Joi.any().required(),
+
+      businessDetails: this.BusinessDetail().required(),
+
+      vintageData: this.VintageData().required(),
+
+      documents: this.DocumentObjects().required(),
+
+      merchant: this.MerchantSchema().required(),
     });
   }
 
@@ -6065,6 +6127,48 @@ class Validator {
     });
   }
 
+  static LenderTheme() {
+    return Joi.object({
+      iconUrl: Joi.string().allow(""),
+
+      logoUrl: Joi.string().allow(""),
+    });
+  }
+
+  static LenderDetails() {
+    return Joi.object({
+      slug: Joi.string().allow(""),
+
+      name: Joi.string().allow(""),
+
+      id: Joi.string().allow(""),
+
+      theme: this.LenderTheme(),
+    });
+  }
+
+  static OutstandingData() {
+    return Joi.object({
+      lenderDetails: this.LenderDetails(),
+
+      availableLimit: Joi.number(),
+
+      creditLimit: Joi.number(),
+
+      dueAmount: Joi.number(),
+
+      outstandingAmount: Joi.number(),
+
+      dueDate: Joi.string().allow(""),
+    });
+  }
+
+  static OutstandingDetailsResponse() {
+    return Joi.object({
+      outstandingDetails: Joi.array().items(this.OutstandingData()),
+    });
+  }
+
   static CreateUserRequestSchema() {
     return Joi.object({
       mobile: Joi.string().allow("").required(),
@@ -6084,16 +6188,334 @@ class Validator {
       user: this.UserSchema(),
     });
   }
+
+  static RepaymentUsingNetbanking() {
+    return Joi.object({
+      amount: Joi.number().required(),
+
+      bankId: Joi.string().allow("").required(),
+
+      bankName: Joi.string().allow("").required(),
+
+      chargeToken: Joi.string().allow(""),
+
+      transactionId: Joi.string().allow(""),
+    });
+  }
+
+  static RepaymentUsingNetbankingResponse() {
+    return Joi.object({
+      form: Joi.string().allow(""),
+
+      isDifferent: Joi.boolean(),
+
+      outstanding: Joi.string().allow(""),
+    });
+  }
+
+  static RepaymentUsingUPI() {
+    return Joi.object({
+      amount: Joi.number().required(),
+
+      vpa: Joi.string().allow("").required(),
+
+      chargeToken: Joi.string().allow(""),
+
+      transactionId: Joi.string().allow(""),
+    });
+  }
+
+  static RepaymentUsingUPIResponse() {
+    return Joi.object({
+      isDifferent: Joi.boolean(),
+
+      outstanding: Joi.string().allow(""),
+
+      status: Joi.string().allow(""),
+
+      intentId: Joi.string().allow(""),
+
+      transactionId: Joi.string().allow(""),
+
+      expiry: Joi.number(),
+
+      interval: Joi.number(),
+    });
+  }
+
+  static RegisterUPIMandateRequest() {
+    return Joi.object({
+      vpa: Joi.string().allow(""),
+    });
+  }
+
+  static RegisterUPIMandateResponse() {
+    return Joi.object({
+      transactionId: Joi.string().allow(""),
+
+      expiry: Joi.number(),
+
+      interval: Joi.number(),
+    });
+  }
+
+  static RegisterUPIMandateStatusCheckRequest() {
+    return Joi.object({
+      transactionId: Joi.string().allow(""),
+    });
+  }
+
+  static RegisterMandateStatusCheckResponse() {
+    return Joi.object({
+      status: Joi.string().allow(""),
+    });
+  }
+
+  static TransactionStatusRequest() {
+    return Joi.object({
+      intentId: Joi.string().allow("").required(),
+
+      transactionId: Joi.string().allow("").required(),
+    });
+  }
+
+  static TransactionStatusResponse() {
+    return Joi.object({
+      success: Joi.boolean().required(),
+
+      methodType: Joi.string().allow(""),
+
+      methodSubType: Joi.string().allow(""),
+
+      status: Joi.string().allow(""),
+    });
+  }
+
+  static BankList() {
+    return Joi.object({
+      bankId: Joi.string().allow(""),
+
+      bankName: Joi.string().allow(""),
+
+      rank: Joi.number(),
+
+      popular: Joi.boolean(),
+
+      imageUrl: Joi.string().allow(""),
+    });
+  }
+
+  static PaymentsObject() {
+    return Joi.object({
+      title: Joi.string().allow(""),
+
+      kind: Joi.string().allow(""),
+
+      options: Joi.array().items(this.PaymentOptions()),
+    });
+  }
+
+  static OutstandingDetail() {
+    return Joi.object({
+      status: Joi.string().allow(""),
+
+      action: Joi.boolean(),
+
+      message: this.OutstandingMessage(),
+
+      credit: this.UserCredit(),
+
+      dueSummary: this.DueSummaryOutstanding(),
+
+      outstandingSummary: this.OutstandingSummary(),
+
+      entityMapId: Joi.string().allow(""),
+    });
+  }
+
+  static OutstandingSummary() {
+    return Joi.object({
+      totalOutstanding: Joi.number(),
+
+      totalOutstandingWithInterest: Joi.number(),
+
+      totalOutstandingPenalty: Joi.number(),
+
+      availableLimit: Joi.number(),
+
+      isOverdue: Joi.boolean(),
+
+      dueFromDate: Joi.string().allow(""),
+
+      repaymentSummary: Joi.array().items(this.RepaymentSummaryOutstanding()),
+    });
+  }
+
+  static DueSummaryOutstanding() {
+    return Joi.object({
+      dueDate: Joi.string().allow(""),
+
+      totalDue: Joi.number(),
+
+      totalDueWithInterest: Joi.number(),
+
+      totalDuePenalty: Joi.number(),
+
+      dueTransactions: Joi.array().items(this.DueTransactionsOutstanding()),
+
+      minAmntDue: Joi.number(),
+    });
+  }
+
+  static OutstandingMessage() {
+    return Joi.object({
+      dueMessage: Joi.string().allow(""),
+
+      backgroundColor: Joi.string().allow(""),
+
+      textColor: Joi.string().allow(""),
+
+      isFlexiRepayEnabled: Joi.boolean(),
+    });
+  }
+
+  static UserCredit() {
+    return Joi.object({
+      availableLimit: Joi.number(),
+
+      approvedLimit: Joi.number(),
+
+      isEligibleToDrawdown: Joi.boolean(),
+    });
+  }
+
+  static DueTransactionsOutstanding() {
+    return Joi.object({
+      loanRequestNo: Joi.string().allow(""),
+
+      merchantCategory: Joi.string().allow(""),
+
+      installmentAmountWithInterest: Joi.number(),
+
+      installmentAmount: Joi.number(),
+
+      dueAmount: Joi.number(),
+
+      loanType: Joi.string().allow(""),
+
+      installmentNo: Joi.string().allow(""),
+
+      installmentDueDate: Joi.string().allow(""),
+
+      isPastDue: Joi.boolean(),
+
+      isPenaltyCharged: Joi.boolean(),
+
+      penaltyAmount: Joi.number(),
+
+      noOfDaysPenaltyCharged: Joi.number(),
+
+      daysDifference: Joi.number(),
+
+      lenderTransactionId: Joi.string().allow(""),
+    });
+  }
+
+  static RepaymentSummaryOutstanding() {
+    return Joi.object({
+      loanRequestNo: Joi.string().allow(""),
+
+      loanType: Joi.string().allow(""),
+
+      merchantCategory: Joi.string().allow(""),
+
+      isBbillingTransaction: Joi.boolean(),
+
+      totalInstallmentAmount: Joi.number(),
+
+      totalInstallmentAmountWithInterest: Joi.number(),
+
+      outstandingDetails: Joi.array().items(this.OutstandingDetailsRepayment()),
+    });
+  }
+
+  static OutstandingDetailsRepayment() {
+    return Joi.object({
+      installmentAmountWithInterest: Joi.number(),
+
+      installmentAmount: Joi.number(),
+
+      dueAmount: Joi.number(),
+
+      installmentNo: Joi.string().allow(""),
+
+      installmentDueDate: Joi.string().allow(""),
+
+      isPastDue: Joi.boolean(),
+
+      loanType: Joi.string().allow(""),
+
+      isPenaltyCharged: Joi.boolean(),
+
+      penaltyAmount: Joi.number(),
+
+      noOfDaysPenaltyCharged: Joi.number(),
+
+      lenderTransactionId: Joi.string().allow(""),
+    });
+  }
+
+  static PaymentOptionsResponse() {
+    return Joi.object({
+      paymentOptions: Joi.array().items(this.PaymentsObject()),
+    });
+  }
+
+  static CheckEMandateStatusRequest() {
+    return Joi.object({
+      orderId: Joi.string().allow(""),
+
+      paymentId: Joi.string().allow(""),
+
+      scheduledEnd: Joi.string().allow(""),
+
+      ruleAmountValue: Joi.string().allow(""),
+    });
+  }
+
+  static AutoPayStatusResponse() {
+    return Joi.object({
+      status: Joi.string().allow(""),
+    });
+  }
+
+  static MetaResponse() {
+    return Joi.object({
+      timestamp: Joi.string().allow(""),
+
+      version: Joi.string().allow(""),
+
+      product: Joi.string().allow(""),
+
+      requestId: Joi.string().allow(""),
+    });
+  }
+
+  static OutstandingDetailsData() {
+    return Joi.object({
+      outstandingDetails: Joi.array().items(this.OutstandingData()),
+    });
+  }
 }
 
 class CustomerValidator {
-  static verify() {
+  static validate() {
     return Joi.object({
-      body: Validator.VerifyCustomer().required(),
+      body: Validator.ValidateCustomer().required(),
     }).required();
   }
 
-  static createOrder() {
+  static createTransaction() {
     return Joi.object({
       body: Validator.CreateTransaction().required(),
     }).required();
@@ -6130,9 +6552,31 @@ class CustomerValidator {
     }).required();
   }
 
+  static checkEligibility() {
+    return Joi.object({
+      body: Validator.CheckEligibilityRequest().required(),
+    }).required();
+  }
+
   static getRepaymentLink() {
     return Joi.object({
       body: Validator.RepaymentRequest().required(),
+    }).required();
+  }
+
+  static getAll() {
+    return Joi.object({
+      page: Joi.number().required(),
+      limit: Joi.number().required(),
+      name: Joi.string().allow(""),
+      id: Joi.string().allow(""),
+      mobile: Joi.string().allow(""),
+    }).required();
+  }
+
+  static addVintageData() {
+    return Joi.object({
+      body: Validator.VintageData().required(),
     }).required();
   }
 }
@@ -6159,15 +6603,16 @@ class CreditValidator {
 
   static getTransactions() {
     return Joi.object({
-      page: Joi.number(),
-      type: Joi.any(),
-      status: Joi.any(),
-      limit: Joi.number(),
-      countryCode: Joi.string().allow(""),
       mobile: Joi.string().allow("").required(),
+      countryCode: Joi.string().allow(""),
+      page: Joi.number(),
+      limit: Joi.number(),
       orderId: Joi.string().allow(""),
       transactionId: Joi.string().allow(""),
+      type: Joi.any(),
+      status: Joi.any(),
       onlySelf: Joi.boolean(),
+      granularity: Joi.string().allow(""),
     }).required();
   }
 }
@@ -6200,9 +6645,19 @@ class MerchantValidator {
   }
 }
 
+class PaymentsValidator {
+  static getOutStandingDetails() {
+    return Joi.object({
+      mobile: Joi.string().allow("").required(),
+      lenderSlugs: Joi.array().items(Joi.string().allow("")),
+    }).required();
+  }
+}
+
 module.exports = {
   CustomerValidator,
   CreditValidator,
   MultiKycValidator,
   MerchantValidator,
+  PaymentsValidator,
 };

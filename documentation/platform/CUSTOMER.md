@@ -6,29 +6,32 @@
 
 ## Customer Methods
 Authentication Service
-* [verify](#verify)
-* [createOrder](#createorder)
+* [validate](#validate)
+* [createTransaction](#createtransaction)
 * [link](#link)
 * [unlink](#unlink)
 * [refund](#refund)
 * [refundStatus](#refundstatus)
 * [getSchemes](#getschemes)
+* [checkEligibility](#checkeligibility)
 * [getRepaymentLink](#getrepaymentlink)
+* [getAll](#getall)
+* [addVintageData](#addvintagedata)
 
 
 
 ## Methods with example and description
 
 
-### verify
-Verify Customer
+### validate
+Validate Customer
 
 
 
 ```javascript
 // Promise
 const promise =  
-        customer.verify(
+        customer.validate(
             { 
               body : value
             
@@ -37,7 +40,7 @@ const promise =
 
 // Async/Await
 const data = await 
-                    customer.verify(
+                    customer.validate(
                     { 
                        body : value
                     
@@ -50,55 +53,29 @@ const data = await
 
 | Argument  |  Type  | Required | Description |
 | --------- | -----  | -------- | ----------- |
-| body | [VerifyCustomer](#VerifyCustomer) | yes | Request body |
+| body | [ValidateCustomer](#ValidateCustomer) | yes | Request body |
 
 
-Use this API to verify the customer based on  mobile number and countryCode.
+The Validate Customer API processes validity checks using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. It returns `Enabled` if the transaction is allowed.
 
 *Returned Response:*
 
 
 
 
-[VerifyCustomerSuccess](#VerifyCustomerSuccess)
+[ValidateCustomerSuccess](#ValidateCustomerSuccess)
 
-Success. Returns a JSON object as shown below. Refer `VerifyCustomerSuccess` for more details.
-
-
+Success. Returns a JSON object as shown below. Refer `ValidateCustomerSuccess` for more details.
 
 
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
 
 
 <details>
-<summary><i>&nbsp; VerifyCustomerEnabledResponseExample</i></summary>
+<summary><i>&nbsp; Example:</i></summary>
 
 ```json
-{
-  "value": {
-    "status": "ENABLED",
-    "userStatus": "USER_AUTHORISED",
-    "message": "Kindly proceed to complete your order"
-  }
-}
+
 ```
-</details>
-
-<details>
-<summary><i>&nbsp; VerifyCustomerDisabledResponseExample</i></summary>
-
-```json
-{
-  "value": {
-    "status": "DISABLED",
-    "userStatus": "CREDIT_EXAHUSTED",
-    "message": "Order value exceeds the available limit of ₹36,452"
-  }
-}
-```
-</details>
-
 </details>
 
 
@@ -112,15 +89,15 @@ Success. Returns a JSON object as shown below. Refer `VerifyCustomerSuccess` for
 ---
 
 
-### createOrder
-Create Order
+### createTransaction
+Create Transaction
 
 
 
 ```javascript
 // Promise
 const promise =  
-        customer.createOrder(
+        customer.createTransaction(
             { 
               body : value
             
@@ -129,7 +106,7 @@ const promise =
 
 // Async/Await
 const data = await 
-                    customer.createOrder(
+                    customer.createTransaction(
                     { 
                        body : value
                     
@@ -145,7 +122,7 @@ const data = await
 | body | [CreateTransaction](#CreateTransaction) | yes | Request body |
 
 
-Use this API to create transaction for user
+The Create Transaction API processes transactions using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. If the transaction is allowed, it returns `Enabled` along with the redirect URL and the user status as authorized.
 
 *Returned Response:*
 
@@ -223,7 +200,7 @@ const data = await
 | body | [LinkAccount](#LinkAccount) | yes | Request body |
 
 
-Use this API to link account with merchant
+The Link API generates a merchant-linked session for the user, enabling automatic login to complete payment or repayment activities seamlessly. This session ensures a smooth and secure transaction process without requiring the user to manually log in.
 
 *Returned Response:*
 
@@ -295,7 +272,7 @@ const data = await
 | body | [UnlinkAccount](#UnlinkAccount) | yes | Request body |
 
 
-Use this API to unlink account from merchant
+The Unlink API serves as the reverse of the Link API. It terminates the merchant-linked session for the user, effectively logging them out and preventing any further automatic login for payment or repayment activities. This ensures security and control over session management.
 
 *Returned Response:*
 
@@ -335,7 +312,7 @@ true
 
 
 ### refund
-Refund customer order amount
+Refund Order
 
 
 
@@ -367,7 +344,7 @@ const data = await
 | body | [Refund](#Refund) | yes | Request body |
 
 
-Use this API to verify the refund customer order amount
+The Refund API processes refunds based on business arrangements and returns the corresponding status of the refund request. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
 
 *Returned Response:*
 
@@ -431,7 +408,7 @@ Success. Returns a JSON object as shown below. Refer `RefundResponse` for more d
 
 
 ### refundStatus
-Refund status
+Check Refund status
 
 
 
@@ -467,7 +444,7 @@ const data = await
 
 
 
-Use this API to fetch the refund status
+The Refund Status API returns the current status of a refund request based on business arrangements. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
 
 *Returned Response:*
 
@@ -558,7 +535,7 @@ Success. Returns a JSON object as shown below. Refer `RefundStatus` for more det
 
 
 ### getSchemes
-Fetch schemes
+Get schemes
 
 
 
@@ -590,7 +567,7 @@ const data = await
 | body | [GetSchemesRequest](#GetSchemesRequest) | yes | Request body |
 
 
-Use this API to fetch available schemes for user order.
+The Schemes API returns Buy Now, Pay Later (BNPL) and EMI plans offered by lenders for the user. It provides details on available financing options, including terms and conditions for both BNPL and EMI arrangements.
 
 *Returned Response:*
 
@@ -694,8 +671,97 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 ---
 
 
+### checkEligibility
+Check Credit Eligibility
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.checkEligibility(
+            { 
+              body : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.checkEligibility(
+                    { 
+                       body : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- |
+| body | [CheckEligibilityRequest](#CheckEligibilityRequest) | yes | Request body |
+
+
+Use this API to pre approve by checking the customer's credit eligibility based on mobile number and countryCode and vintage data of monthly transactions.
+
+*Returned Response:*
+
+
+
+
+[EligibilitySuccess](#EligibilitySuccess)
+
+Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; EligibilitySuccess</i></summary>
+
+```json
+{
+  "value": {
+    "status": "ENABLED",
+    "message": "User is eligible to transact",
+    "redirectUrl": "https://account.potlee.co.in",
+    "creditLimit": [
+      {
+        "availableLimit": 300000,
+        "possibleLimit": 500000,
+        "lender": {
+          "slug": "ugro",
+          "name": "UGRO",
+          "logo": "https://cdn.pixelbin.io/v2/potlee/original/public/ugro/ugro_logo"
+        }
+      }
+    ]
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
 ### getRepaymentLink
-Repayment link
+Get Repayment link
 
 
 
@@ -727,7 +793,7 @@ const data = await
 | body | [RepaymentRequest](#RepaymentRequest) | yes | Request body |
 
 
-Use this API to get repayment link. User should be redirected to this URL to complete the repayment.
+The Repayment Link API generates a repayment link based on the current outstanding balance. The URL provided allows users to make payments and settle their outstanding amounts directly.
 
 *Returned Response:*
 
@@ -778,6 +844,187 @@ Success. The request has been processed successfully and the response contains t
 ---
 
 
+### getAll
+Get List of Users
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.getAll(
+            { 
+             page : value,
+             limit : value,
+             name : value,
+             id : value,
+             mobile : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.getAll(
+                    { 
+                      page : value,
+                      limit : value,
+                      name : value,
+                      id : value,
+                      mobile : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- | 
+| page | number | yes | This is page number |   
+| limit | number | yes | This is no of transaction |    
+| name | string | no | This is name for filter |    
+| id | string | no | This is uuid for filter |    
+| mobile | string | no | This is Mobile Number for filter |  
+
+
+
+The Customer Listing API returns a paginated list of users associated with the specified organization. Supports filtering by various query parameters such as name, ID, and mobile number.
+
+*Returned Response:*
+
+
+
+
+[UserResponse](#UserResponse)
+
+Success. Returns a JSON object as shown below. Refer `UserResponse` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; UserExample</i></summary>
+
+```json
+{
+  "value": {
+    "gender": "male",
+    "active": true,
+    "profilePicUrl": "https://d2co8r51m5ca2d.cloudfront.net/inapp_banners/default_profile_img.png",
+    "id": "5e68af49cfa09bf7233022f1",
+    "firstName": "Akash",
+    "lastName": "Mane",
+    "mobile": "8652523958",
+    "countryCode": 91,
+    "email": "akashmane@gofynd.com",
+    "createdAt": "2020-03-11T09:28:41.982Z",
+    "updatedAt": "2021-02-04T10:10:44.981Z"
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
+### addVintageData
+Add user vintage details
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.addVintageData(
+            { 
+              body : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.addVintageData(
+                    { 
+                       body : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- |
+| body | [VintageData](#VintageData) | yes | Request body |
+
+
+Use this API to add vintage details of the user.
+
+*Returned Response:*
+
+
+
+
+[AddVintageResponse](#AddVintageResponse)
+
+Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; AddVintageResponse</i></summary>
+
+```json
+{
+  "value": {
+    "message": "Request Processed Successfully.",
+    "meta": {
+      "timestamp": "2024-07-10T13:56:46.396Z",
+      "version": "v1.0",
+      "product": "Settle Checkout"
+    },
+    "data": {}
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
 
 ### Schemas
 
@@ -805,7 +1052,7 @@ Success. The request has been processed successfully and the response contains t
  | message | string |  yes  | A human-readable message providing more details about the error. |
  | exception | string |  yes  | The exception name or type. |
  | field | string |  no  | The field associated with the error, if applicable. |
- | in | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+ | location | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
 
 ---
 
@@ -1337,6 +1584,21 @@ Success. The request has been processed successfully and the response contains t
 
  
  
+ #### [VerifyOrder](#VerifyOrder)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | valueInPaise | number |  yes  |  |
+ | uid | string |  no  |  |
+ | items | [[Items](#Items)] |  no  |  |
+ | shippingAddress | [OrderAddress](#OrderAddress) |  no  |  |
+ | billingAddress | [OrderAddress](#OrderAddress) |  no  |  |
+
+---
+
+
+ 
+ 
  #### [OrderUid](#OrderUid)
 
  | Properties | Type | Nullable | Description |
@@ -1381,12 +1643,12 @@ Success. The request has been processed successfully and the response contains t
 
  
  
- #### [VerifyCustomer](#VerifyCustomer)
+ #### [ValidateCustomer](#ValidateCustomer)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | customer | [CustomerObject](#CustomerObject) |  yes  |  |
- | order | [Order](#Order) |  yes  |  |
+ | order | [VerifyOrder](#VerifyOrder) |  yes  |  |
  | device | [Device](#Device) |  yes  |  |
  | meta | string |  no  |  |
  | fetchLimitOptions | boolean |  no  |  |
@@ -1408,7 +1670,7 @@ Success. The request has been processed successfully and the response contains t
  | meta | string |  no  | Any additional details |
  | emiTenure | number |  no  | EMI tenure selected by customer |
  | lenderSlug | string |  no  | slug of lender selected by customer |
- | consents | [[Consents](#Consents)] |  no  | Consent for AUTO_DISBURSAL is mandatory while calling createOrder API. |
+ | consents | [[Consents](#Consents)] |  no  | Consent for AUTO_DISBURSAL is mandatory while calling createTransaction API. |
 
 ---
 
@@ -1428,7 +1690,7 @@ Success. The request has been processed successfully and the response contains t
 
  
  
- #### [VerifyCustomerSuccess](#VerifyCustomerSuccess)
+ #### [ValidateCustomerSuccess](#ValidateCustomerSuccess)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
@@ -1942,6 +2204,7 @@ Success. The request has been processed successfully and the response contains t
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | title | string |  yes  |  |
+ | action | [ActionSchema](#ActionSchema) |  no  |  |
  | page | [PageSchema](#PageSchema) |  yes  |  |
  | icon | string |  yes  |  |
  | activeIcon | string |  yes  |  |
@@ -2412,6 +2675,7 @@ Success. The request has been processed successfully and the response contains t
  | filters | [[Filters](#Filters)] |  yes  |  |
  | page | [PageResponse](#PageResponse) |  yes  |  |
  | listOfUsers | [[UserSchema](#UserSchema)] |  yes  |  |
+ | __headers | string |  no  |  |
 
 ---
 
@@ -2932,6 +3196,7 @@ Success. The request has been processed successfully and the response contains t
  | message | string |  no  |  |
  | redirectUrl | string |  no  |  |
  | creditLimits | [[CreditLimitObject](#CreditLimitObject)] |  no  |  |
+ | __headers | string |  no  |  |
 
 ---
 
@@ -2944,10 +3209,7 @@ Success. The request has been processed successfully and the response contains t
  | ---------- | ---- | -------- | ----------- |
  | customer | [CustomerObject](#CustomerObject) |  yes  |  |
  | order | [Order](#Order) |  no  |  |
- | businessDetails | [BusinessDetails](#BusinessDetails) |  no  |  |
- | documents | [[DocumentItems](#DocumentItems)] |  no  |  |
  | device | [Device](#Device) |  yes  |  |
- | vintage | [[VintageItems](#VintageItems)] |  no  |  |
  | meta | string |  no  |  |
  | fetchLimitOptions | boolean |  no  |  |
 
@@ -3117,6 +3379,36 @@ Success. The request has been processed successfully and the response contains t
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | token | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [VintageData](#VintageData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | customer | [CustomerObject](#CustomerObject) |  no  |  |
+ | businessDetails | [BusinessDetails](#BusinessDetails) |  yes  |  |
+ | documents | [[DocumentItems](#DocumentItems)] |  no  |  |
+ | device | [Device](#Device) |  no  |  |
+ | vintage | [[VintageItems](#VintageItems)] |  yes  |  |
+ | meta | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [AddVintageResponse](#AddVintageResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | mesasge | string |  no  |  |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  no  |  |
+ | data | string |  no  |  |
+ | __headers | string |  no  |  |
 
 ---
 

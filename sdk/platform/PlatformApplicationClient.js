@@ -33,7 +33,7 @@ class PlatformApplicationClient {
  * @property {string} message
  * @property {string} exception
  * @property {string} [field]
- * @property {string} [in]
+ * @property {string} [location]
  */
 
 /**
@@ -352,6 +352,15 @@ class PlatformApplicationClient {
  */
 
 /**
+ * @typedef VerifyOrder
+ * @property {number} valueInPaise
+ * @property {string} [uid]
+ * @property {Items[]} [items]
+ * @property {OrderAddress} [shippingAddress]
+ * @property {OrderAddress} [billingAddress]
+ */
+
+/**
  * @typedef OrderUid
  * @property {number} [valueInPaise]
  * @property {string} uid
@@ -378,9 +387,9 @@ class PlatformApplicationClient {
  */
 
 /**
- * @typedef VerifyCustomer
+ * @typedef ValidateCustomer
  * @property {CustomerObject} customer
- * @property {Order} order
+ * @property {VerifyOrder} order
  * @property {Device} device
  * @property {Object} [meta]
  * @property {boolean} [fetchLimitOptions]
@@ -407,7 +416,7 @@ class PlatformApplicationClient {
  */
 
 /**
- * @typedef VerifyCustomerSuccess
+ * @typedef ValidateCustomerSuccess
  * @property {string} status
  * @property {string} userStatus
  * @property {string} message
@@ -708,6 +717,7 @@ class PlatformApplicationClient {
 /**
  * @typedef TabsSchema
  * @property {string} title
+ * @property {ActionSchema} [action]
  * @property {PageSchema} page
  * @property {string} icon
  * @property {string} activeIcon
@@ -962,6 +972,7 @@ class PlatformApplicationClient {
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {UserSchema[]} listOfUsers
+ * @property {Object} [__headers]
  */
 
 /**
@@ -1266,16 +1277,14 @@ class PlatformApplicationClient {
  * @property {string} [message]
  * @property {string} [redirectUrl]
  * @property {CreditLimitObject[]} [creditLimits]
+ * @property {Object} [__headers]
  */
 
 /**
  * @typedef CheckEligibilityRequest
  * @property {CustomerObject} customer
  * @property {Order} [order]
- * @property {BusinessDetails} [businessDetails]
- * @property {DocumentItems[]} [documents]
  * @property {Device} device
- * @property {VintageItems[]} [vintage]
  * @property {Object} [meta]
  * @property {boolean} [fetchLimitOptions]
  */
@@ -1373,6 +1382,24 @@ class PlatformApplicationClient {
 /**
  * @typedef VerifyMagicLinkRequest
  * @property {string} token
+ */
+
+/**
+ * @typedef VintageData
+ * @property {CustomerObject} [customer]
+ * @property {BusinessDetails} businessDetails
+ * @property {DocumentItems[]} [documents]
+ * @property {Device} [device]
+ * @property {VintageItems[]} vintage
+ * @property {Object} [meta]
+ */
+
+/**
+ * @typedef AddVintageResponse
+ * @property {string} [mesasge]
+ * @property {IntegrationResponseMeta} [meta]
+ * @property {Object} [data]
+ * @property {Object} [__headers]
  */
 
 /**
@@ -1798,6 +1825,19 @@ class PlatformApplicationClient {
  * @property {string} number
  * @property {number} amount
  * @property {string} type
+ * @property {string} dueDate
+ * @property {number} repaidAmount
+ * @property {boolean} isSettled
+ * @property {TransactionLoanEmi[]} [emis]
+ */
+
+/**
+ * @typedef TransactionLoanEmi
+ * @property {number} amount
+ * @property {string} dueDate
+ * @property {number} installmentNo
+ * @property {number} repaidAmount
+ * @property {boolean} isSettled
  */
 
 /**
@@ -1820,7 +1860,7 @@ class PlatformApplicationClient {
  * @property {boolean} isMasked
  * @property {TransactionOrder} [order]
  * @property {TransactionMerchant} merchant
- * @property {TransactionLoan} [loan]
+ * @property {TransactionLoan[]} [loans]
  * @property {TransactionLender} [lender]
  */
 
@@ -2545,16 +2585,6 @@ class PlatformApplicationClient {
  */
 
 /**
- * @typedef VintageData
- * @property {number} month
- * @property {number} year
- * @property {number} totalTransactions
- * @property {number} totalTransactionAmount
- * @property {number} [totalCancellations]
- * @property {number} [totalCancellationAmount]
- */
-
-/**
  * @typedef DocumentObjects
  * @property {string} number
  * @property {string} category
@@ -2564,6 +2594,15 @@ class PlatformApplicationClient {
  * @property {string} [issuedAt]
  * @property {string} [issuedBy]
  * @property {string} [expiryOn]
+ */
+
+/**
+ * @typedef AddVintageRequest
+ * @property {Object} user
+ * @property {BusinessDetail} businessDetails
+ * @property {VintageData} vintageData
+ * @property {DocumentObjects} documents
+ * @property {MerchantSchema} merchant
  */
 
 /**
@@ -3956,6 +3995,35 @@ class PlatformApplicationClient {
  */
 
 /**
+ * @typedef LenderTheme
+ * @property {string} [iconUrl]
+ * @property {string} [logoUrl]
+ */
+
+/**
+ * @typedef LenderDetails
+ * @property {string} [slug]
+ * @property {string} [name]
+ * @property {string} [id]
+ * @property {LenderTheme} [theme]
+ */
+
+/**
+ * @typedef OutstandingData
+ * @property {LenderDetails} [lenderDetails]
+ * @property {number} [availableLimit]
+ * @property {number} [creditLimit]
+ * @property {number} [dueAmount]
+ * @property {number} [outstandingAmount]
+ * @property {string} [dueDate]
+ */
+
+/**
+ * @typedef OutstandingDetailsResponse
+ * @property {OutstandingData[]} [outstandingDetails]
+ */
+
+/**
  * @typedef CreateUserRequestSchema
  * @property {string} mobile
  * @property {string} [email]
@@ -3967,6 +4035,215 @@ class PlatformApplicationClient {
 /**
  * @typedef CreateUserResponseSchema
  * @property {UserSchema} [user]
+ */
+
+/**
+ * @typedef RepaymentUsingNetbanking
+ * @property {number} amount
+ * @property {string} bankId
+ * @property {string} bankName
+ * @property {string} [chargeToken]
+ * @property {string} [transactionId]
+ */
+
+/**
+ * @typedef RepaymentUsingNetbankingResponse
+ * @property {string} [form]
+ * @property {boolean} [isDifferent]
+ * @property {string} [outstanding]
+ */
+
+/**
+ * @typedef RepaymentUsingUPI
+ * @property {number} amount
+ * @property {string} vpa
+ * @property {string} [chargeToken]
+ * @property {string} [transactionId]
+ */
+
+/**
+ * @typedef RepaymentUsingUPIResponse
+ * @property {boolean} [isDifferent]
+ * @property {string} [outstanding]
+ * @property {string} [status]
+ * @property {string} [intentId]
+ * @property {string} [transactionId]
+ * @property {number} [expiry]
+ * @property {number} [interval]
+ */
+
+/**
+ * @typedef RegisterUPIMandateRequest
+ * @property {string} [vpa]
+ */
+
+/**
+ * @typedef RegisterUPIMandateResponse
+ * @property {string} [transactionId]
+ * @property {number} [expiry]
+ * @property {number} [interval]
+ */
+
+/**
+ * @typedef RegisterUPIMandateStatusCheckRequest
+ * @property {string} [transactionId]
+ */
+
+/**
+ * @typedef RegisterMandateStatusCheckResponse
+ * @property {string} [status]
+ */
+
+/**
+ * @typedef TransactionStatusRequest
+ * @property {string} intentId
+ * @property {string} transactionId
+ */
+
+/**
+ * @typedef TransactionStatusResponse
+ * @property {boolean} success
+ * @property {string} [methodType]
+ * @property {string} [methodSubType]
+ * @property {string} [status]
+ */
+
+/**
+ * @typedef BankList
+ * @property {string} [bankId]
+ * @property {string} [bankName]
+ * @property {number} [rank]
+ * @property {boolean} [popular]
+ * @property {string} [imageUrl]
+ */
+
+/**
+ * @typedef PaymentsObject
+ * @property {string} [title]
+ * @property {string} [kind]
+ * @property {PaymentOptions[]} [options]
+ */
+
+/**
+ * @typedef OutstandingDetail
+ * @property {string} [status]
+ * @property {boolean} [action]
+ * @property {OutstandingMessage} [message]
+ * @property {UserCredit} [credit]
+ * @property {DueSummaryOutstanding} [dueSummary]
+ * @property {OutstandingSummary} [outstandingSummary]
+ * @property {string} [entityMapId]
+ */
+
+/**
+ * @typedef OutstandingSummary
+ * @property {number} [totalOutstanding]
+ * @property {number} [totalOutstandingWithInterest]
+ * @property {number} [totalOutstandingPenalty]
+ * @property {number} [availableLimit]
+ * @property {boolean} [isOverdue]
+ * @property {string} [dueFromDate]
+ * @property {RepaymentSummaryOutstanding[]} [repaymentSummary]
+ */
+
+/**
+ * @typedef DueSummaryOutstanding
+ * @property {string} [dueDate]
+ * @property {number} [totalDue]
+ * @property {number} [totalDueWithInterest]
+ * @property {number} [totalDuePenalty]
+ * @property {DueTransactionsOutstanding[]} [dueTransactions]
+ * @property {number} [minAmntDue]
+ */
+
+/**
+ * @typedef OutstandingMessage
+ * @property {string} [dueMessage]
+ * @property {string} [backgroundColor]
+ * @property {string} [textColor]
+ * @property {boolean} [isFlexiRepayEnabled]
+ */
+
+/**
+ * @typedef UserCredit
+ * @property {number} [availableLimit]
+ * @property {number} [approvedLimit]
+ * @property {boolean} [isEligibleToDrawdown]
+ */
+
+/**
+ * @typedef DueTransactionsOutstanding
+ * @property {string} [loanRequestNo]
+ * @property {string} [merchantCategory]
+ * @property {number} [installmentAmountWithInterest]
+ * @property {number} [installmentAmount]
+ * @property {number} [dueAmount]
+ * @property {string} [loanType]
+ * @property {string} [installmentNo]
+ * @property {string} [installmentDueDate]
+ * @property {boolean} [isPastDue]
+ * @property {boolean} [isPenaltyCharged]
+ * @property {number} [penaltyAmount]
+ * @property {number} [noOfDaysPenaltyCharged]
+ * @property {number} [daysDifference]
+ * @property {string} [lenderTransactionId]
+ */
+
+/**
+ * @typedef RepaymentSummaryOutstanding
+ * @property {string} [loanRequestNo]
+ * @property {string} [loanType]
+ * @property {string} [merchantCategory]
+ * @property {boolean} [isBbillingTransaction]
+ * @property {number} [totalInstallmentAmount]
+ * @property {number} [totalInstallmentAmountWithInterest]
+ * @property {OutstandingDetailsRepayment[]} [outstandingDetails]
+ */
+
+/**
+ * @typedef OutstandingDetailsRepayment
+ * @property {number} [installmentAmountWithInterest]
+ * @property {number} [installmentAmount]
+ * @property {number} [dueAmount]
+ * @property {string} [installmentNo]
+ * @property {string} [installmentDueDate]
+ * @property {boolean} [isPastDue]
+ * @property {string} [loanType]
+ * @property {boolean} [isPenaltyCharged]
+ * @property {number} [penaltyAmount]
+ * @property {number} [noOfDaysPenaltyCharged]
+ * @property {string} [lenderTransactionId]
+ */
+
+/**
+ * @typedef PaymentOptionsResponse
+ * @property {PaymentsObject[]} [paymentOptions]
+ */
+
+/**
+ * @typedef CheckEMandateStatusRequest
+ * @property {string} [orderId]
+ * @property {string} [paymentId]
+ * @property {string} [scheduledEnd]
+ * @property {string} [ruleAmountValue]
+ */
+
+/**
+ * @typedef AutoPayStatusResponse
+ * @property {string} [status]
+ */
+
+/**
+ * @typedef MetaResponse
+ * @property {string} [timestamp]
+ * @property {string} [version]
+ * @property {string} [product]
+ * @property {string} [requestId]
+ */
+
+/**
+ * @typedef OutstandingDetailsData
+ * @property {OutstandingData[]} [outstandingDetails]
  */
 
 module.exports = PlatformApplicationClient;
