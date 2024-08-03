@@ -281,34 +281,10 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
 
 
 <details>
-<summary><i>&nbsp; message</i></summary>
+<summary><i>&nbsp; $ref</i></summary>
 
 ```json
-"The request has been processed successfully."
-```
-</details>
-
-<details>
-<summary><i>&nbsp; data</i></summary>
-
-```json
-{
-  "success": true,
-  "organizationId": "d5a2db76-499d-45fc-af67-435481af9a87",
-  "organizationName": "Priti Org"
-}
-```
-</details>
-
-<details>
-<summary><i>&nbsp; meta</i></summary>
-
-```json
-{
-  "timestamp": "2024-07-15T12:57:06.818Z",
-  "version": "v1.0",
-  "product": "Settle Checkout"
-}
+"#/components/schemas/ValidateCredentialsResponseExample"
 ```
 </details>
 
@@ -1577,7 +1553,7 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
  | message | string |  yes  | A human-readable message providing more details about the error. |
  | exception | string |  yes  | The exception name or type. |
  | field | string |  no  | The field associated with the error, if applicable. |
- | in | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+ | location | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
 
 ---
 
@@ -1762,6 +1738,59 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
  | mid | string |  no  |  |
  | enable | boolean |  no  |  |
  | data | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [LenderTheme](#LenderTheme)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | iconUrl | string |  no  |  |
+ | logoUrl | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [LenderDetails](#LenderDetails)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | slug | string |  no  |  |
+ | name | string |  no  |  |
+ | id | string |  no  |  |
+ | theme | [LenderTheme](#LenderTheme) |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [OutstandingData](#OutstandingData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | lenderDetails | [LenderDetails](#LenderDetails) |  no  |  |
+ | availableLimit | number |  no  |  |
+ | creditLimit | number |  no  |  |
+ | dueAmount | number |  no  |  |
+ | outstandingAmount | number |  no  |  |
+ | dueDate | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [OutstandingDetailsResponse](#OutstandingDetailsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | outstandingDetails | [[OutstandingData](#OutstandingData)] |  no  |  |
 
 ---
 

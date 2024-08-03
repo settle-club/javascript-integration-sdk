@@ -1198,18 +1198,33 @@ const data = await
 
  
  
- #### [CheckEligibilityRequest](#CheckEligibilityRequest)
+ #### [AddVintageRequest](#AddVintageRequest)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | user | any |  yes  |  |
- | entity | [EntityDto](#EntityDto) |  no  |  |
  | businessDetails | [BusinessDetail](#BusinessDetail) |  yes  |  |
  | vintageData | [VintageData](#VintageData) |  yes  |  |
  | documents | [DocumentObjects](#DocumentObjects) |  yes  |  |
- | isPreApproved | boolean |  yes  |  |
  | merchant | [MerchantSchema](#MerchantSchema) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [CheckEligibilityRequest](#CheckEligibilityRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | entity | [EntityDto](#EntityDto) |  no  |  |
+ | isPreApproved | boolean |  yes  |  |
  | fetchLimit | boolean |  no  |  |
+ | user | any |  yes  |  |
+ | businessDetails | [BusinessDetail](#BusinessDetail) |  yes  |  |
+ | vintageData | [VintageData](#VintageData) |  yes  |  |
+ | documents | [DocumentObjects](#DocumentObjects) |  yes  |  |
+ | merchant | [MerchantSchema](#MerchantSchema) |  yes  |  |
 
 ---
 

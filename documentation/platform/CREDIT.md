@@ -300,14 +300,15 @@ const promise =
         credit.getTransactions(
             { 
              mobile : value,
-             page : value,
-             type : value,
-             status : value,
-             limit : value,
              countryCode : value,
+             page : value,
+             limit : value,
              orderId : value,
              transactionId : value,
-             onlySelf : value
+             type : value,
+             status : value,
+             onlySelf : value,
+             granularity : value
             
          }
         );
@@ -317,14 +318,15 @@ const data = await
                     credit.getTransactions(
                     { 
                       mobile : value,
-                      page : value,
-                      type : value,
-                      status : value,
-                      limit : value,
                       countryCode : value,
+                      page : value,
+                      limit : value,
                       orderId : value,
                       transactionId : value,
-                      onlySelf : value
+                      type : value,
+                      status : value,
+                      onlySelf : value,
+                      granularity : value
                     
                      });
 ```
@@ -334,16 +336,17 @@ const data = await
 
 
 | Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |  
-| page | number | no | The page number of the transaction list |    
-| type | Object | no | The transaction type |    
-| status | Object | no | The transaction status |    
-| limit | number | no | The number of transactions to fetch |    
-| countryCode | string | no | The country code of the user's mobile number. |   
+| --------- | -----  | -------- | ----------- | 
 | mobile | string | yes | The mobile number of the user |    
+| countryCode | string | no | The country code of the user's mobile number. |    
+| page | number | no | The page number of the transaction list |    
+| limit | number | no | The number of transactions to fetch |    
 | orderId | string | no | The order ID |    
 | transactionId | string | no | The transaction ID |    
-| onlySelf | boolean | no | Set this flag to true to fetch transactions exclusively for your organization, excluding other organizations. |  
+| type | Object | no | The transaction type |    
+| status | Object | no | The transaction status |    
+| onlySelf | boolean | no | Set this flag to true to fetch transactions exclusively for your organization, excluding other organizations. |    
+| granularity | string | no | Defines the granularity of transaction details. |  
 
 
 
@@ -366,7 +369,7 @@ Success. The request has been processed successfully and the response contains t
 
 
 <details>
-<summary><i>&nbsp; IntegrationGetTransactionsExample</i></summary>
+<summary><i>&nbsp; GetTransactionsExample</i></summary>
 
 ```json
 {
@@ -389,11 +392,32 @@ Success. The request has been processed successfully and the response contains t
             "id": "ORD1234",
             "amount": 5000
           },
-          "loan": {
-            "number": "LN123456",
-            "amount": 5000,
-            "type": "EMI"
-          },
+          "loans": [
+            {
+              "number": "LN123456",
+              "amount": 5000,
+              "type": "EMI",
+              "dueDate": "2024-09-04T18:30:00.000Z",
+              "repaidAmount": 2600,
+              "isSettled": false,
+              "emis": [
+                {
+                  "amount": 2600,
+                  "dueDate": "2024-08-04T18:30:00.000Z",
+                  "installmentNo": 1,
+                  "repaidAmount": 2600,
+                  "isSettled": true
+                },
+                {
+                  "amount": 2550,
+                  "dueDate": "2024-09-04T18:30:00.000Z",
+                  "installmentNo": 2,
+                  "repaidAmount": 0,
+                  "isSettled": false
+                }
+              ]
+            }
+          ],
           "lender": {
             "name": "Bank of J Limited",
             "slug": "j-bank",
@@ -490,7 +514,7 @@ Success. The request has been processed successfully and the response contains t
  | message | string |  yes  | A human-readable message providing more details about the error. |
  | exception | string |  yes  | The exception name or type. |
  | field | string |  no  | The field associated with the error, if applicable. |
- | in | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+ | location | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
 
 ---
 
@@ -1326,6 +1350,25 @@ Success. The request has been processed successfully and the response contains t
  | number | string |  yes  | Loan account number. |
  | amount | number |  yes  | Loan amount. |
  | type | string |  yes  | Type of loan. |
+ | dueDate | string |  yes  | Due date in ISO format for the loan repayment. |
+ | repaidAmount | number |  yes  | Amount that has been repaid. |
+ | isSettled | boolean |  yes  | Indicates if the loan is fully settled. |
+ | emis | [[TransactionLoanEmi](#TransactionLoanEmi)] |  no  | EMIs associated with the loan. This information is available only if the granularity is set to 'detail' and an EMI schedule is available for this loan. |
+
+---
+
+
+ 
+ 
+ #### [TransactionLoanEmi](#TransactionLoanEmi)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | amount | number |  yes  | EMI amount. |
+ | dueDate | string |  yes  | Due date in ISO format for the EMI payment. |
+ | installmentNo | number |  yes  | Installment number for the EMI. |
+ | repaidAmount | number |  yes  | Amount that has been repaid towards the EMI. |
+ | isSettled | boolean |  yes  | Indicates if the EMI is fully settled. |
 
 ---
 
@@ -1356,11 +1399,11 @@ Success. The request has been processed successfully and the response contains t
  | status | string |  yes  | Status of the transaction. |
  | settlementUtr | string |  no  | Settlement UTR for the transaction. |
  | refundId | string |  no  | Refund ID if the transaction is a refund. |
- | createdAt | string |  yes  | Timestamp when the transaction was created. |
+ | createdAt | string |  yes  | Timestamp in ISO format when the transaction was created. |
  | isMasked | boolean |  yes  | Indicates if the transaction details are masked. This field is true of the transaction if done on some other merchant |
  | order | [TransactionOrder](#TransactionOrder) |  no  |  |
  | merchant | [TransactionMerchant](#TransactionMerchant) |  yes  |  |
- | loan | [TransactionLoan](#TransactionLoan) |  no  |  |
+ | loans | [[TransactionLoan](#TransactionLoan)] |  no  |  |
  | lender | [TransactionLender](#TransactionLender) |  no  |  |
 
 ---

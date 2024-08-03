@@ -3,6 +3,7 @@ const {
   CreditValidator,
   MultiKycValidator,
   MerchantValidator,
+  PaymentsValidator,
 } = require("./PlatformModels");
 const PlatformApplicationClient = require("./PlatformApplicationClient");
 const Paginator = require("../common/Paginator");
@@ -16,6 +17,7 @@ class PlatformClient {
     this.credit = new Credit(config);
     this.multiKyc = new MultiKyc(config);
     this.merchant = new Merchant(config);
+    this.payments = new Payments(config);
   }
   application(applicationId) {
     if (typeof applicationId == "string") {
@@ -49,7 +51,7 @@ class PlatformClient {
  * @property {string} message
  * @property {string} exception
  * @property {string} [field]
- * @property {string} [in]
+ * @property {string} [location]
  */
 
 /**
@@ -368,6 +370,15 @@ class PlatformClient {
  */
 
 /**
+ * @typedef VerifyOrder
+ * @property {number} valueInPaise
+ * @property {string} [uid]
+ * @property {Items[]} [items]
+ * @property {OrderAddress} [shippingAddress]
+ * @property {OrderAddress} [billingAddress]
+ */
+
+/**
  * @typedef OrderUid
  * @property {number} [valueInPaise]
  * @property {string} uid
@@ -394,9 +405,9 @@ class PlatformClient {
  */
 
 /**
- * @typedef VerifyCustomer
+ * @typedef ValidateCustomer
  * @property {CustomerObject} customer
- * @property {Order} order
+ * @property {VerifyOrder} order
  * @property {Device} device
  * @property {Object} [meta]
  * @property {boolean} [fetchLimitOptions]
@@ -423,7 +434,7 @@ class PlatformClient {
  */
 
 /**
- * @typedef VerifyCustomerSuccess
+ * @typedef ValidateCustomerSuccess
  * @property {string} status
  * @property {string} userStatus
  * @property {string} message
@@ -724,6 +735,7 @@ class PlatformClient {
 /**
  * @typedef TabsSchema
  * @property {string} title
+ * @property {ActionSchema} [action]
  * @property {PageSchema} page
  * @property {string} icon
  * @property {string} activeIcon
@@ -978,6 +990,7 @@ class PlatformClient {
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {UserSchema[]} listOfUsers
+ * @property {Object} [__headers]
  */
 
 /**
@@ -1282,16 +1295,14 @@ class PlatformClient {
  * @property {string} [message]
  * @property {string} [redirectUrl]
  * @property {CreditLimitObject[]} [creditLimits]
+ * @property {Object} [__headers]
  */
 
 /**
  * @typedef CheckEligibilityRequest
  * @property {CustomerObject} customer
  * @property {Order} [order]
- * @property {BusinessDetails} [businessDetails]
- * @property {DocumentItems[]} [documents]
  * @property {Device} device
- * @property {VintageItems[]} [vintage]
  * @property {Object} [meta]
  * @property {boolean} [fetchLimitOptions]
  */
@@ -1389,6 +1400,24 @@ class PlatformClient {
 /**
  * @typedef VerifyMagicLinkRequest
  * @property {string} token
+ */
+
+/**
+ * @typedef VintageData
+ * @property {CustomerObject} [customer]
+ * @property {BusinessDetails} businessDetails
+ * @property {DocumentItems[]} [documents]
+ * @property {Device} [device]
+ * @property {VintageItems[]} vintage
+ * @property {Object} [meta]
+ */
+
+/**
+ * @typedef AddVintageResponse
+ * @property {string} [mesasge]
+ * @property {IntegrationResponseMeta} [meta]
+ * @property {Object} [data]
+ * @property {Object} [__headers]
  */
 
 /**
@@ -1814,6 +1843,19 @@ class PlatformClient {
  * @property {string} number
  * @property {number} amount
  * @property {string} type
+ * @property {string} dueDate
+ * @property {number} repaidAmount
+ * @property {boolean} isSettled
+ * @property {TransactionLoanEmi[]} [emis]
+ */
+
+/**
+ * @typedef TransactionLoanEmi
+ * @property {number} amount
+ * @property {string} dueDate
+ * @property {number} installmentNo
+ * @property {number} repaidAmount
+ * @property {boolean} isSettled
  */
 
 /**
@@ -1836,7 +1878,7 @@ class PlatformClient {
  * @property {boolean} isMasked
  * @property {TransactionOrder} [order]
  * @property {TransactionMerchant} merchant
- * @property {TransactionLoan} [loan]
+ * @property {TransactionLoan[]} [loans]
  * @property {TransactionLender} [lender]
  */
 
@@ -2561,16 +2603,6 @@ class PlatformClient {
  */
 
 /**
- * @typedef VintageData
- * @property {number} month
- * @property {number} year
- * @property {number} totalTransactions
- * @property {number} totalTransactionAmount
- * @property {number} [totalCancellations]
- * @property {number} [totalCancellationAmount]
- */
-
-/**
  * @typedef DocumentObjects
  * @property {string} number
  * @property {string} category
@@ -2580,6 +2612,15 @@ class PlatformClient {
  * @property {string} [issuedAt]
  * @property {string} [issuedBy]
  * @property {string} [expiryOn]
+ */
+
+/**
+ * @typedef AddVintageRequest
+ * @property {Object} user
+ * @property {BusinessDetail} businessDetails
+ * @property {VintageData} vintageData
+ * @property {DocumentObjects} documents
+ * @property {MerchantSchema} merchant
  */
 
 /**
@@ -3972,6 +4013,35 @@ class PlatformClient {
  */
 
 /**
+ * @typedef LenderTheme
+ * @property {string} [iconUrl]
+ * @property {string} [logoUrl]
+ */
+
+/**
+ * @typedef LenderDetails
+ * @property {string} [slug]
+ * @property {string} [name]
+ * @property {string} [id]
+ * @property {LenderTheme} [theme]
+ */
+
+/**
+ * @typedef OutstandingData
+ * @property {LenderDetails} [lenderDetails]
+ * @property {number} [availableLimit]
+ * @property {number} [creditLimit]
+ * @property {number} [dueAmount]
+ * @property {number} [outstandingAmount]
+ * @property {string} [dueDate]
+ */
+
+/**
+ * @typedef OutstandingDetailsResponse
+ * @property {OutstandingData[]} [outstandingDetails]
+ */
+
+/**
  * @typedef CreateUserRequestSchema
  * @property {string} mobile
  * @property {string} [email]
@@ -3985,6 +4055,215 @@ class PlatformClient {
  * @property {UserSchema} [user]
  */
 
+/**
+ * @typedef RepaymentUsingNetbanking
+ * @property {number} amount
+ * @property {string} bankId
+ * @property {string} bankName
+ * @property {string} [chargeToken]
+ * @property {string} [transactionId]
+ */
+
+/**
+ * @typedef RepaymentUsingNetbankingResponse
+ * @property {string} [form]
+ * @property {boolean} [isDifferent]
+ * @property {string} [outstanding]
+ */
+
+/**
+ * @typedef RepaymentUsingUPI
+ * @property {number} amount
+ * @property {string} vpa
+ * @property {string} [chargeToken]
+ * @property {string} [transactionId]
+ */
+
+/**
+ * @typedef RepaymentUsingUPIResponse
+ * @property {boolean} [isDifferent]
+ * @property {string} [outstanding]
+ * @property {string} [status]
+ * @property {string} [intentId]
+ * @property {string} [transactionId]
+ * @property {number} [expiry]
+ * @property {number} [interval]
+ */
+
+/**
+ * @typedef RegisterUPIMandateRequest
+ * @property {string} [vpa]
+ */
+
+/**
+ * @typedef RegisterUPIMandateResponse
+ * @property {string} [transactionId]
+ * @property {number} [expiry]
+ * @property {number} [interval]
+ */
+
+/**
+ * @typedef RegisterUPIMandateStatusCheckRequest
+ * @property {string} [transactionId]
+ */
+
+/**
+ * @typedef RegisterMandateStatusCheckResponse
+ * @property {string} [status]
+ */
+
+/**
+ * @typedef TransactionStatusRequest
+ * @property {string} intentId
+ * @property {string} transactionId
+ */
+
+/**
+ * @typedef TransactionStatusResponse
+ * @property {boolean} success
+ * @property {string} [methodType]
+ * @property {string} [methodSubType]
+ * @property {string} [status]
+ */
+
+/**
+ * @typedef BankList
+ * @property {string} [bankId]
+ * @property {string} [bankName]
+ * @property {number} [rank]
+ * @property {boolean} [popular]
+ * @property {string} [imageUrl]
+ */
+
+/**
+ * @typedef PaymentsObject
+ * @property {string} [title]
+ * @property {string} [kind]
+ * @property {PaymentOptions[]} [options]
+ */
+
+/**
+ * @typedef OutstandingDetail
+ * @property {string} [status]
+ * @property {boolean} [action]
+ * @property {OutstandingMessage} [message]
+ * @property {UserCredit} [credit]
+ * @property {DueSummaryOutstanding} [dueSummary]
+ * @property {OutstandingSummary} [outstandingSummary]
+ * @property {string} [entityMapId]
+ */
+
+/**
+ * @typedef OutstandingSummary
+ * @property {number} [totalOutstanding]
+ * @property {number} [totalOutstandingWithInterest]
+ * @property {number} [totalOutstandingPenalty]
+ * @property {number} [availableLimit]
+ * @property {boolean} [isOverdue]
+ * @property {string} [dueFromDate]
+ * @property {RepaymentSummaryOutstanding[]} [repaymentSummary]
+ */
+
+/**
+ * @typedef DueSummaryOutstanding
+ * @property {string} [dueDate]
+ * @property {number} [totalDue]
+ * @property {number} [totalDueWithInterest]
+ * @property {number} [totalDuePenalty]
+ * @property {DueTransactionsOutstanding[]} [dueTransactions]
+ * @property {number} [minAmntDue]
+ */
+
+/**
+ * @typedef OutstandingMessage
+ * @property {string} [dueMessage]
+ * @property {string} [backgroundColor]
+ * @property {string} [textColor]
+ * @property {boolean} [isFlexiRepayEnabled]
+ */
+
+/**
+ * @typedef UserCredit
+ * @property {number} [availableLimit]
+ * @property {number} [approvedLimit]
+ * @property {boolean} [isEligibleToDrawdown]
+ */
+
+/**
+ * @typedef DueTransactionsOutstanding
+ * @property {string} [loanRequestNo]
+ * @property {string} [merchantCategory]
+ * @property {number} [installmentAmountWithInterest]
+ * @property {number} [installmentAmount]
+ * @property {number} [dueAmount]
+ * @property {string} [loanType]
+ * @property {string} [installmentNo]
+ * @property {string} [installmentDueDate]
+ * @property {boolean} [isPastDue]
+ * @property {boolean} [isPenaltyCharged]
+ * @property {number} [penaltyAmount]
+ * @property {number} [noOfDaysPenaltyCharged]
+ * @property {number} [daysDifference]
+ * @property {string} [lenderTransactionId]
+ */
+
+/**
+ * @typedef RepaymentSummaryOutstanding
+ * @property {string} [loanRequestNo]
+ * @property {string} [loanType]
+ * @property {string} [merchantCategory]
+ * @property {boolean} [isBbillingTransaction]
+ * @property {number} [totalInstallmentAmount]
+ * @property {number} [totalInstallmentAmountWithInterest]
+ * @property {OutstandingDetailsRepayment[]} [outstandingDetails]
+ */
+
+/**
+ * @typedef OutstandingDetailsRepayment
+ * @property {number} [installmentAmountWithInterest]
+ * @property {number} [installmentAmount]
+ * @property {number} [dueAmount]
+ * @property {string} [installmentNo]
+ * @property {string} [installmentDueDate]
+ * @property {boolean} [isPastDue]
+ * @property {string} [loanType]
+ * @property {boolean} [isPenaltyCharged]
+ * @property {number} [penaltyAmount]
+ * @property {number} [noOfDaysPenaltyCharged]
+ * @property {string} [lenderTransactionId]
+ */
+
+/**
+ * @typedef PaymentOptionsResponse
+ * @property {PaymentsObject[]} [paymentOptions]
+ */
+
+/**
+ * @typedef CheckEMandateStatusRequest
+ * @property {string} [orderId]
+ * @property {string} [paymentId]
+ * @property {string} [scheduledEnd]
+ * @property {string} [ruleAmountValue]
+ */
+
+/**
+ * @typedef AutoPayStatusResponse
+ * @property {string} [status]
+ */
+
+/**
+ * @typedef MetaResponse
+ * @property {string} [timestamp]
+ * @property {string} [version]
+ * @property {string} [product]
+ * @property {string} [requestId]
+ */
+
+/**
+ * @typedef OutstandingDetailsData
+ * @property {OutstandingData[]} [outstandingDetails]
+ */
+
 class Customer {
   constructor(config) {
     this.config = config;
@@ -3994,12 +4273,12 @@ class Customer {
    * @param {Object} arg - Arg object.
    * @param {String} session - Session of the user
    * @param {string} arg.organizationId - This is organizationId
-   * @param {VerifyCustomer} arg.body
-   * @summary: Verify Customer
-   * @description: Use this API to verify the customer based on  mobile number and countryCode.
+   * @param {ValidateCustomer} arg.body
+   * @summary: Validate Customer
+   * @description: The Validate Customer API processes validity checks using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. It returns `Enabled` if the transaction is allowed.
    */
-  verify({ body, session } = {}) {
-    const { error } = CustomerValidator.verify().validate(
+  validate({ body, session } = {}) {
+    const { error } = CustomerValidator.validate().validate(
       {
         body,
       },
@@ -4026,11 +4305,11 @@ class Customer {
    * @param {String} session - Session of the user
    * @param {string} arg.organizationId - This is organizationId
    * @param {CreateTransaction} arg.body
-   * @summary: Create Order
-   * @description: Use this API to create transaction for user
+   * @summary: Create Transaction
+   * @description: The Create Transaction API processes transactions using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. If the transaction is allowed, it returns `Enabled` along with the redirect URL and the user status as authorized.
    */
-  createOrder({ body, session } = {}) {
-    const { error } = CustomerValidator.createOrder().validate(
+  createTransaction({ body, session } = {}) {
+    const { error } = CustomerValidator.createTransaction().validate(
       {
         body,
       },
@@ -4058,7 +4337,7 @@ class Customer {
    * @param {string} arg.organizationId - This is organizationId
    * @param {LinkAccount} arg.body
    * @summary: Link account
-   * @description: Use this API to link account with merchant
+   * @description: The Link API generates a merchant-linked session for the user, enabling automatic login to complete payment or repayment activities seamlessly. This session ensures a smooth and secure transaction process without requiring the user to manually log in.
    */
   link({ body, session } = {}) {
     const { error } = CustomerValidator.link().validate(
@@ -4089,7 +4368,7 @@ class Customer {
    * @param {string} arg.organizationId - This is organizationId
    * @param {UnlinkAccount} arg.body
    * @summary: Unlink account
-   * @description: Use this API to unlink account from merchant
+   * @description: The Unlink API serves as the reverse of the Link API. It terminates the merchant-linked session for the user, effectively logging them out and preventing any further automatic login for payment or repayment activities. This ensures security and control over session management.
    */
   unlink({ body, session } = {}) {
     const { error } = CustomerValidator.unlink().validate(
@@ -4119,8 +4398,8 @@ class Customer {
    * @param {String} session - Session of the user
    * @param {string} arg.organizationId - This is organizationId
    * @param {Refund} arg.body
-   * @summary: Refund customer order amount
-   * @description: Use this API to verify the refund customer order amount
+   * @summary: Refund Order
+   * @description: The Refund API processes refunds based on business arrangements and returns the corresponding status of the refund request. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
    */
   refund({ body, session } = {}) {
     const { error } = CustomerValidator.refund().validate(
@@ -4151,8 +4430,8 @@ class Customer {
    * @param {string} arg.organizationId - This is organizationId
    * @param {string} [arg.refundId] - This is the refund ID
    * @param {string} [arg.orderId] - This is the order ID
-   * @summary: Refund status
-   * @description: Use this API to fetch the refund status
+   * @summary: Check Refund status
+   * @description: The Refund Status API returns the current status of a refund request based on business arrangements. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
    */
   refundStatus({ refundId, orderId, session } = {}) {
     const { error } = CustomerValidator.refundStatus().validate(
@@ -4185,8 +4464,8 @@ class Customer {
    * @param {String} session - Session of the user
    * @param {string} arg.organizationId - This is organizationId
    * @param {GetSchemesRequest} arg.body
-   * @summary: Fetch schemes
-   * @description: Use this API to fetch available schemes for user order.
+   * @summary: Get schemes
+   * @description: The Schemes API returns Buy Now, Pay Later (BNPL) and EMI plans offered by lenders for the user. It provides details on available financing options, including terms and conditions for both BNPL and EMI arrangements.
    */
   getSchemes({ body, session } = {}) {
     const { error } = CustomerValidator.getSchemes().validate(
@@ -4215,9 +4494,40 @@ class Customer {
    * @param {Object} arg - Arg object.
    * @param {String} session - Session of the user
    * @param {string} arg.organizationId - This is organizationId
+   * @param {CheckEligibilityRequest} arg.body
+   * @summary: Check Credit Eligibility
+   * @description: Use this API to pre approve by checking the customer's credit eligibility based on mobile number and countryCode and vintage data of monthly transactions.
+   */
+  checkEligibility({ body, session } = {}) {
+    const { error } = CustomerValidator.checkEligibility().validate(
+      {
+        body,
+      },
+      { abortEarly: false }
+    );
+    if (error) {
+      return Promise.reject(new FDKClientValidationError(error));
+    }
+
+    const query_params = {};
+
+    return PlatformAPIClient.execute(
+      this.config,
+      "post",
+      `/service/integration/user/authentication/${this.config.companyId}/eligibility`,
+      query_params,
+      body,
+      session
+    );
+  }
+
+  /**
+   * @param {Object} arg - Arg object.
+   * @param {String} session - Session of the user
+   * @param {string} arg.organizationId - This is organizationId
    * @param {RepaymentRequest} arg.body
-   * @summary: Repayment link
-   * @description: Use this API to get repayment link. User should be redirected to this URL to complete the repayment.
+   * @summary: Get Repayment link
+   * @description: The Repayment Link API generates a repayment link based on the current outstanding balance. The URL provided allows users to make payments and settle their outstanding amounts directly.
    */
   getRepaymentLink({ body, session } = {}) {
     const { error } = CustomerValidator.getRepaymentLink().validate(
@@ -4236,6 +4546,81 @@ class Customer {
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/repayment-link`,
+      query_params,
+      body,
+      session
+    );
+  }
+
+  /**
+   * @param {Object} arg - Arg object.
+   * @param {String} session - Session of the user
+   * @param {string} arg.organizationId - This is organizationId
+   * @param {number} arg.page - This is page number
+   * @param {number} arg.limit - This is no of transaction
+   * @param {string} [arg.name] - This is name for filter
+   * @param {string} [arg.id] - This is uuid for filter
+   * @param {string} [arg.mobile] - This is Mobile Number for filter
+   * @summary: Get List of Users
+   * @description: The Customer Listing API returns a paginated list of users associated with the specified organization. Supports filtering by various query parameters such as name, ID, and mobile number.
+   */
+  getAll({ page, limit, name, id, mobile, session } = {}) {
+    const { error } = CustomerValidator.getAll().validate(
+      {
+        page,
+        limit,
+        name,
+        id,
+        mobile,
+      },
+      { abortEarly: false }
+    );
+    if (error) {
+      return Promise.reject(new FDKClientValidationError(error));
+    }
+
+    const query_params = {};
+    query_params["page"] = page;
+    query_params["limit"] = limit;
+    query_params["name"] = name;
+    query_params["id"] = id;
+    query_params["mobile"] = mobile;
+
+    return PlatformAPIClient.execute(
+      this.config,
+      "get",
+      `/service/integration/user/authentication/${this.config.companyId}/users`,
+      query_params,
+      undefined,
+      session
+    );
+  }
+
+  /**
+   * @param {Object} arg - Arg object.
+   * @param {String} session - Session of the user
+   * @param {string} arg.organizationId - This is organizationId
+   * @param {VintageData} arg.body
+   * @summary: Add user vintage details
+   * @description: Use this API to add vintage details of the user.
+   */
+  addVintageData({ body, session } = {}) {
+    const { error } = CustomerValidator.addVintageData().validate(
+      {
+        body,
+      },
+      { abortEarly: false }
+    );
+    if (error) {
+      return Promise.reject(new FDKClientValidationError(error));
+    }
+
+    const query_params = {};
+
+    return PlatformAPIClient.execute(
+      this.config,
+      "post",
+      `/service/integration/user/authentication/${this.config.companyId}/vintage`,
       query_params,
       body,
       session
@@ -4347,42 +4732,45 @@ class Credit {
    * @param {Object} arg - Arg object.
    * @param {String} session - Session of the user
    * @param {string} arg.organizationId - The unique identifier of the organization
-   * @param {number} [arg.page] - The page number of the transaction list
-   * @param {Object} [arg.type] - The transaction type
-   * @param {Object} [arg.status] - The transaction status
-   * @param {number} [arg.limit] - The number of transactions to fetch
-   * @param {string} [arg.countryCode] - The country code of the user's mobile number.
    * @param {string} arg.mobile - The mobile number of the user
+   * @param {string} [arg.countryCode] - The country code of the user's mobile number.
+   * @param {number} [arg.page] - The page number of the transaction list
+   * @param {number} [arg.limit] - The number of transactions to fetch
    * @param {string} [arg.orderId] - The order ID
    * @param {string} [arg.transactionId] - The transaction ID
+   * @param {Object} [arg.type] - The transaction type
+   * @param {Object} [arg.status] - The transaction status
    * @param {boolean} [arg.onlySelf] - Set this flag to true to fetch
    *   transactions exclusively for your organization, excluding other organizations.
+   * @param {string} [arg.granularity] - Defines the granularity of transaction details.
    * @summary: Get list of user transactions
    * @description: Retrieves a paginated list of transactions associated with a specific organization, sorted from the latest to the oldest. This endpoint allows filtering transactions based on various criteria and supports pagination.
    */
   getTransactions({
     mobile,
-    page,
-    type,
-    status,
-    limit,
     countryCode,
+    page,
+    limit,
     orderId,
     transactionId,
+    type,
+    status,
     onlySelf,
+    granularity,
     session,
   } = {}) {
     const { error } = CreditValidator.getTransactions().validate(
       {
         mobile,
-        page,
-        type,
-        status,
-        limit,
         countryCode,
+        page,
+        limit,
         orderId,
         transactionId,
+        type,
+        status,
         onlySelf,
+        granularity,
       },
       { abortEarly: false }
     );
@@ -4391,15 +4779,16 @@ class Credit {
     }
 
     const query_params = {};
-    query_params["page"] = page;
-    query_params["type"] = type;
-    query_params["status"] = status;
-    query_params["limit"] = limit;
-    query_params["countryCode"] = countryCode;
     query_params["mobile"] = mobile;
+    query_params["countryCode"] = countryCode;
+    query_params["page"] = page;
+    query_params["limit"] = limit;
     query_params["orderId"] = orderId;
     query_params["transactionId"] = transactionId;
+    query_params["type"] = type;
+    query_params["status"] = status;
     query_params["onlySelf"] = onlySelf;
+    query_params["granularity"] = granularity;
 
     return PlatformAPIClient.execute(
       this.config,
@@ -4560,6 +4949,47 @@ class Merchant {
       `/service/integration/staff/authentication/oauth/${this.config.companyId}/validate-credentials`,
       query_params,
       undefined
+    );
+  }
+}
+
+class Payments {
+  constructor(config) {
+    this.config = config;
+  }
+
+  /**
+   * @param {Object} arg - Arg object.
+   * @param {String} session - Session of the user
+   * @param {string} arg.mobile - Mobile number of the user
+   * @param {string} arg.organizationId - Organization id of the merchant.
+   * @param {string[]} [arg.lenderSlugs] - This is list of lender slugs. eg.
+   *   ['cashe','liquiloans']
+   * @summary: Get user outstanding details.
+   * @description: This api is for getting outstanding details for the user with all the lenders.
+   */
+  getOutStandingDetails({ mobile, lenderSlugs, session } = {}) {
+    const { error } = PaymentsValidator.getOutStandingDetails().validate(
+      {
+        mobile,
+        lenderSlugs,
+      },
+      { abortEarly: false }
+    );
+    if (error) {
+      return Promise.reject(new FDKClientValidationError(error));
+    }
+
+    const query_params = {};
+    query_params["lenderSlugs"] = lenderSlugs;
+
+    return PlatformAPIClient.execute(
+      this.config,
+      "get",
+      `/service/integration/payments/repayment/:mobile/:organizationId/outstanding`,
+      query_params,
+      undefined,
+      session
     );
   }
 }

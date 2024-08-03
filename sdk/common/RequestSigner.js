@@ -38,13 +38,14 @@ const HEADERS_TO_INCLUDE = ["x-ptl-.*", "host"];
 
 // request: { path | body, [host], [method], [headers], [service], [region] }
 class RequestSigner {
-  constructor(request) {
+  constructor(request, xSource) {
     if (typeof request === "string") {
       request = url.parse(request);
     }
 
     let headers = (request.headers = request.headers || {});
     this.request = request;
+    this.xSource = xSource;
 
     if (!request.method && request.body) {
       request.method = "POST";
@@ -124,6 +125,10 @@ class RequestSigner {
   }
 
   signature(secret) {
+    if (!secret && this.xSource !== "platform") {
+      secret = "1234567";
+    }
+
     let kCredentials = secret;
     let strTosign = this.stringToSign();
     // console.log(strTosign);
@@ -301,8 +306,8 @@ class RequestSigner {
   }
 }
 
-function sign(request) {
-  return new RequestSigner(request).sign();
+function sign(request, xSource = "") {
+  return new RequestSigner(request, xSource).sign();
 }
 
 module.exports = {

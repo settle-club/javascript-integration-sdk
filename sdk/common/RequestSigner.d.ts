@@ -1,1 +1,1 @@
-export function sign(request: any): any;
+export function sign(request: any, xSource?: string): any;

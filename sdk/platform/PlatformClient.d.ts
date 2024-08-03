@@ -6,11 +6,12 @@ declare class PlatformClient {
     credit: Credit;
     multiKyc: MultiKyc;
     merchant: Merchant;
+    payments: Payments;
     application(applicationId: any): PlatformApplicationClient;
     setExtraHeaders(header: any): void;
 }
 declare namespace PlatformClient {
-    export { IntegrationResponseMeta, IntegrationResponseError, IntegrationSuccessResponse, IntegrationErrorResponse, RefundResponse, UserSource, UserSchema, count, FilterByDate, LenderCount, LenderSchema, TotalUsersPerLender, TotalUsersPerLenderData, TotalUserByLender, UsersByLender, ErrorResponse, EditProfileRequest, VerifyOtpRequest, SendMobileOtpRequest, ReSendMobileOtpRequest, SendOtpRequest, ApplicationUser, SendOtpResponse, EmailUpdate, UserUpdateRequest, LenderUpdateRequest, ProfileEditSuccess, LoginSuccess, VerifyOtpSuccess, LogoutSuccess, OtpSuccess, SessionListSuccess, VerifyMobileOTPSuccess, Location, OrderAddress, CustomerObject, Order, OrderUid, CustomerMeta, Device, VerifyCustomer, CreateTransaction, ResendPaymentRequest, VerifyCustomerSuccess, CreateTransactionSuccess, SupportDocuments, CreateTicketResponse, CreateTicket, InitiateTransactions, GetMobileFromToken, GetDataFromToken, MerchantDetails, InitiateTransactionsSuccess, RetrieveMobileFromToken, CreateDashboardTemplateRequest, TemplateSections, TemplateComponent, PartnerApplications, Offerings, Banners, Tips, DashboardTemplateResponse, SectionSchema, PartnerApplicationsResponse, OfferingsResponse, BannersResponse, TipsSection, TipsResponse, TipsCategories, ActionSchema, UpdateDashboardTemplateRequest, UpdateTemplateSections, UpdateTemplateComponent, UpdatePartnerApplications, UpdateOfferings, UpdateBanners, UpdateTips, NavigationsMobileResponse, TabsSchema, PageSchema, ProfileSectionSchema, ProfileNavigationSchema, SendPNSRegisterRequest, PNSRegisterResponse, FaqResponse, CategorySchema, QuestionSchema, SupportCategories, SupportCategoriesResponse, SanctionLetterResponse, KfsDocumentResponse, UserWhiteListedResponse, UserConsentRequest, Consents, UserConsentRequestV2, UserConsentResponse, UserKycSteps, CreateKycStepRequest, RemoveKycStepRequest, KycUpdateMessage, MobileFromLinkingRequest, MobileFromLinkingResponse, SessionFromLinkingRequest, SessionFromLinkingResponse, LinkAccount, LinkAccountSuccess, UnlinkAccount, UnlinkAccountSuccess, Refund, Translation, FilterKeys, FilterValues, Filters, PageResponse, UserResponse, UserDetailRequest, UserConsents, CreditScoreSchema, CreditLimitSchema, Screen, UserStateSchema, GetAccessTokenResponse, RefreshTokenResponse, RefreshTokenRequest, Items, RefundStatusList, RefundStatus, GetSchemesSuccess, ActiveEntityResponse, CustomerMetricsPivots, CustomerMetricsSubResponse, CustomerMetricsAnalytics, CustomerMetricsFilters, CustomerMetrics, SchemeResponse, SchemePaymentOptionsResponse, SchemeEmiPaymentOptionResponse, SchemeEmiScheduleResponse, SchemePayLaterPaymentOptionResponse, LimitResponse, AvailableOrPossibleLender, GetSchemesRequest, CustomerMetricsResponse, CustomerMetricsRequest, SourceAnalyticsRequest, LenderResponse, CreditLimitObject, BusinessDetails, DocumentItems, VintageItems, EligibilitySuccess, CheckEligibilityRequest, EmiSchedule, PaymentOption, PaymentOptions, LenderAndPaymentOption, GetSchemesSuccessOld, PageSchemaResponse, userCountRequest, RepaymentRequest, RepaymentResponse, RepaymentResponseData, VerifyMagicLinkResponse, VerifyMagicLinkRequest, DisbursalRequest, WorkflowUser, EligiblePlansRequest, EligiblePlans, EligiblePlansResponse, DisbursalResponse, OrderStatus, DisbursalStatusRequest, Transactions, LenderDetail, TransactionResponse, MerchantTransactions, MerchantTransactionSummary, GetReconciliationFileResponse, ReconFile, UploadReconciliationFileRequest, UploadReconciliationFileResponse, TransactionCount, RefundCount, OrganizationTransactionsCount, OrganizationTransactionsSum, UniqueCustomersInOrg, TransactionAmount, SchemaForOneDayTotal, SumofOneDayTransactions, AverageTransaction, AllTransactionsResponse, TotalRefund, TotalRepayment, TotalOverDue, TotalLoansDisbursed, OrganizationTransactionResponse, TrFilters, TrPageResponse, OrgTransactions, TrFilterKeys, TrFilterValues, KfsRequest, KfsResponse, LenderTransactionState, TransactionStateResponse, Theme, Emi, MetricPivots, TransactionMetricSubResponse, TransactionMetrics, LenderCustomerTransactionMetricsFilters, LenderCustomerTransactionMetrics, LenderCustomerTransactionMetricsResponse, LenderCustomerTransactionMetricsRequest, TransactionOrder, TransactionMerchant, TransactionLoan, TransactionLender, UserTransaction, Pagination, GetTransactionsData, GetTransactionsResponse, SummaryRequest, OrderShipmentAddressGeoLocation, OrderShipmentAddress, OrderShipmentItem, OrderShipment, OrderDeliveryUpdatesBody, OrderShipmentResponse, OrderDeliveryUpdatesData, OrderDeliveryUpdatesResponse, Lender, UserLender, SourceCreditReport, Document, UserKycDetail, Form, LenderKycStepMap, UserKycLenderStepMap, ProofOfIdentity, ProofOfAddress, EAadhaarData, EntityMapDto, EntityDto, MerchantSchema, Consent, ValidatePanRequest, BankDetails, DocumentData, ConfirmPanRequest, LivelinessDetails, UploadDocumentRequest, UploadDocumentRequestV1, UploadDocumentRequestV3, AadhaarRequest, UploadAadhaarRequest, UploadLivelinessRequest, UploadAadhaarRequestV1, UploadLivelinessRequestV1, UploadAadhaarRequestV2, UploadLivelinessRequestV2, UploadAadhaarRequestV3, UploadLivelinessRequestV3, UploadBankDetailsRequest, InitiateKycRequest, InitiateKycRequestV1, LenderOnboardRequest, LenderOnboardRequestV1, UpdateLenderStatusRequest, UpdateProfileRequest, UpdateEntityRequest, CreateKycStepsRequest, CreateLenderPgConfigRequest, CreateLenderStateRequest, UpdateLenderRequest, OtherPolicyFilters, GetPolicyFilters, GetPolicyFilters2, MerchantConfigRequest, PanDetails, AvailableLendersRequest, InitialData, ExecutePolicyRequest, ExecutePolicyRequest2, RegisterGstRequest, PopulateFormRequest, ValidateFormFieldRequest, MerchantMetricFilter, LenderCustomerMetricsRequest, DocumentObject, ManualKycRequest, RetriggerLenderOnboardRequest, RetriggerLenderOnboardRequestV2, StonewallCustomer, GetLimitRequest, BusinessDetail, VintageData, DocumentObjects, KycCountByStatus, FindDocResponse, LenderKycStatus, StateResponeDto, KycStateMachineDto, InitiateKycDto, LenderOnboardDto, StepDetails, OnboardStatusDto, LenderFilters, Policy, GetKycDocsResponse, OrganizationLogosObject, MetricSubTypes, MetricTypes, BreApprovedUsersResponse, Metrics, MetricData, GetAllUserLendersByEnityId, ApprovedLenders, BreResultStatus, LenderState, UserLenderState, LenderConfig, Pg, LenderPgConfig, FileUploadResponse, PresignedUrl, PresignedUrlV2, LenderDocument, Commercial, KycStatusResponse, WorkflowResponse, Action, InitiateKycResponse, UploadDocResponse, LenderOnboardResponse, OnboardingStatusResponse, SignedUrlResponse, SignedUrlV2Response, PresignedUrlV3, SignedUrlV3Response, DigilockerLinkResponse, GetDocumentsResponse, ApprovedLendersTransaction, ApprovedPossibleLenders, AvailableLenders, CreditLimit, CreditLimitResponse, LenderPgConfigResponse, GetLendersResponse, LenderConfigurationResponse, UpsertLenderResponse, UpsertLenderConfigResponse, CreateKycStepsSchema, CreatePaymentGatewaySchema, CreateLenderStateSchema, GetAllPaymentGatewaysSchema, PolicyResponse, CreditCheckBreResponse, MerchantConfigResponse, UserLenderByIdAndStatusResponse, IntgrAvailableCreditLimit, IngtrAvailableLimit, IntgrCreditLimit, PossibleLendersInternal, PossibleLendersInternalResponse, GetTotalKycResponse, GetTotalKycCompletedUsersResponse, GetTotalPendingUsersResponse, GetTotalCreditProvidedResponse, MetaSchemaResponse, MetaSchema, AddMetaSchema, AddMetaSchemaRequest, ValidatePanResponse, ConfirmPanResonse, LenderCountResponse, OnboardStepsDto, OnboardStepsResponse, LenderDocumentResponse, GetUserLendersResponse, CreditReportResponse, KycDetailsReponse, GetDocumentByIdResponse, GetAllFormsResponse, UpsertFormResponse, GstDetails, GstDetailsResponse, RegisterGstResponse, PopulateFormResponse, ValidateFormFieldResponse, LenderCustomerMetricsResponse, ManualKycResponse, BreOutput, CustomerKycDetailsReponse, PlatformFees, CommercialResponse, BlockUserRequestSchema, EditEmailRequestSchema, SendVerificationLinkMobileRequestSchema, EditMobileRequestSchema, UpdateEmail, EditProfileRequestSchema, EditProfileMobileSchema, SendEmailOtpRequestSchema, VerifyEmailOtpRequestSchema, ReSendMobileOtpRequestSchema, ResetPasswordSuccess, RegisterFormSuccess, VerifyEmailSuccess, BlockUserSuccess, EmailOtpSuccess, VerifyEmailOTPSuccess, SendMobileVerifyLinkSuccess, SendEmailVerifyLinkSuccess, UserSearchResponseSchema, CustomerListResponseSchema, PaginationSchema, UserObjectSchema, CreateOrganization, UpdateLogo, AddMetaSchemaResponse, UpdateOrganization, UpdateFinancials, Documents, FinancialDetails, GetOrganization, OrganizationDetails, Organization, OrganizationList, OrganizationCount, TeamMembers, Member, Profile, AddTeamMember, UpdateTeamMemberRole, RemoveTeamMemberResponse, AddTeamMemberResponse, ApiKey, UpdateApiHook, ApiHookDetails, UpdateApiHookResponse, OrganizationIp, AddOrganizationIpDetails, AddUpdateCsvFileResponse, AddUpdateCsvFileRequest, CsvFile, AddReportCsvFileResponse, AddReportCsvFileRequest, ReportCsvFileResponse, AddReportRequestArray, AddReportRequest, AddReportResponseArray, AddReportResponse, VintageDataResponseObject, VintageDataResponse, AddSkuRequestArray, AddSkuRequest, AddSkuResponse, RestrictedSkuSchema, OrganizationIpResponse, OrganizationIpDetails, RefundSuccess, RefundItem, ValidateCredentialsData, ValidateCredentialsResponse, PaymentLinkResponse, ApplicationCutomer, GeoLocation, Address, OrderItems, PaymentLinkRequest, UpdateLenderStatusSchemaRequest, UpdateLenderStatusSchemaResponse, CreateUserRequestSchema, CreateUserResponseSchema };
+    export { IntegrationResponseMeta, IntegrationResponseError, IntegrationSuccessResponse, IntegrationErrorResponse, RefundResponse, UserSource, UserSchema, count, FilterByDate, LenderCount, LenderSchema, TotalUsersPerLender, TotalUsersPerLenderData, TotalUserByLender, UsersByLender, ErrorResponse, EditProfileRequest, VerifyOtpRequest, SendMobileOtpRequest, ReSendMobileOtpRequest, SendOtpRequest, ApplicationUser, SendOtpResponse, EmailUpdate, UserUpdateRequest, LenderUpdateRequest, ProfileEditSuccess, LoginSuccess, VerifyOtpSuccess, LogoutSuccess, OtpSuccess, SessionListSuccess, VerifyMobileOTPSuccess, Location, OrderAddress, CustomerObject, Order, VerifyOrder, OrderUid, CustomerMeta, Device, ValidateCustomer, CreateTransaction, ResendPaymentRequest, ValidateCustomerSuccess, CreateTransactionSuccess, SupportDocuments, CreateTicketResponse, CreateTicket, InitiateTransactions, GetMobileFromToken, GetDataFromToken, MerchantDetails, InitiateTransactionsSuccess, RetrieveMobileFromToken, CreateDashboardTemplateRequest, TemplateSections, TemplateComponent, PartnerApplications, Offerings, Banners, Tips, DashboardTemplateResponse, SectionSchema, PartnerApplicationsResponse, OfferingsResponse, BannersResponse, TipsSection, TipsResponse, TipsCategories, ActionSchema, UpdateDashboardTemplateRequest, UpdateTemplateSections, UpdateTemplateComponent, UpdatePartnerApplications, UpdateOfferings, UpdateBanners, UpdateTips, NavigationsMobileResponse, TabsSchema, PageSchema, ProfileSectionSchema, ProfileNavigationSchema, SendPNSRegisterRequest, PNSRegisterResponse, FaqResponse, CategorySchema, QuestionSchema, SupportCategories, SupportCategoriesResponse, SanctionLetterResponse, KfsDocumentResponse, UserWhiteListedResponse, UserConsentRequest, Consents, UserConsentRequestV2, UserConsentResponse, UserKycSteps, CreateKycStepRequest, RemoveKycStepRequest, KycUpdateMessage, MobileFromLinkingRequest, MobileFromLinkingResponse, SessionFromLinkingRequest, SessionFromLinkingResponse, LinkAccount, LinkAccountSuccess, UnlinkAccount, UnlinkAccountSuccess, Refund, Translation, FilterKeys, FilterValues, Filters, PageResponse, UserResponse, UserDetailRequest, UserConsents, CreditScoreSchema, CreditLimitSchema, Screen, UserStateSchema, GetAccessTokenResponse, RefreshTokenResponse, RefreshTokenRequest, Items, RefundStatusList, RefundStatus, GetSchemesSuccess, ActiveEntityResponse, CustomerMetricsPivots, CustomerMetricsSubResponse, CustomerMetricsAnalytics, CustomerMetricsFilters, CustomerMetrics, SchemeResponse, SchemePaymentOptionsResponse, SchemeEmiPaymentOptionResponse, SchemeEmiScheduleResponse, SchemePayLaterPaymentOptionResponse, LimitResponse, AvailableOrPossibleLender, GetSchemesRequest, CustomerMetricsResponse, CustomerMetricsRequest, SourceAnalyticsRequest, LenderResponse, CreditLimitObject, BusinessDetails, DocumentItems, VintageItems, EligibilitySuccess, CheckEligibilityRequest, EmiSchedule, PaymentOption, PaymentOptions, LenderAndPaymentOption, GetSchemesSuccessOld, PageSchemaResponse, userCountRequest, RepaymentRequest, RepaymentResponse, RepaymentResponseData, VerifyMagicLinkResponse, VerifyMagicLinkRequest, VintageData, AddVintageResponse, DisbursalRequest, WorkflowUser, EligiblePlansRequest, EligiblePlans, EligiblePlansResponse, DisbursalResponse, OrderStatus, DisbursalStatusRequest, Transactions, LenderDetail, TransactionResponse, MerchantTransactions, MerchantTransactionSummary, GetReconciliationFileResponse, ReconFile, UploadReconciliationFileRequest, UploadReconciliationFileResponse, TransactionCount, RefundCount, OrganizationTransactionsCount, OrganizationTransactionsSum, UniqueCustomersInOrg, TransactionAmount, SchemaForOneDayTotal, SumofOneDayTransactions, AverageTransaction, AllTransactionsResponse, TotalRefund, TotalRepayment, TotalOverDue, TotalLoansDisbursed, OrganizationTransactionResponse, TrFilters, TrPageResponse, OrgTransactions, TrFilterKeys, TrFilterValues, KfsRequest, KfsResponse, LenderTransactionState, TransactionStateResponse, Theme, Emi, MetricPivots, TransactionMetricSubResponse, TransactionMetrics, LenderCustomerTransactionMetricsFilters, LenderCustomerTransactionMetrics, LenderCustomerTransactionMetricsResponse, LenderCustomerTransactionMetricsRequest, TransactionOrder, TransactionMerchant, TransactionLoan, TransactionLoanEmi, TransactionLender, UserTransaction, Pagination, GetTransactionsData, GetTransactionsResponse, SummaryRequest, OrderShipmentAddressGeoLocation, OrderShipmentAddress, OrderShipmentItem, OrderShipment, OrderDeliveryUpdatesBody, OrderShipmentResponse, OrderDeliveryUpdatesData, OrderDeliveryUpdatesResponse, Lender, UserLender, SourceCreditReport, Document, UserKycDetail, Form, LenderKycStepMap, UserKycLenderStepMap, ProofOfIdentity, ProofOfAddress, EAadhaarData, EntityMapDto, EntityDto, MerchantSchema, Consent, ValidatePanRequest, BankDetails, DocumentData, ConfirmPanRequest, LivelinessDetails, UploadDocumentRequest, UploadDocumentRequestV1, UploadDocumentRequestV3, AadhaarRequest, UploadAadhaarRequest, UploadLivelinessRequest, UploadAadhaarRequestV1, UploadLivelinessRequestV1, UploadAadhaarRequestV2, UploadLivelinessRequestV2, UploadAadhaarRequestV3, UploadLivelinessRequestV3, UploadBankDetailsRequest, InitiateKycRequest, InitiateKycRequestV1, LenderOnboardRequest, LenderOnboardRequestV1, UpdateLenderStatusRequest, UpdateProfileRequest, UpdateEntityRequest, CreateKycStepsRequest, CreateLenderPgConfigRequest, CreateLenderStateRequest, UpdateLenderRequest, OtherPolicyFilters, GetPolicyFilters, GetPolicyFilters2, MerchantConfigRequest, PanDetails, AvailableLendersRequest, InitialData, ExecutePolicyRequest, ExecutePolicyRequest2, RegisterGstRequest, PopulateFormRequest, ValidateFormFieldRequest, MerchantMetricFilter, LenderCustomerMetricsRequest, DocumentObject, ManualKycRequest, RetriggerLenderOnboardRequest, RetriggerLenderOnboardRequestV2, StonewallCustomer, GetLimitRequest, BusinessDetail, DocumentObjects, AddVintageRequest, KycCountByStatus, FindDocResponse, LenderKycStatus, StateResponeDto, KycStateMachineDto, InitiateKycDto, LenderOnboardDto, StepDetails, OnboardStatusDto, LenderFilters, Policy, GetKycDocsResponse, OrganizationLogosObject, MetricSubTypes, MetricTypes, BreApprovedUsersResponse, Metrics, MetricData, GetAllUserLendersByEnityId, ApprovedLenders, BreResultStatus, LenderState, UserLenderState, LenderConfig, Pg, LenderPgConfig, FileUploadResponse, PresignedUrl, PresignedUrlV2, LenderDocument, Commercial, KycStatusResponse, WorkflowResponse, Action, InitiateKycResponse, UploadDocResponse, LenderOnboardResponse, OnboardingStatusResponse, SignedUrlResponse, SignedUrlV2Response, PresignedUrlV3, SignedUrlV3Response, DigilockerLinkResponse, GetDocumentsResponse, ApprovedLendersTransaction, ApprovedPossibleLenders, AvailableLenders, CreditLimit, CreditLimitResponse, LenderPgConfigResponse, GetLendersResponse, LenderConfigurationResponse, UpsertLenderResponse, UpsertLenderConfigResponse, CreateKycStepsSchema, CreatePaymentGatewaySchema, CreateLenderStateSchema, GetAllPaymentGatewaysSchema, PolicyResponse, CreditCheckBreResponse, MerchantConfigResponse, UserLenderByIdAndStatusResponse, IntgrAvailableCreditLimit, IngtrAvailableLimit, IntgrCreditLimit, PossibleLendersInternal, PossibleLendersInternalResponse, GetTotalKycResponse, GetTotalKycCompletedUsersResponse, GetTotalPendingUsersResponse, GetTotalCreditProvidedResponse, MetaSchemaResponse, MetaSchema, AddMetaSchema, AddMetaSchemaRequest, ValidatePanResponse, ConfirmPanResonse, LenderCountResponse, OnboardStepsDto, OnboardStepsResponse, LenderDocumentResponse, GetUserLendersResponse, CreditReportResponse, KycDetailsReponse, GetDocumentByIdResponse, GetAllFormsResponse, UpsertFormResponse, GstDetails, GstDetailsResponse, RegisterGstResponse, PopulateFormResponse, ValidateFormFieldResponse, LenderCustomerMetricsResponse, ManualKycResponse, BreOutput, CustomerKycDetailsReponse, PlatformFees, CommercialResponse, BlockUserRequestSchema, EditEmailRequestSchema, SendVerificationLinkMobileRequestSchema, EditMobileRequestSchema, UpdateEmail, EditProfileRequestSchema, EditProfileMobileSchema, SendEmailOtpRequestSchema, VerifyEmailOtpRequestSchema, ReSendMobileOtpRequestSchema, ResetPasswordSuccess, RegisterFormSuccess, VerifyEmailSuccess, BlockUserSuccess, EmailOtpSuccess, VerifyEmailOTPSuccess, SendMobileVerifyLinkSuccess, SendEmailVerifyLinkSuccess, UserSearchResponseSchema, CustomerListResponseSchema, PaginationSchema, UserObjectSchema, CreateOrganization, UpdateLogo, AddMetaSchemaResponse, UpdateOrganization, UpdateFinancials, Documents, FinancialDetails, GetOrganization, OrganizationDetails, Organization, OrganizationList, OrganizationCount, TeamMembers, Member, Profile, AddTeamMember, UpdateTeamMemberRole, RemoveTeamMemberResponse, AddTeamMemberResponse, ApiKey, UpdateApiHook, ApiHookDetails, UpdateApiHookResponse, OrganizationIp, AddOrganizationIpDetails, AddUpdateCsvFileResponse, AddUpdateCsvFileRequest, CsvFile, AddReportCsvFileResponse, AddReportCsvFileRequest, ReportCsvFileResponse, AddReportRequestArray, AddReportRequest, AddReportResponseArray, AddReportResponse, VintageDataResponseObject, VintageDataResponse, AddSkuRequestArray, AddSkuRequest, AddSkuResponse, RestrictedSkuSchema, OrganizationIpResponse, OrganizationIpDetails, RefundSuccess, RefundItem, ValidateCredentialsData, ValidateCredentialsResponse, PaymentLinkResponse, ApplicationCutomer, GeoLocation, Address, OrderItems, PaymentLinkRequest, UpdateLenderStatusSchemaRequest, UpdateLenderStatusSchemaResponse, LenderTheme, LenderDetails, OutstandingData, OutstandingDetailsResponse, CreateUserRequestSchema, CreateUserResponseSchema, RepaymentUsingNetbanking, RepaymentUsingNetbankingResponse, RepaymentUsingUPI, RepaymentUsingUPIResponse, RegisterUPIMandateRequest, RegisterUPIMandateResponse, RegisterUPIMandateStatusCheckRequest, RegisterMandateStatusCheckResponse, TransactionStatusRequest, TransactionStatusResponse, BankList, PaymentsObject, OutstandingDetail, OutstandingSummary, DueSummaryOutstanding, OutstandingMessage, UserCredit, DueTransactionsOutstanding, RepaymentSummaryOutstanding, OutstandingDetailsRepayment, PaymentOptionsResponse, CheckEMandateStatusRequest, AutoPayStatusResponse, MetaResponse, OutstandingDetailsData };
 }
 /**
  * @typedef IntegrationResponseMeta
@@ -25,7 +26,7 @@ declare namespace PlatformClient {
  * @property {string} message
  * @property {string} exception
  * @property {string} [field]
- * @property {string} [in]
+ * @property {string} [location]
  */
 /**
  * @typedef IntegrationSuccessResponse
@@ -308,6 +309,14 @@ declare namespace PlatformClient {
  * @property {OrderAddress} [billingAddress]
  */
 /**
+ * @typedef VerifyOrder
+ * @property {number} valueInPaise
+ * @property {string} [uid]
+ * @property {Items[]} [items]
+ * @property {OrderAddress} [shippingAddress]
+ * @property {OrderAddress} [billingAddress]
+ */
+/**
  * @typedef OrderUid
  * @property {number} [valueInPaise]
  * @property {string} uid
@@ -331,9 +340,9 @@ declare namespace PlatformClient {
  * @property {number} [longitude]
  */
 /**
- * @typedef VerifyCustomer
+ * @typedef ValidateCustomer
  * @property {CustomerObject} customer
- * @property {Order} order
+ * @property {VerifyOrder} order
  * @property {Device} device
  * @property {Object} [meta]
  * @property {boolean} [fetchLimitOptions]
@@ -357,7 +366,7 @@ declare namespace PlatformClient {
  * @property {OrderUid} order
  */
 /**
- * @typedef VerifyCustomerSuccess
+ * @typedef ValidateCustomerSuccess
  * @property {string} status
  * @property {string} userStatus
  * @property {string} message
@@ -623,6 +632,7 @@ declare namespace PlatformClient {
 /**
  * @typedef TabsSchema
  * @property {string} title
+ * @property {ActionSchema} [action]
  * @property {PageSchema} page
  * @property {string} icon
  * @property {string} activeIcon
@@ -841,6 +851,7 @@ declare namespace PlatformClient {
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {UserSchema[]} listOfUsers
+ * @property {Object} [__headers]
  */
 /**
  * @typedef UserDetailRequest
@@ -1109,15 +1120,13 @@ declare namespace PlatformClient {
  * @property {string} [message]
  * @property {string} [redirectUrl]
  * @property {CreditLimitObject[]} [creditLimits]
+ * @property {Object} [__headers]
  */
 /**
  * @typedef CheckEligibilityRequest
  * @property {CustomerObject} customer
  * @property {Order} [order]
- * @property {BusinessDetails} [businessDetails]
- * @property {DocumentItems[]} [documents]
  * @property {Device} device
- * @property {VintageItems[]} [vintage]
  * @property {Object} [meta]
  * @property {boolean} [fetchLimitOptions]
  */
@@ -1203,6 +1212,22 @@ declare namespace PlatformClient {
 /**
  * @typedef VerifyMagicLinkRequest
  * @property {string} token
+ */
+/**
+ * @typedef VintageData
+ * @property {CustomerObject} [customer]
+ * @property {BusinessDetails} businessDetails
+ * @property {DocumentItems[]} [documents]
+ * @property {Device} [device]
+ * @property {VintageItems[]} vintage
+ * @property {Object} [meta]
+ */
+/**
+ * @typedef AddVintageResponse
+ * @property {string} [mesasge]
+ * @property {IntegrationResponseMeta} [meta]
+ * @property {Object} [data]
+ * @property {Object} [__headers]
  */
 /**
  * @typedef DisbursalRequest
@@ -1575,6 +1600,18 @@ declare namespace PlatformClient {
  * @property {string} number
  * @property {number} amount
  * @property {string} type
+ * @property {string} dueDate
+ * @property {number} repaidAmount
+ * @property {boolean} isSettled
+ * @property {TransactionLoanEmi[]} [emis]
+ */
+/**
+ * @typedef TransactionLoanEmi
+ * @property {number} amount
+ * @property {string} dueDate
+ * @property {number} installmentNo
+ * @property {number} repaidAmount
+ * @property {boolean} isSettled
  */
 /**
  * @typedef TransactionLender
@@ -1595,7 +1632,7 @@ declare namespace PlatformClient {
  * @property {boolean} isMasked
  * @property {TransactionOrder} [order]
  * @property {TransactionMerchant} merchant
- * @property {TransactionLoan} [loan]
+ * @property {TransactionLoan[]} [loans]
  * @property {TransactionLender} [lender]
  */
 /**
@@ -2242,15 +2279,6 @@ declare namespace PlatformClient {
  * @property {string} [pincode]
  */
 /**
- * @typedef VintageData
- * @property {number} month
- * @property {number} year
- * @property {number} totalTransactions
- * @property {number} totalTransactionAmount
- * @property {number} [totalCancellations]
- * @property {number} [totalCancellationAmount]
- */
-/**
  * @typedef DocumentObjects
  * @property {string} number
  * @property {string} category
@@ -2260,6 +2288,14 @@ declare namespace PlatformClient {
  * @property {string} [issuedAt]
  * @property {string} [issuedBy]
  * @property {string} [expiryOn]
+ */
+/**
+ * @typedef AddVintageRequest
+ * @property {Object} user
+ * @property {BusinessDetail} businessDetails
+ * @property {VintageData} vintageData
+ * @property {DocumentObjects} documents
+ * @property {MerchantSchema} merchant
  */
 /**
  * @typedef KycCountByStatus
@@ -3476,6 +3512,31 @@ declare namespace PlatformClient {
  * @property {Object} [data]
  */
 /**
+ * @typedef LenderTheme
+ * @property {string} [iconUrl]
+ * @property {string} [logoUrl]
+ */
+/**
+ * @typedef LenderDetails
+ * @property {string} [slug]
+ * @property {string} [name]
+ * @property {string} [id]
+ * @property {LenderTheme} [theme]
+ */
+/**
+ * @typedef OutstandingData
+ * @property {LenderDetails} [lenderDetails]
+ * @property {number} [availableLimit]
+ * @property {number} [creditLimit]
+ * @property {number} [dueAmount]
+ * @property {number} [outstandingAmount]
+ * @property {string} [dueDate]
+ */
+/**
+ * @typedef OutstandingDetailsResponse
+ * @property {OutstandingData[]} [outstandingDetails]
+ */
+/**
  * @typedef CreateUserRequestSchema
  * @property {string} mobile
  * @property {string} [email]
@@ -3487,6 +3548,190 @@ declare namespace PlatformClient {
  * @typedef CreateUserResponseSchema
  * @property {UserSchema} [user]
  */
+/**
+ * @typedef RepaymentUsingNetbanking
+ * @property {number} amount
+ * @property {string} bankId
+ * @property {string} bankName
+ * @property {string} [chargeToken]
+ * @property {string} [transactionId]
+ */
+/**
+ * @typedef RepaymentUsingNetbankingResponse
+ * @property {string} [form]
+ * @property {boolean} [isDifferent]
+ * @property {string} [outstanding]
+ */
+/**
+ * @typedef RepaymentUsingUPI
+ * @property {number} amount
+ * @property {string} vpa
+ * @property {string} [chargeToken]
+ * @property {string} [transactionId]
+ */
+/**
+ * @typedef RepaymentUsingUPIResponse
+ * @property {boolean} [isDifferent]
+ * @property {string} [outstanding]
+ * @property {string} [status]
+ * @property {string} [intentId]
+ * @property {string} [transactionId]
+ * @property {number} [expiry]
+ * @property {number} [interval]
+ */
+/**
+ * @typedef RegisterUPIMandateRequest
+ * @property {string} [vpa]
+ */
+/**
+ * @typedef RegisterUPIMandateResponse
+ * @property {string} [transactionId]
+ * @property {number} [expiry]
+ * @property {number} [interval]
+ */
+/**
+ * @typedef RegisterUPIMandateStatusCheckRequest
+ * @property {string} [transactionId]
+ */
+/**
+ * @typedef RegisterMandateStatusCheckResponse
+ * @property {string} [status]
+ */
+/**
+ * @typedef TransactionStatusRequest
+ * @property {string} intentId
+ * @property {string} transactionId
+ */
+/**
+ * @typedef TransactionStatusResponse
+ * @property {boolean} success
+ * @property {string} [methodType]
+ * @property {string} [methodSubType]
+ * @property {string} [status]
+ */
+/**
+ * @typedef BankList
+ * @property {string} [bankId]
+ * @property {string} [bankName]
+ * @property {number} [rank]
+ * @property {boolean} [popular]
+ * @property {string} [imageUrl]
+ */
+/**
+ * @typedef PaymentsObject
+ * @property {string} [title]
+ * @property {string} [kind]
+ * @property {PaymentOptions[]} [options]
+ */
+/**
+ * @typedef OutstandingDetail
+ * @property {string} [status]
+ * @property {boolean} [action]
+ * @property {OutstandingMessage} [message]
+ * @property {UserCredit} [credit]
+ * @property {DueSummaryOutstanding} [dueSummary]
+ * @property {OutstandingSummary} [outstandingSummary]
+ * @property {string} [entityMapId]
+ */
+/**
+ * @typedef OutstandingSummary
+ * @property {number} [totalOutstanding]
+ * @property {number} [totalOutstandingWithInterest]
+ * @property {number} [totalOutstandingPenalty]
+ * @property {number} [availableLimit]
+ * @property {boolean} [isOverdue]
+ * @property {string} [dueFromDate]
+ * @property {RepaymentSummaryOutstanding[]} [repaymentSummary]
+ */
+/**
+ * @typedef DueSummaryOutstanding
+ * @property {string} [dueDate]
+ * @property {number} [totalDue]
+ * @property {number} [totalDueWithInterest]
+ * @property {number} [totalDuePenalty]
+ * @property {DueTransactionsOutstanding[]} [dueTransactions]
+ * @property {number} [minAmntDue]
+ */
+/**
+ * @typedef OutstandingMessage
+ * @property {string} [dueMessage]
+ * @property {string} [backgroundColor]
+ * @property {string} [textColor]
+ * @property {boolean} [isFlexiRepayEnabled]
+ */
+/**
+ * @typedef UserCredit
+ * @property {number} [availableLimit]
+ * @property {number} [approvedLimit]
+ * @property {boolean} [isEligibleToDrawdown]
+ */
+/**
+ * @typedef DueTransactionsOutstanding
+ * @property {string} [loanRequestNo]
+ * @property {string} [merchantCategory]
+ * @property {number} [installmentAmountWithInterest]
+ * @property {number} [installmentAmount]
+ * @property {number} [dueAmount]
+ * @property {string} [loanType]
+ * @property {string} [installmentNo]
+ * @property {string} [installmentDueDate]
+ * @property {boolean} [isPastDue]
+ * @property {boolean} [isPenaltyCharged]
+ * @property {number} [penaltyAmount]
+ * @property {number} [noOfDaysPenaltyCharged]
+ * @property {number} [daysDifference]
+ * @property {string} [lenderTransactionId]
+ */
+/**
+ * @typedef RepaymentSummaryOutstanding
+ * @property {string} [loanRequestNo]
+ * @property {string} [loanType]
+ * @property {string} [merchantCategory]
+ * @property {boolean} [isBbillingTransaction]
+ * @property {number} [totalInstallmentAmount]
+ * @property {number} [totalInstallmentAmountWithInterest]
+ * @property {OutstandingDetailsRepayment[]} [outstandingDetails]
+ */
+/**
+ * @typedef OutstandingDetailsRepayment
+ * @property {number} [installmentAmountWithInterest]
+ * @property {number} [installmentAmount]
+ * @property {number} [dueAmount]
+ * @property {string} [installmentNo]
+ * @property {string} [installmentDueDate]
+ * @property {boolean} [isPastDue]
+ * @property {string} [loanType]
+ * @property {boolean} [isPenaltyCharged]
+ * @property {number} [penaltyAmount]
+ * @property {number} [noOfDaysPenaltyCharged]
+ * @property {string} [lenderTransactionId]
+ */
+/**
+ * @typedef PaymentOptionsResponse
+ * @property {PaymentsObject[]} [paymentOptions]
+ */
+/**
+ * @typedef CheckEMandateStatusRequest
+ * @property {string} [orderId]
+ * @property {string} [paymentId]
+ * @property {string} [scheduledEnd]
+ * @property {string} [ruleAmountValue]
+ */
+/**
+ * @typedef AutoPayStatusResponse
+ * @property {string} [status]
+ */
+/**
+ * @typedef MetaResponse
+ * @property {string} [timestamp]
+ * @property {string} [version]
+ * @property {string} [product]
+ * @property {string} [requestId]
+ */
+/**
+ * @typedef OutstandingDetailsData
+ * @property {OutstandingData[]} [outstandingDetails]
+ */
 declare class Customer {
     constructor(config: any);
     config: any;
@@ -3494,27 +3739,27 @@ declare class Customer {
      * @param {Object} arg - Arg object.
      * @param {String} session - Session of the user
      * @param {string} arg.organizationId - This is organizationId
-     * @param {VerifyCustomer} arg.body
-     * @summary: Verify Customer
-     * @description: Use this API to verify the customer based on  mobile number and countryCode.
+     * @param {ValidateCustomer} arg.body
+     * @summary: Validate Customer
+     * @description: The Validate Customer API processes validity checks using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. It returns `Enabled` if the transaction is allowed.
      */
-    verify({ body, session }?: any): Promise<any>;
+    validate({ body, session }?: any): Promise<any>;
     /**
      * @param {Object} arg - Arg object.
      * @param {String} session - Session of the user
      * @param {string} arg.organizationId - This is organizationId
      * @param {CreateTransaction} arg.body
-     * @summary: Create Order
-     * @description: Use this API to create transaction for user
+     * @summary: Create Transaction
+     * @description: The Create Transaction API processes transactions using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. If the transaction is allowed, it returns `Enabled` along with the redirect URL and the user status as authorized.
      */
-    createOrder({ body, session }?: any): Promise<any>;
+    createTransaction({ body, session }?: any): Promise<any>;
     /**
      * @param {Object} arg - Arg object.
      * @param {String} session - Session of the user
      * @param {string} arg.organizationId - This is organizationId
      * @param {LinkAccount} arg.body
      * @summary: Link account
-     * @description: Use this API to link account with merchant
+     * @description: The Link API generates a merchant-linked session for the user, enabling automatic login to complete payment or repayment activities seamlessly. This session ensures a smooth and secure transaction process without requiring the user to manually log in.
      */
     link({ body, session }?: any): Promise<any>;
     /**
@@ -3523,7 +3768,7 @@ declare class Customer {
      * @param {string} arg.organizationId - This is organizationId
      * @param {UnlinkAccount} arg.body
      * @summary: Unlink account
-     * @description: Use this API to unlink account from merchant
+     * @description: The Unlink API serves as the reverse of the Link API. It terminates the merchant-linked session for the user, effectively logging them out and preventing any further automatic login for payment or repayment activities. This ensures security and control over session management.
      */
     unlink({ body, session }?: any): Promise<any>;
     /**
@@ -3531,8 +3776,8 @@ declare class Customer {
      * @param {String} session - Session of the user
      * @param {string} arg.organizationId - This is organizationId
      * @param {Refund} arg.body
-     * @summary: Refund customer order amount
-     * @description: Use this API to verify the refund customer order amount
+     * @summary: Refund Order
+     * @description: The Refund API processes refunds based on business arrangements and returns the corresponding status of the refund request. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
      */
     refund({ body, session }?: any): Promise<any>;
     /**
@@ -3541,8 +3786,8 @@ declare class Customer {
      * @param {string} arg.organizationId - This is organizationId
      * @param {string} [arg.refundId] - This is the refund ID
      * @param {string} [arg.orderId] - This is the order ID
-     * @summary: Refund status
-     * @description: Use this API to fetch the refund status
+     * @summary: Check Refund status
+     * @description: The Refund Status API returns the current status of a refund request based on business arrangements. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
      */
     refundStatus({ refundId, orderId, session }?: any): Promise<any>;
     /**
@@ -3550,19 +3795,50 @@ declare class Customer {
      * @param {String} session - Session of the user
      * @param {string} arg.organizationId - This is organizationId
      * @param {GetSchemesRequest} arg.body
-     * @summary: Fetch schemes
-     * @description: Use this API to fetch available schemes for user order.
+     * @summary: Get schemes
+     * @description: The Schemes API returns Buy Now, Pay Later (BNPL) and EMI plans offered by lenders for the user. It provides details on available financing options, including terms and conditions for both BNPL and EMI arrangements.
      */
     getSchemes({ body, session }?: any): Promise<any>;
     /**
      * @param {Object} arg - Arg object.
      * @param {String} session - Session of the user
      * @param {string} arg.organizationId - This is organizationId
+     * @param {CheckEligibilityRequest} arg.body
+     * @summary: Check Credit Eligibility
+     * @description: Use this API to pre approve by checking the customer's credit eligibility based on mobile number and countryCode and vintage data of monthly transactions.
+     */
+    checkEligibility({ body, session }?: any): Promise<any>;
+    /**
+     * @param {Object} arg - Arg object.
+     * @param {String} session - Session of the user
+     * @param {string} arg.organizationId - This is organizationId
      * @param {RepaymentRequest} arg.body
-     * @summary: Repayment link
-     * @description: Use this API to get repayment link. User should be redirected to this URL to complete the repayment.
+     * @summary: Get Repayment link
+     * @description: The Repayment Link API generates a repayment link based on the current outstanding balance. The URL provided allows users to make payments and settle their outstanding amounts directly.
      */
     getRepaymentLink({ body, session }?: any): Promise<any>;
+    /**
+     * @param {Object} arg - Arg object.
+     * @param {String} session - Session of the user
+     * @param {string} arg.organizationId - This is organizationId
+     * @param {number} arg.page - This is page number
+     * @param {number} arg.limit - This is no of transaction
+     * @param {string} [arg.name] - This is name for filter
+     * @param {string} [arg.id] - This is uuid for filter
+     * @param {string} [arg.mobile] - This is Mobile Number for filter
+     * @summary: Get List of Users
+     * @description: The Customer Listing API returns a paginated list of users associated with the specified organization. Supports filtering by various query parameters such as name, ID, and mobile number.
+     */
+    getAll({ page, limit, name, id, mobile, session }?: any): Promise<any>;
+    /**
+     * @param {Object} arg - Arg object.
+     * @param {String} session - Session of the user
+     * @param {string} arg.organizationId - This is organizationId
+     * @param {VintageData} arg.body
+     * @summary: Add user vintage details
+     * @description: Use this API to add vintage details of the user.
+     */
+    addVintageData({ body, session }?: any): Promise<any>;
 }
 declare class Credit {
     constructor(config: any);
@@ -3599,20 +3875,21 @@ declare class Credit {
      * @param {Object} arg - Arg object.
      * @param {String} session - Session of the user
      * @param {string} arg.organizationId - The unique identifier of the organization
-     * @param {number} [arg.page] - The page number of the transaction list
-     * @param {Object} [arg.type] - The transaction type
-     * @param {Object} [arg.status] - The transaction status
-     * @param {number} [arg.limit] - The number of transactions to fetch
-     * @param {string} [arg.countryCode] - The country code of the user's mobile number.
      * @param {string} arg.mobile - The mobile number of the user
+     * @param {string} [arg.countryCode] - The country code of the user's mobile number.
+     * @param {number} [arg.page] - The page number of the transaction list
+     * @param {number} [arg.limit] - The number of transactions to fetch
      * @param {string} [arg.orderId] - The order ID
      * @param {string} [arg.transactionId] - The transaction ID
+     * @param {Object} [arg.type] - The transaction type
+     * @param {Object} [arg.status] - The transaction status
      * @param {boolean} [arg.onlySelf] - Set this flag to true to fetch
      *   transactions exclusively for your organization, excluding other organizations.
+     * @param {string} [arg.granularity] - Defines the granularity of transaction details.
      * @summary: Get list of user transactions
      * @description: Retrieves a paginated list of transactions associated with a specific organization, sorted from the latest to the oldest. This endpoint allows filtering transactions based on various criteria and supports pagination.
      */
-    getTransactions({ mobile, page, type, status, limit, countryCode, orderId, transactionId, onlySelf, session, }?: any): Promise<any>;
+    getTransactions({ mobile, countryCode, page, limit, orderId, transactionId, type, status, onlySelf, granularity, session, }?: any): Promise<any>;
 }
 declare class MultiKyc {
     constructor(config: any);
@@ -3667,6 +3944,21 @@ declare class Merchant {
         organizationId: string;
     }): Promise<any>;
 }
+declare class Payments {
+    constructor(config: any);
+    config: any;
+    /**
+     * @param {Object} arg - Arg object.
+     * @param {String} session - Session of the user
+     * @param {string} arg.mobile - Mobile number of the user
+     * @param {string} arg.organizationId - Organization id of the merchant.
+     * @param {string[]} [arg.lenderSlugs] - This is list of lender slugs. eg.
+     *   ['cashe','liquiloans']
+     * @summary: Get user outstanding details.
+     * @description: This api is for getting outstanding details for the user with all the lenders.
+     */
+    getOutStandingDetails({ mobile, lenderSlugs, session }?: any): Promise<any>;
+}
 import PlatformApplicationClient = require("./PlatformApplicationClient");
 type IntegrationResponseMeta = {
     timestamp: string;
@@ -3679,7 +3971,7 @@ type IntegrationResponseError = {
     message: string;
     exception: string;
     field?: string;
-    in?: string;
+    location?: string;
 };
 type IntegrationSuccessResponse = {
     message: string;
@@ -3926,6 +4218,13 @@ type Order = {
     shippingAddress?: OrderAddress;
     billingAddress?: OrderAddress;
 };
+type VerifyOrder = {
+    valueInPaise: number;
+    uid?: string;
+    items?: Items[];
+    shippingAddress?: OrderAddress;
+    billingAddress?: OrderAddress;
+};
 type OrderUid = {
     valueInPaise?: number;
     uid: string;
@@ -3946,9 +4245,9 @@ type Device = {
     latitude?: number;
     longitude?: number;
 };
-type VerifyCustomer = {
+type ValidateCustomer = {
     customer: CustomerObject;
-    order: Order;
+    order: VerifyOrder;
     device: Device;
     meta?: any;
     fetchLimitOptions?: boolean;
@@ -3969,7 +4268,7 @@ type ResendPaymentRequest = {
     customer: CustomerObject;
     order: OrderUid;
 };
-type VerifyCustomerSuccess = {
+type ValidateCustomerSuccess = {
     status: string;
     userStatus: string;
     message: string;
@@ -4200,6 +4499,7 @@ type NavigationsMobileResponse = {
 };
 type TabsSchema = {
     title: string;
+    action?: ActionSchema;
     page: PageSchema;
     icon: string;
     activeIcon: string;
@@ -4207,7 +4507,7 @@ type TabsSchema = {
 };
 type PageSchema = {
     link?: string;
-    type?: PageType;
+    type?: any;
     params?: any;
     query?: any;
 };
@@ -4382,6 +4682,7 @@ type UserResponse = {
     filters: Filters[];
     page: PageResponse;
     listOfUsers: UserSchema[];
+    __headers?: any;
 };
 type UserDetailRequest = {
     id: string;
@@ -4614,14 +4915,12 @@ type EligibilitySuccess = {
     message?: string;
     redirectUrl?: string;
     creditLimits?: CreditLimitObject[];
+    __headers?: any;
 };
 type CheckEligibilityRequest = {
     customer: CustomerObject;
     order?: Order;
-    businessDetails?: BusinessDetails;
-    documents?: DocumentItems[];
     device: Device;
-    vintage?: VintageItems[];
     meta?: any;
     fetchLimitOptions?: boolean;
 };
@@ -4695,6 +4994,20 @@ type VerifyMagicLinkResponse = {
 };
 type VerifyMagicLinkRequest = {
     token: string;
+};
+type VintageData = {
+    customer?: CustomerObject;
+    businessDetails: BusinessDetails;
+    documents?: DocumentItems[];
+    device?: Device;
+    vintage: VintageItems[];
+    meta?: any;
+};
+type AddVintageResponse = {
+    mesasge?: string;
+    meta?: IntegrationResponseMeta;
+    data?: any;
+    __headers?: any;
 };
 type DisbursalRequest = {
     fingerprint?: string;
@@ -5014,6 +5327,17 @@ type TransactionLoan = {
     number: string;
     amount: number;
     type: string;
+    dueDate: string;
+    repaidAmount: number;
+    isSettled: boolean;
+    emis?: TransactionLoanEmi[];
+};
+type TransactionLoanEmi = {
+    amount: number;
+    dueDate: string;
+    installmentNo: number;
+    repaidAmount: number;
+    isSettled: boolean;
 };
 type TransactionLender = {
     name: string;
@@ -5032,7 +5356,7 @@ type UserTransaction = {
     isMasked: boolean;
     order?: TransactionOrder;
     merchant: TransactionMerchant;
-    loan?: TransactionLoan;
+    loans?: TransactionLoan[];
     lender?: TransactionLender;
 };
 type Pagination = {
@@ -5601,14 +5925,6 @@ type BusinessDetail = {
     type?: string;
     pincode?: string;
 };
-type VintageData = {
-    month: number;
-    year: number;
-    totalTransactions: number;
-    totalTransactionAmount: number;
-    totalCancellations?: number;
-    totalCancellationAmount?: number;
-};
 type DocumentObjects = {
     number: string;
     category: string;
@@ -5618,6 +5934,13 @@ type DocumentObjects = {
     issuedAt?: string;
     issuedBy?: string;
     expiryOn?: string;
+};
+type AddVintageRequest = {
+    user: any;
+    businessDetails: BusinessDetail;
+    vintageData: VintageData;
+    documents: DocumentObjects;
+    merchant: MerchantSchema;
 };
 type KycCountByStatus = {
     startDate?: string;
@@ -6658,6 +6981,27 @@ type UpdateLenderStatusSchemaResponse = {
     enable?: boolean;
     data?: any;
 };
+type LenderTheme = {
+    iconUrl?: string;
+    logoUrl?: string;
+};
+type LenderDetails = {
+    slug?: string;
+    name?: string;
+    id?: string;
+    theme?: LenderTheme;
+};
+type OutstandingData = {
+    lenderDetails?: LenderDetails;
+    availableLimit?: number;
+    creditLimit?: number;
+    dueAmount?: number;
+    outstandingAmount?: number;
+    dueDate?: string;
+};
+type OutstandingDetailsResponse = {
+    outstandingDetails?: OutstandingData[];
+};
 type CreateUserRequestSchema = {
     mobile: string;
     email?: string;
@@ -6667,4 +7011,163 @@ type CreateUserRequestSchema = {
 };
 type CreateUserResponseSchema = {
     user?: UserSchema;
+};
+type RepaymentUsingNetbanking = {
+    amount: number;
+    bankId: string;
+    bankName: string;
+    chargeToken?: string;
+    transactionId?: string;
+};
+type RepaymentUsingNetbankingResponse = {
+    form?: string;
+    isDifferent?: boolean;
+    outstanding?: string;
+};
+type RepaymentUsingUPI = {
+    amount: number;
+    vpa: string;
+    chargeToken?: string;
+    transactionId?: string;
+};
+type RepaymentUsingUPIResponse = {
+    isDifferent?: boolean;
+    outstanding?: string;
+    status?: string;
+    intentId?: string;
+    transactionId?: string;
+    expiry?: number;
+    interval?: number;
+};
+type RegisterUPIMandateRequest = {
+    vpa?: string;
+};
+type RegisterUPIMandateResponse = {
+    transactionId?: string;
+    expiry?: number;
+    interval?: number;
+};
+type RegisterUPIMandateStatusCheckRequest = {
+    transactionId?: string;
+};
+type RegisterMandateStatusCheckResponse = {
+    status?: string;
+};
+type TransactionStatusRequest = {
+    intentId: string;
+    transactionId: string;
+};
+type TransactionStatusResponse = {
+    success: boolean;
+    methodType?: string;
+    methodSubType?: string;
+    status?: string;
+};
+type BankList = {
+    bankId?: string;
+    bankName?: string;
+    rank?: number;
+    popular?: boolean;
+    imageUrl?: string;
+};
+type PaymentsObject = {
+    title?: string;
+    kind?: string;
+    options?: PaymentOptions[];
+};
+type OutstandingDetail = {
+    status?: string;
+    action?: boolean;
+    message?: OutstandingMessage;
+    credit?: UserCredit;
+    dueSummary?: DueSummaryOutstanding;
+    outstandingSummary?: OutstandingSummary;
+    entityMapId?: string;
+};
+type OutstandingSummary = {
+    totalOutstanding?: number;
+    totalOutstandingWithInterest?: number;
+    totalOutstandingPenalty?: number;
+    availableLimit?: number;
+    isOverdue?: boolean;
+    dueFromDate?: string;
+    repaymentSummary?: RepaymentSummaryOutstanding[];
+};
+type DueSummaryOutstanding = {
+    dueDate?: string;
+    totalDue?: number;
+    totalDueWithInterest?: number;
+    totalDuePenalty?: number;
+    dueTransactions?: DueTransactionsOutstanding[];
+    minAmntDue?: number;
+};
+type OutstandingMessage = {
+    dueMessage?: string;
+    backgroundColor?: string;
+    textColor?: string;
+    isFlexiRepayEnabled?: boolean;
+};
+type UserCredit = {
+    availableLimit?: number;
+    approvedLimit?: number;
+    isEligibleToDrawdown?: boolean;
+};
+type DueTransactionsOutstanding = {
+    loanRequestNo?: string;
+    merchantCategory?: string;
+    installmentAmountWithInterest?: number;
+    installmentAmount?: number;
+    dueAmount?: number;
+    loanType?: string;
+    installmentNo?: string;
+    installmentDueDate?: string;
+    isPastDue?: boolean;
+    isPenaltyCharged?: boolean;
+    penaltyAmount?: number;
+    noOfDaysPenaltyCharged?: number;
+    daysDifference?: number;
+    lenderTransactionId?: string;
+};
+type RepaymentSummaryOutstanding = {
+    loanRequestNo?: string;
+    loanType?: string;
+    merchantCategory?: string;
+    isBbillingTransaction?: boolean;
+    totalInstallmentAmount?: number;
+    totalInstallmentAmountWithInterest?: number;
+    outstandingDetails?: OutstandingDetailsRepayment[];
+};
+type OutstandingDetailsRepayment = {
+    installmentAmountWithInterest?: number;
+    installmentAmount?: number;
+    dueAmount?: number;
+    installmentNo?: string;
+    installmentDueDate?: string;
+    isPastDue?: boolean;
+    loanType?: string;
+    isPenaltyCharged?: boolean;
+    penaltyAmount?: number;
+    noOfDaysPenaltyCharged?: number;
+    lenderTransactionId?: string;
+};
+type PaymentOptionsResponse = {
+    paymentOptions?: PaymentsObject[];
+};
+type CheckEMandateStatusRequest = {
+    orderId?: string;
+    paymentId?: string;
+    scheduledEnd?: string;
+    ruleAmountValue?: string;
+};
+type AutoPayStatusResponse = {
+    status?: string;
+};
+type MetaResponse = {
+    timestamp?: string;
+    version?: string;
+    product?: string;
+    requestId?: string;
+};
+type OutstandingDetailsData = {
+    outstandingDetails?: OutstandingData[];
 };
