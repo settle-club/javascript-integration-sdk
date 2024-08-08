@@ -56,8 +56,6 @@ class Validator {
       transactionId: Joi.string().allow(""),
 
       refundId: Joi.string().allow(""),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -628,8 +626,6 @@ class Validator {
       schemes: Joi.array().items(this.SchemeResponse()),
 
       limit: this.LimitResponse(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -646,8 +642,6 @@ class Validator {
       status: Joi.string().allow(""),
 
       userStatus: Joi.string().allow(""),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1345,8 +1339,6 @@ class Validator {
       message: Joi.string().allow(""),
 
       errorCode: Joi.string().allow(""),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1369,8 +1361,6 @@ class Validator {
       userStatus: Joi.string().allow(""),
 
       errorCode: Joi.string().allow(""),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1449,8 +1439,6 @@ class Validator {
       page: this.PageResponse().required(),
 
       listOfUsers: Joi.array().items(this.UserSchema()).required(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1611,8 +1599,6 @@ class Validator {
       loanAccountNumber: Joi.string().allow(""),
 
       refund: Joi.array().items(this.RefundStatusList()),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1621,8 +1607,6 @@ class Validator {
       userId: Joi.string().allow(""),
 
       lenders: Joi.array().items(this.SchemeResponse()).required(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -1917,8 +1901,6 @@ class Validator {
       redirectUrl: Joi.string().allow(""),
 
       creditLimits: Joi.array().items(this.CreditLimitObject()),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -2047,8 +2029,6 @@ class Validator {
       meta: this.IntegrationResponseMeta().required(),
 
       data: this.RepaymentResponseData().required(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -2101,8 +2081,6 @@ class Validator {
       meta: this.IntegrationResponseMeta(),
 
       data: Joi.any(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -2237,8 +2215,6 @@ class Validator {
   static EligiblePlansResponse() {
     return Joi.object({
       eligiblePlans: Joi.array().items(this.EligiblePlans()),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -2261,8 +2237,6 @@ class Validator {
       status: Joi.string().allow("").required(),
 
       message: Joi.string().allow("").required(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -2911,8 +2885,6 @@ class Validator {
       meta: this.IntegrationResponseMeta().required(),
 
       data: this.GetTransactionsData().required(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -2996,7 +2968,19 @@ class Validator {
 
       transactionId: Joi.string().allow(""),
 
+      includeSummary: Joi.boolean(),
+
       shipments: Joi.array().items(this.OrderShipment()).required(),
+    });
+  }
+
+  static OrderShipmentSummary() {
+    return Joi.object({
+      totalAmount: Joi.number().required(),
+
+      processedAmount: Joi.number().required(),
+
+      unprocessedAmount: Joi.number().required(),
     });
   }
 
@@ -3004,7 +2988,7 @@ class Validator {
     return Joi.object({
       id: Joi.string().allow("").required(),
 
-      urn: Joi.string().allow(""),
+      urn: Joi.string().allow("").required(),
 
       shipmentStatus: Joi.string().allow("").required(),
 
@@ -3021,6 +3005,8 @@ class Validator {
       transactionId: Joi.string().allow("").required(),
 
       shipments: Joi.array().items(this.OrderShipmentResponse()).required(),
+
+      summary: this.OrderShipmentSummary().required(),
     });
   }
 
@@ -3033,8 +3019,6 @@ class Validator {
       data: this.OrderDeliveryUpdatesData().required(),
 
       errors: Joi.array().items(this.IntegrationResponseError()),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -3093,8 +3077,6 @@ class Validator {
       entityId: Joi.string().allow(""),
 
       entityMapId: Joi.string().allow(""),
-
-      lenderUserId: Joi.string().allow("").required(),
     });
   }
 
@@ -3117,10 +3099,6 @@ class Validator {
       report: Joi.string().allow("").required(),
 
       createdAt: Joi.string().allow(""),
-
-      updatedAt: Joi.string().allow(""),
-
-      deletedAt: Joi.string().allow(""),
     });
   }
 
@@ -3138,9 +3116,9 @@ class Validator {
 
       valid: Joi.boolean().required(),
 
-      createdAt: Joi.string().allow(""),
+      createdAt: Joi.string().allow("").required(),
 
-      updatedAt: Joi.string().allow(""),
+      updatedAt: Joi.string().allow("").required(),
 
       deletedAt: Joi.string().allow(""),
 
@@ -3199,12 +3177,6 @@ class Validator {
       uiSchema: Joi.any(),
 
       workflowId: Joi.string().allow(""),
-
-      createdAt: Joi.string().allow(""),
-
-      updatedAt: Joi.string().allow(""),
-
-      deletedAt: Joi.string().allow(""),
     });
   }
 
@@ -3268,9 +3240,9 @@ class Validator {
 
       documentId: Joi.string().allow(""),
 
-      createdAt: Joi.string().allow(""),
+      createdAt: Joi.string().allow("").required(),
 
-      updatedAt: Joi.string().allow(""),
+      updatedAt: Joi.string().allow("").required(),
 
       deletedAt: Joi.string().allow(""),
 
@@ -3926,6 +3898,24 @@ class Validator {
     });
   }
 
+  static StonewallCustomer() {
+    return Joi.object({
+      mobile: Joi.string().allow(""),
+
+      uid: Joi.string().allow(""),
+    });
+  }
+
+  static GetLimitRequest() {
+    return Joi.object({
+      lenderSlugs: Joi.array().items(Joi.any()),
+
+      onlyDefaultLender: Joi.boolean(),
+
+      customer: this.StonewallCustomer().required(),
+    });
+  }
+
   static DocumentObject() {
     return Joi.object({
       id: Joi.string().allow(""),
@@ -3965,34 +3955,6 @@ class Validator {
       stepId: Joi.string().allow("").required(),
 
       data: Joi.any().required(),
-    });
-  }
-
-  static RetriggerLenderOnboardRequestV2() {
-    return Joi.object({
-      lenderUserId: Joi.string().allow("").required(),
-
-      stepName: Joi.string().allow("").required(),
-
-      data: Joi.any().required(),
-    });
-  }
-
-  static StonewallCustomer() {
-    return Joi.object({
-      mobile: Joi.string().allow(""),
-
-      uid: Joi.string().allow(""),
-    });
-  }
-
-  static GetLimitRequest() {
-    return Joi.object({
-      lenderSlugs: Joi.array().items(Joi.any()),
-
-      onlyDefaultLender: Joi.boolean(),
-
-      customer: this.StonewallCustomer().required(),
     });
   }
 
@@ -4238,12 +4200,6 @@ class Validator {
     });
   }
 
-  static GetKycDocsResponse() {
-    return Joi.object({
-      documents: Joi.array().items(this.FindDocResponse()).required(),
-    });
-  }
-
   static OrganizationLogosObject() {
     return Joi.object({
       id: Joi.string().allow("").required(),
@@ -4339,6 +4295,12 @@ class Validator {
       status: Joi.string().allow("").required(),
 
       approvedLenders: Joi.array().items(this.BreOutput()),
+    });
+  }
+
+  static GetKycDocsResponse() {
+    return Joi.object({
+      documents: Joi.array().items(this.FindDocResponse()).required(),
     });
   }
 
@@ -4449,12 +4411,6 @@ class Validator {
       name: Joi.string().allow("").required(),
 
       active: Joi.boolean().required(),
-
-      createdAt: Joi.string().allow(""),
-
-      updatedAt: Joi.string().allow(""),
-
-      deletedAt: Joi.string().allow(""),
     });
   }
 
@@ -4473,12 +4429,6 @@ class Validator {
       pgId: Joi.string().allow("").required(),
 
       active: Joi.boolean().required(),
-
-      createdAt: Joi.string().allow(""),
-
-      updatedAt: Joi.string().allow(""),
-
-      deletedAt: Joi.string().allow(""),
     });
   }
 
@@ -4688,15 +4638,13 @@ class Validator {
 
       proposedLimit: Joi.number().required(),
 
-      createdAt: Joi.any(),
+      createdAt: Joi.any().required(),
 
-      updatedAt: Joi.any(),
+      updatedAt: Joi.any().required(),
 
       deletedAt: Joi.any(),
 
       isDefault: Joi.boolean(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -4733,8 +4681,6 @@ class Validator {
       availableLimit: Joi.number().required(),
 
       approvedLimit: Joi.number().required(),
-
-      isEligibleToDrawdown: Joi.boolean().required(),
     });
   }
 
@@ -4903,8 +4849,6 @@ class Validator {
   static IntgrCreditLimit() {
     return Joi.object({
       limit: this.IngtrAvailableLimit().required(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -5134,14 +5078,6 @@ class Validator {
     });
   }
 
-  static ManualKycResponse() {
-    return Joi.object({
-      message: Joi.string().allow("").required(),
-
-      step: this.UserKycLenderStepMap().required(),
-    });
-  }
-
   static BreOutput() {
     return Joi.object({
       id: Joi.string().allow("").required(),
@@ -5169,6 +5105,14 @@ class Validator {
       updatedAt: Joi.string().allow("").required(),
 
       deletedAt: Joi.string().allow("").required(),
+    });
+  }
+
+  static ManualKycResponse() {
+    return Joi.object({
+      message: Joi.string().allow("").required(),
+
+      step: this.UserKycLenderStepMap().required(),
     });
   }
 
@@ -6021,8 +5965,6 @@ class Validator {
       meta: this.IntegrationResponseMeta().required(),
 
       data: this.ValidateCredentialsData().required(),
-
-      __headers: Joi.any(),
     });
   }
 
@@ -6490,21 +6432,9 @@ class Validator {
     });
   }
 
-  static MetaResponse() {
-    return Joi.object({
-      timestamp: Joi.string().allow(""),
-
-      version: Joi.string().allow(""),
-
-      product: Joi.string().allow(""),
-
-      requestId: Joi.string().allow(""),
-    });
-  }
-
   static OutstandingDetailsData() {
     return Joi.object({
-      outstandingDetails: Joi.array().items(this.OutstandingData()),
+      outstandingDetails: Joi.array().items(this.OutstandingData()).required(),
     });
   }
 }

@@ -74,7 +74,6 @@ class PlatformClient {
  * @property {string} [message]
  * @property {string} [transactionId]
  * @property {string} [refundId]
- * @property {Object} [__headers]
  */
 
 /**
@@ -250,15 +249,15 @@ class PlatformClient {
 
 /**
  * @typedef UserUpdateRequest
- * @property {Object} [firstName]
- * @property {Object} [lastName]
+ * @property {Object | any} [firstName]
+ * @property {Object | any} [lastName]
  * @property {string} countryCode
  * @property {string} mobile
- * @property {Object} [email]
- * @property {Object} [gender]
- * @property {Object} [dob]
+ * @property {Object | any} [email]
+ * @property {Object | any} [gender]
+ * @property {Object | any} [dob]
  * @property {boolean} [active]
- * @property {Object} [profilePictureUrl]
+ * @property {Object | any} [profilePictureUrl]
  * @property {boolean} [isEmailVerified]
  */
 
@@ -440,7 +439,6 @@ class PlatformClient {
  * @property {string} message
  * @property {SchemeResponse[]} [schemes]
  * @property {LimitResponse} [limit]
- * @property {Object} [__headers]
  */
 
 /**
@@ -451,7 +449,6 @@ class PlatformClient {
  * @property {string} [transactionId]
  * @property {string} [status]
  * @property {string} [userStatus]
- * @property {Object} [__headers]
  */
 
 /**
@@ -920,7 +917,6 @@ class PlatformClient {
  * @property {string} [status]
  * @property {string} [message]
  * @property {string} [errorCode]
- * @property {Object} [__headers]
  */
 
 /**
@@ -936,7 +932,6 @@ class PlatformClient {
  * @property {number} statusCode
  * @property {string} [userStatus]
  * @property {string} [errorCode]
- * @property {Object} [__headers]
  */
 
 /**
@@ -990,7 +985,6 @@ class PlatformClient {
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {UserSchema[]} listOfUsers
- * @property {Object} [__headers]
  */
 
 /**
@@ -1095,14 +1089,12 @@ class PlatformClient {
  * @property {string} [lenderId]
  * @property {string} [loanAccountNumber]
  * @property {RefundStatusList[]} [refund]
- * @property {Object} [__headers]
  */
 
 /**
  * @typedef GetSchemesSuccess
  * @property {string} [userId]
  * @property {SchemeResponse[]} lenders
- * @property {Object} [__headers]
  */
 
 /**
@@ -1295,7 +1287,6 @@ class PlatformClient {
  * @property {string} [message]
  * @property {string} [redirectUrl]
  * @property {CreditLimitObject[]} [creditLimits]
- * @property {Object} [__headers]
  */
 
 /**
@@ -1380,7 +1371,6 @@ class PlatformClient {
  * @property {string} message
  * @property {IntegrationResponseMeta} meta
  * @property {RepaymentResponseData} data
- * @property {Object} [__headers]
  */
 
 /**
@@ -1417,7 +1407,6 @@ class PlatformClient {
  * @property {string} [mesasge]
  * @property {IntegrationResponseMeta} [meta]
  * @property {Object} [data]
- * @property {Object} [__headers]
  */
 
 /**
@@ -1460,7 +1449,6 @@ class PlatformClient {
 /**
  * @typedef EligiblePlansResponse
  * @property {EligiblePlans[]} [eligiblePlans]
- * @property {Object} [__headers]
  */
 
 /**
@@ -1476,7 +1464,6 @@ class PlatformClient {
  * @property {string} [transactionId]
  * @property {string} status
  * @property {string} message
- * @property {Object} [__headers]
  */
 
 /**
@@ -1903,7 +1890,6 @@ class PlatformClient {
  * @property {string} message
  * @property {IntegrationResponseMeta} meta
  * @property {GetTransactionsData} data
- * @property {Object} [__headers]
  */
 
 /**
@@ -1957,13 +1943,21 @@ class PlatformClient {
  * @typedef OrderDeliveryUpdatesBody
  * @property {string} [orderId]
  * @property {string} [transactionId]
+ * @property {boolean} [includeSummary]
  * @property {OrderShipment[]} shipments
+ */
+
+/**
+ * @typedef OrderShipmentSummary
+ * @property {number} totalAmount
+ * @property {number} processedAmount
+ * @property {number} unprocessedAmount
  */
 
 /**
  * @typedef OrderShipmentResponse
  * @property {string} id
- * @property {string} [urn]
+ * @property {string} urn
  * @property {string} shipmentStatus
  * @property {number} shipmentAmount
  * @property {string} processingStatus
@@ -1974,6 +1968,7 @@ class PlatformClient {
  * @property {string} orderId
  * @property {string} transactionId
  * @property {OrderShipmentResponse[]} shipments
+ * @property {OrderShipmentSummary} summary
  */
 
 /**
@@ -1982,7 +1977,6 @@ class PlatformClient {
  * @property {IntegrationResponseMeta} meta
  * @property {OrderDeliveryUpdatesData} data
  * @property {IntegrationResponseError[]} [errors]
- * @property {Object} [__headers]
  */
 
 /**
@@ -2016,7 +2010,6 @@ class PlatformClient {
  * @property {number} approvedLimit
  * @property {string} [entityId]
  * @property {string} [entityMapId]
- * @property {string} lenderUserId
  */
 
 /**
@@ -2030,8 +2023,6 @@ class PlatformClient {
  * @property {string} score
  * @property {string} report
  * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -2042,8 +2033,8 @@ class PlatformClient {
  * @property {string} number
  * @property {Object} detail
  * @property {boolean} valid
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
+ * @property {string} createdAt
+ * @property {string} updatedAt
  * @property {string} [deletedAt]
  * @property {string} [entityId]
  */
@@ -2077,9 +2068,6 @@ class PlatformClient {
  * @property {Object} [form]
  * @property {Object} [uiSchema]
  * @property {string} [workflowId]
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -2115,8 +2103,8 @@ class PlatformClient {
  * @property {boolean} active
  * @property {string} status
  * @property {string} [documentId]
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
+ * @property {string} createdAt
+ * @property {string} updatedAt
  * @property {string} [deletedAt]
  * @property {LenderKycStepMap} [lenderKycStepMap]
  * @property {string} [entityMapId]
@@ -2546,6 +2534,19 @@ class PlatformClient {
  */
 
 /**
+ * @typedef StonewallCustomer
+ * @property {string} [mobile]
+ * @property {string} [uid]
+ */
+
+/**
+ * @typedef GetLimitRequest
+ * @property {Object[]} [lenderSlugs]
+ * @property {boolean} [onlyDefaultLender]
+ * @property {StonewallCustomer} customer
+ */
+
+/**
  * @typedef DocumentObject
  * @property {string} [id]
  * @property {string} [userId]
@@ -2570,26 +2571,6 @@ class PlatformClient {
  * @typedef RetriggerLenderOnboardRequest
  * @property {string} stepId
  * @property {Object} data
- */
-
-/**
- * @typedef RetriggerLenderOnboardRequestV2
- * @property {string} lenderUserId
- * @property {string} stepName
- * @property {Object} data
- */
-
-/**
- * @typedef StonewallCustomer
- * @property {string} [mobile]
- * @property {string} [uid]
- */
-
-/**
- * @typedef GetLimitRequest
- * @property {Object[]} [lenderSlugs]
- * @property {boolean} [onlyDefaultLender]
- * @property {StonewallCustomer} customer
  */
 
 /**
@@ -2742,11 +2723,6 @@ class PlatformClient {
  */
 
 /**
- * @typedef GetKycDocsResponse
- * @property {FindDocResponse[]} documents
- */
-
-/**
  * @typedef OrganizationLogosObject
  * @property {string} id
  * @property {string} name
@@ -2814,6 +2790,11 @@ class PlatformClient {
  */
 
 /**
+ * @typedef GetKycDocsResponse
+ * @property {FindDocResponse[]} documents
+ */
+
+/**
  * @typedef LenderState
  * @property {string} [id]
  * @property {string} name
@@ -2874,9 +2855,6 @@ class PlatformClient {
  * @property {string} id
  * @property {string} name
  * @property {boolean} active
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -2888,9 +2866,6 @@ class PlatformClient {
  * @property {string} lenderId
  * @property {string} pgId
  * @property {boolean} active
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -3033,11 +3008,10 @@ class PlatformClient {
  * @property {string} status
  * @property {boolean} active
  * @property {number} proposedLimit
- * @property {Object} [createdAt]
- * @property {Object} [updatedAt]
- * @property {Object} [deletedAt]
+ * @property {string | string} createdAt
+ * @property {string | string} updatedAt
+ * @property {string | string} [deletedAt]
  * @property {boolean} [isDefault]
- * @property {Object} [__headers]
  */
 
 /**
@@ -3060,7 +3034,6 @@ class PlatformClient {
  * @typedef CreditLimit
  * @property {number} availableLimit
  * @property {number} approvedLimit
- * @property {boolean} isEligibleToDrawdown
  */
 
 /**
@@ -3179,7 +3152,6 @@ class PlatformClient {
 /**
  * @typedef IntgrCreditLimit
  * @property {IngtrAvailableLimit} limit
- * @property {Object} [__headers]
  */
 
 /**
@@ -3352,12 +3324,6 @@ class PlatformClient {
  */
 
 /**
- * @typedef ManualKycResponse
- * @property {string} message
- * @property {UserKycLenderStepMap} step
- */
-
-/**
  * @typedef BreOutput
  * @property {string} id
  * @property {string} userId
@@ -3372,6 +3338,12 @@ class PlatformClient {
  * @property {string} createdAt
  * @property {string} updatedAt
  * @property {string} deletedAt
+ */
+
+/**
+ * @typedef ManualKycResponse
+ * @property {string} message
+ * @property {UserKycLenderStepMap} step
  */
 
 /**
@@ -3576,12 +3548,12 @@ class PlatformClient {
 /**
  * @typedef UpdateOrganization
  * @property {string} id
- * @property {Object} [name]
- * @property {Object} [logo]
- * @property {Object} [website]
- * @property {Object} [disbursementAccountHolderName]
- * @property {Object} [disbursementAccountNumber]
- * @property {Object} [disbursementIfsc]
+ * @property {Object | any} [name]
+ * @property {Object | any} [logo]
+ * @property {Object | any} [website]
+ * @property {Object | any} [disbursementAccountHolderName]
+ * @property {Object | any} [disbursementAccountNumber]
+ * @property {Object | any} [disbursementIfsc]
  * @property {boolean} [active]
  */
 
@@ -3942,7 +3914,6 @@ class PlatformClient {
  * @property {string} message
  * @property {IntegrationResponseMeta} meta
  * @property {ValidateCredentialsData} data
- * @property {Object} [__headers]
  */
 
 /**
@@ -4252,16 +4223,8 @@ class PlatformClient {
  */
 
 /**
- * @typedef MetaResponse
- * @property {string} [timestamp]
- * @property {string} [version]
- * @property {string} [product]
- * @property {string} [requestId]
- */
-
-/**
  * @typedef OutstandingDetailsData
- * @property {OutstandingData[]} [outstandingDetails]
+ * @property {OutstandingData[]} outstandingDetails
  */
 
 class Customer {
@@ -4271,13 +4234,11 @@ class Customer {
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {ValidateCustomer} arg.body
    * @summary: Validate Customer
    * @description: The Validate Customer API processes validity checks using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. It returns `Enabled` if the transaction is allowed.
    */
-  validate({ body, session } = {}) {
+  validate({ body } = {}) {
     const { error } = CustomerValidator.validate().validate(
       {
         body,
@@ -4290,20 +4251,21 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/validate-customer`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
+   * @param {string} [arg.session] - The user session.
    * @param {CreateTransaction} arg.body
    * @summary: Create Transaction
    * @description: The Create Transaction API processes transactions using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. If the transaction is allowed, it returns `Enabled` along with the redirect URL and the user status as authorized.
@@ -4312,6 +4274,7 @@ class Customer {
     const { error } = CustomerValidator.createTransaction().validate(
       {
         body,
+        session,
       },
       { abortEarly: false }
     );
@@ -4321,25 +4284,26 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+    headers["session"] = session;
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/transaction`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {LinkAccount} arg.body
    * @summary: Link account
    * @description: The Link API generates a merchant-linked session for the user, enabling automatic login to complete payment or repayment activities seamlessly. This session ensures a smooth and secure transaction process without requiring the user to manually log in.
    */
-  link({ body, session } = {}) {
+  link({ body } = {}) {
     const { error } = CustomerValidator.link().validate(
       {
         body,
@@ -4352,25 +4316,25 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/account/link`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {UnlinkAccount} arg.body
    * @summary: Unlink account
    * @description: The Unlink API serves as the reverse of the Link API. It terminates the merchant-linked session for the user, effectively logging them out and preventing any further automatic login for payment or repayment activities. This ensures security and control over session management.
    */
-  unlink({ body, session } = {}) {
+  unlink({ body } = {}) {
     const { error } = CustomerValidator.unlink().validate(
       {
         body,
@@ -4383,25 +4347,25 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/account/unlink`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {Refund} arg.body
    * @summary: Refund Order
    * @description: The Refund API processes refunds based on business arrangements and returns the corresponding status of the refund request. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
    */
-  refund({ body, session } = {}) {
+  refund({ body } = {}) {
     const { error } = CustomerValidator.refund().validate(
       {
         body,
@@ -4414,26 +4378,26 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/refund`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {string} [arg.refundId] - This is the refund ID
    * @param {string} [arg.orderId] - This is the order ID
    * @summary: Check Refund status
    * @description: The Refund Status API returns the current status of a refund request based on business arrangements. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
    */
-  refundStatus({ refundId, orderId, session } = {}) {
+  refundStatus({ refundId, orderId } = {}) {
     const { error } = CustomerValidator.refundStatus().validate(
       {
         refundId,
@@ -4449,25 +4413,25 @@ class Customer {
     query_params["refundId"] = refundId;
     query_params["orderId"] = orderId;
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "get",
       `/service/integration/user/authentication/${this.config.companyId}/refund/status`,
       query_params,
       undefined,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {GetSchemesRequest} arg.body
    * @summary: Get schemes
    * @description: The Schemes API returns Buy Now, Pay Later (BNPL) and EMI plans offered by lenders for the user. It provides details on available financing options, including terms and conditions for both BNPL and EMI arrangements.
    */
-  getSchemes({ body, session } = {}) {
+  getSchemes({ body } = {}) {
     const { error } = CustomerValidator.getSchemes().validate(
       {
         body,
@@ -4480,25 +4444,25 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/schemes`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {CheckEligibilityRequest} arg.body
    * @summary: Check Credit Eligibility
    * @description: Use this API to pre approve by checking the customer's credit eligibility based on mobile number and countryCode and vintage data of monthly transactions.
    */
-  checkEligibility({ body, session } = {}) {
+  checkEligibility({ body } = {}) {
     const { error } = CustomerValidator.checkEligibility().validate(
       {
         body,
@@ -4511,25 +4475,25 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/eligibility`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {RepaymentRequest} arg.body
    * @summary: Get Repayment link
    * @description: The Repayment Link API generates a repayment link based on the current outstanding balance. The URL provided allows users to make payments and settle their outstanding amounts directly.
    */
-  getRepaymentLink({ body, session } = {}) {
+  getRepaymentLink({ body } = {}) {
     const { error } = CustomerValidator.getRepaymentLink().validate(
       {
         body,
@@ -4542,35 +4506,33 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/repayment-link`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {number} arg.page - This is page number
    * @param {number} arg.limit - This is no of transaction
    * @param {string} [arg.name] - This is name for filter
-   * @param {string} [arg.id] - This is uuid for filter
    * @param {string} [arg.mobile] - This is Mobile Number for filter
    * @summary: Get List of Users
    * @description: The Customer Listing API returns a paginated list of users associated with the specified organization. Supports filtering by various query parameters such as name, ID, and mobile number.
    */
-  getAll({ page, limit, name, id, mobile, session } = {}) {
-    const { error } = CustomerValidator.getAll().validate(
+  getAllCustomers({ page, limit, name, mobile } = {}) {
+    const { error } = CustomerValidator.getAllCustomers().validate(
       {
         page,
         limit,
         name,
-        id,
         mobile,
       },
       { abortEarly: false }
@@ -4583,8 +4545,9 @@ class Customer {
     query_params["page"] = page;
     query_params["limit"] = limit;
     query_params["name"] = name;
-    query_params["id"] = id;
     query_params["mobile"] = mobile;
+
+    const headers = {};
 
     return PlatformAPIClient.execute(
       this.config,
@@ -4592,19 +4555,17 @@ class Customer {
       `/service/integration/user/authentication/${this.config.companyId}/users`,
       query_params,
       undefined,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {VintageData} arg.body
    * @summary: Add user vintage details
    * @description: Use this API to add vintage details of the user.
    */
-  addVintageData({ body, session } = {}) {
+  addVintageData({ body } = {}) {
     const { error } = CustomerValidator.addVintageData().validate(
       {
         body,
@@ -4617,13 +4578,15 @@ class Customer {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/user/authentication/${this.config.companyId}/vintage`,
       query_params,
       body,
-      session
+      headers
     );
   }
 }
@@ -4635,13 +4598,11 @@ class Credit {
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organization ID
    * @param {string} arg.orderId - This is order ID
    * @summary: check status of the order
    * @description: Use this API to check status the order.
    */
-  getOrderStatus({ orderId, session } = {}) {
+  getOrderStatus({ orderId } = {}) {
     const { error } = CreditValidator.getOrderStatus().validate(
       {
         orderId,
@@ -4654,26 +4615,26 @@ class Credit {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "get",
       `/service/integration/credit/credit/${this.config.companyId}/orders/${orderId}/status`,
       query_params,
       undefined,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organization id
    * @param {string} arg.lenderSlug - This is lender slug
    * @param {EligiblePlansRequest} arg.body
    * @summary: Get eligible plans
    * @description: Use this API to Get eligible plans.
    */
-  getEligiblePlans({ lenderSlug, body, session } = {}) {
+  getEligiblePlans({ lenderSlug, body } = {}) {
     const { error } = CreditValidator.getEligiblePlans().validate(
       {
         lenderSlug,
@@ -4687,25 +4648,25 @@ class Credit {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/credit/credit/${this.config.companyId}/${lenderSlug}/plans`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organization id
    * @param {OrderDeliveryUpdatesBody} arg.body
    * @summary: Update delivery status for an order
-   * @description: Use this API to update the delivery status of an order using order ID or transaction ID.
+   * @description: Use this API to update the delivery status of an order using order ID or transaction ID, and to trigger loan disbursals based on defined configurations.
    */
-  updateOrderDeliveryStatus({ body, session } = {}) {
+  updateOrderDeliveryStatus({ body } = {}) {
     const { error } = CreditValidator.updateOrderDeliveryStatus().validate(
       {
         body,
@@ -4718,28 +4679,28 @@ class Credit {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/credit/orders/organization/${this.config.companyId}/delivery-updates`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - The unique identifier of the organization
    * @param {string} arg.mobile - The mobile number of the user
    * @param {string} [arg.countryCode] - The country code of the user's mobile number.
    * @param {number} [arg.page] - The page number of the transaction list
    * @param {number} [arg.limit] - The number of transactions to fetch
    * @param {string} [arg.orderId] - The order ID
    * @param {string} [arg.transactionId] - The transaction ID
-   * @param {Object} [arg.type] - The transaction type
-   * @param {Object} [arg.status] - The transaction status
+   * @param {string[] | string} [arg.type] - The transaction type
+   * @param {string[] | string} [arg.status] - The transaction status
    * @param {boolean} [arg.onlySelf] - Set this flag to true to fetch
    *   transactions exclusively for your organization, excluding other organizations.
    * @param {string} [arg.granularity] - Defines the granularity of transaction details.
@@ -4757,7 +4718,6 @@ class Credit {
     status,
     onlySelf,
     granularity,
-    session,
   } = {}) {
     const { error } = CreditValidator.getTransactions().validate(
       {
@@ -4790,13 +4750,15 @@ class Credit {
     query_params["onlySelf"] = onlySelf;
     query_params["granularity"] = granularity;
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "get",
       `/service/integration/credit/summary/organization/${this.config.companyId}/transactions`,
       query_params,
       undefined,
-      session
+      headers
     );
   }
 }
@@ -4808,7 +4770,6 @@ class MultiKyc {
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {Object} arg.organizationId -
    * @summary: Approved lenders
    * @description:
    */
@@ -4823,43 +4784,15 @@ class MultiKyc {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "get",
       `/service/integration/kyc-onboarding/bre/${this.config.companyId}/approved-lenders`,
       query_params,
-      undefined
-    );
-  }
-
-  /**
-   * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId -
-   * @param {GetLimitRequest} arg.body
-   * @summary: Get limit
-   * @description:
-   */
-  getLimit({ body, session } = {}) {
-    const { error } = MultiKycValidator.getLimit().validate(
-      {
-        body,
-      },
-      { abortEarly: false }
-    );
-    if (error) {
-      return Promise.reject(new FDKClientValidationError(error));
-    }
-
-    const query_params = {};
-
-    return PlatformAPIClient.execute(
-      this.config,
-      "post",
-      `/service/integration/kyc-onboarding/credit/${this.config.companyId}/limit`,
-      query_params,
-      body,
-      session
+      undefined,
+      headers
     );
   }
 }
@@ -4871,7 +4804,6 @@ class Merchant {
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {string} arg.organizationId - This is organizationId
    * @summary: Get Access Token
    * @description: Use this API to get access token
    */
@@ -4886,24 +4818,25 @@ class Merchant {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/staff/authentication/oauth/${this.config.companyId}/authorize`,
       query_params,
-      undefined
+      undefined,
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
-   * @param {string} arg.organizationId - This is organizationId
    * @param {RefreshTokenRequest} arg.body
    * @summary: Renew Access Token
    * @description: Use this API to renew access token
    */
-  renewAccessToken({ body, session } = {}) {
+  renewAccessToken({ body } = {}) {
     const { error } = MerchantValidator.renewAccessToken().validate(
       {
         body,
@@ -4916,19 +4849,20 @@ class Merchant {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/staff/authentication/oauth/${this.config.companyId}/token`,
       query_params,
       body,
-      session
+      headers
     );
   }
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {string} arg.organizationId - This is organizationId
    * @summary: Validate organization's credentials
    * @description: Use this API to validate organization's credentials
    */
@@ -4943,12 +4877,15 @@ class Merchant {
 
     const query_params = {};
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "post",
       `/service/integration/staff/authentication/oauth/${this.config.companyId}/validate-credentials`,
       query_params,
-      undefined
+      undefined,
+      headers
     );
   }
 }
@@ -4960,16 +4897,14 @@ class Payments {
 
   /**
    * @param {Object} arg - Arg object.
-   * @param {String} session - Session of the user
    * @param {string} arg.mobile - Mobile number of the user
-   * @param {string} arg.organizationId - Organization id of the merchant.
    * @param {string[]} [arg.lenderSlugs] - This is list of lender slugs. eg.
    *   ['cashe','liquiloans']
    * @summary: Get user outstanding details.
    * @description: This api is for getting outstanding details for the user with all the lenders.
    */
-  getOutStandingDetails({ mobile, lenderSlugs, session } = {}) {
-    const { error } = PaymentsValidator.getOutStandingDetails().validate(
+  getUserCreditSummary({ mobile, lenderSlugs } = {}) {
+    const { error } = PaymentsValidator.getUserCreditSummary().validate(
       {
         mobile,
         lenderSlugs,
@@ -4983,13 +4918,15 @@ class Payments {
     const query_params = {};
     query_params["lenderSlugs"] = lenderSlugs;
 
+    const headers = {};
+
     return PlatformAPIClient.execute(
       this.config,
       "get",
-      `/service/integration/payments/repayment/:mobile/:organizationId/outstanding`,
+      `/service/integration/payments/repayment/${mobile}/${this.config.companyId}/outstanding`,
       query_params,
       undefined,
-      session
+      headers
     );
   }
 }

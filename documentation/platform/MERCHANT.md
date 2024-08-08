@@ -1498,7 +1498,6 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
  | refreshTokenExpiryAt | string |  no  |  |
  | refreshTokenExpiryIn | string |  no  |  |
  | scope | [string] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1513,7 +1512,6 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
  | accessToken | string |  no  |  |
  | tokenExpireAt | string |  no  |  |
  | tokenExpiryIn | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1593,7 +1591,6 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
  | message | string |  yes  | Response message indicating the result of the operation. |
  | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
  | data | [ValidateCredentialsData](#ValidateCredentialsData) |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 

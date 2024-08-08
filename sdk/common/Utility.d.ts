@@ -7,3 +7,4 @@ export function convertUrlToAction(url: any): {
         params: {};
     };
 };
+export function convertPageToUrl(action: any): any;
