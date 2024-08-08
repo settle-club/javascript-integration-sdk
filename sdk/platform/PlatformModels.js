@@ -6495,7 +6495,7 @@ class CustomerValidator {
     }).required();
   }
 
-  static getAllCustomer() {
+  static getAllCustomers() {
     return Joi.object({
       page: Joi.number().required(),
       limit: Joi.number().required(),

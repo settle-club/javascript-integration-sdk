@@ -4527,8 +4527,8 @@ class Customer {
    * @summary: Get List of Users
    * @description: The Customer Listing API returns a paginated list of users associated with the specified organization. Supports filtering by various query parameters such as name, ID, and mobile number.
    */
-  getAllCustomer({ page, limit, name, mobile } = {}) {
-    const { error } = CustomerValidator.getAllCustomer().validate(
+  getAllCustomers({ page, limit, name, mobile } = {}) {
+    const { error } = CustomerValidator.getAllCustomers().validate(
       {
         page,
         limit,

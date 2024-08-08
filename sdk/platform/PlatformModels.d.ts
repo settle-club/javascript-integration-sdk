@@ -8,7 +8,7 @@ export class CustomerValidator {
     static getSchemes(): any;
     static checkEligibility(): any;
     static getRepaymentLink(): any;
-    static getAllCustomer(): any;
+    static getAllCustomers(): any;
     static addVintageData(): any;
 }
 export class CreditValidator {

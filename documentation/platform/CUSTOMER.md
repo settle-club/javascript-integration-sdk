@@ -15,7 +15,7 @@ Authentication Service
 * [getSchemes](#getschemes)
 * [checkEligibility](#checkeligibility)
 * [getRepaymentLink](#getrepaymentlink)
-* [getAllCustomer](#getallcustomer)
+* [getAllCustomers](#getallcustomers)
 * [addVintageData](#addvintagedata)
 
 
@@ -847,7 +847,7 @@ Success. The request has been processed successfully and the response contains t
 ---
 
 
-### getAllCustomer
+### getAllCustomers
 Get List of Users
 
 
@@ -855,7 +855,7 @@ Get List of Users
 ```javascript
 // Promise
 const promise =  
-        customer.getAllCustomer(
+        customer.getAllCustomers(
             { 
              page : value,
              limit : value,
@@ -867,7 +867,7 @@ const promise =
 
 // Async/Await
 const data = await 
-                    customer.getAllCustomer(
+                    customer.getAllCustomers(
                     { 
                       page : value,
                       limit : value,
