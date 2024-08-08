@@ -221,7 +221,7 @@ const data = await
 | body | [OrderDeliveryUpdatesBody](#OrderDeliveryUpdatesBody) | yes | Request body |
 
 
-Use this API to update the delivery status of an order using order ID or transaction ID.
+Use this API to update the delivery status of an order using order ID or transaction ID, and to trigger loan disbursals based on defined configurations.
 
 *Returned Response:*
 
@@ -343,8 +343,8 @@ const data = await
 | limit | number | no | The number of transactions to fetch |    
 | orderId | string | no | The order ID |    
 | transactionId | string | no | The transaction ID |    
-| type | Object | no | The transaction type |    
-| status | Object | no | The transaction status |    
+| type | Array<string> | string | no | The transaction type |    
+| status | Array<string> | string | no | The transaction status |    
 | onlySelf | boolean | no | Set this flag to true to fetch transactions exclusively for your organization, excluding other organizations. |    
 | granularity | string | no | Defines the granularity of transaction details. |  
 
@@ -613,7 +613,6 @@ Success. The request has been processed successfully and the response contains t
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | eligiblePlans | [[EligiblePlans](#EligiblePlans)] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -641,7 +640,6 @@ Success. The request has been processed successfully and the response contains t
  | transactionId | string |  no  |  |
  | status | string |  yes  |  |
  | message | string |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1446,7 +1444,6 @@ Success. The request has been processed successfully and the response contains t
  | message | string |  yes  | Response message indicating the result of the operation. |
  | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
  | data | [GetTransactionsData](#GetTransactionsData) |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1534,9 +1531,23 @@ Success. The request has been processed successfully and the response contains t
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | orderId | string |  no  | The unique identifier for the order. |
- | transactionId | string |  no  | The unique identifier for the transaction. |
+ | orderId | string |  no  | The unique identifier for the order. Required if transactionId is not provided. |
+ | transactionId | string |  no  | The unique identifier for the transaction. Required if orderId is not provided. |
+ | includeSummary | boolean |  no  | A flag to include a summary object in the response, containing data like processed amount and unprocessed amount. |
  | shipments | [[OrderShipment](#OrderShipment)] |  yes  | The list of shipments for which the status needs to be updated. Only include shipments requiring a status change. |
+
+---
+
+
+ 
+ 
+ #### [OrderShipmentSummary](#OrderShipmentSummary)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | totalAmount | number |  yes  | The total order amount. |
+ | processedAmount | number |  yes  | The total processed amount. This is the sum of the amounts of all processed shipments. |
+ | unprocessedAmount | number |  yes  | The total unprocessed amount. This is calculated as totalAmount - processedAmount. |
 
 ---
 
@@ -1548,7 +1559,7 @@ Success. The request has been processed successfully and the response contains t
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | id | string |  yes  | The unique identifier of the shipment. |
- | urn | string |  no  | A unique resource identifier for the shipment. |
+ | urn | string |  yes  | A unique resource identifier for the shipment. |
  | shipmentStatus | string |  yes  | The status of the shipment. |
  | shipmentAmount | number |  yes  | The total amount associated with the shipment. |
  | processingStatus | string |  yes  | The processing status of the order shipment. |
@@ -1565,6 +1576,7 @@ Success. The request has been processed successfully and the response contains t
  | orderId | string |  yes  | The unique identifier for the order. |
  | transactionId | string |  yes  | The unique identifier for the order. |
  | shipments | [[OrderShipmentResponse](#OrderShipmentResponse)] |  yes  | The list of shipments for which the status was updated. |
+ | summary | [OrderShipmentSummary](#OrderShipmentSummary) |  yes  | A summary object containing various amounts related to the order. |
 
 ---
 
@@ -1579,7 +1591,6 @@ Success. The request has been processed successfully and the response contains t
  | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
  | data | [OrderDeliveryUpdatesData](#OrderDeliveryUpdatesData) |  yes  |  |
  | errors | [[IntegrationResponseError](#IntegrationResponseError)] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 

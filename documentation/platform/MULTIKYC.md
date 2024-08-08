@@ -7,7 +7,6 @@
 ## MultiKyc Methods
 Will deprecate Hawkeye
 * [approvedLenders](#approvedlenders)
-* [getLimit](#getlimit)
 
 
 
@@ -49,72 +48,6 @@ const data = await
 
 
 [ApprovedLendersTransaction](#ApprovedLendersTransaction)
-
-
-
-
-
-
-<details>
-<summary><i>&nbsp; Example:</i></summary>
-
-```json
-
-```
-</details>
-
-
-
-
-
-
-
-
-
----
-
-
-### getLimit
-Get limit
-
-
-
-```javascript
-// Promise
-const promise =  
-        multiKyc.getLimit(
-            { 
-              body : value
-            
-         }
-        );
-
-// Async/Await
-const data = await 
-                    multiKyc.getLimit(
-                    { 
-                       body : value
-                    
-                     });
-```
-
-
-
-
-
-| Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
-| body | [GetLimitRequest](#GetLimitRequest) | yes | Request body |
-
-
-
-
-*Returned Response:*
-
-
-
-
-[IntgrCreditLimit](#IntgrCreditLimit)
 
 
 
@@ -184,7 +117,6 @@ const data = await
  | approvedLimit | number |  yes  |  |
  | entityId | string |  no  |  |
  | entityMapId | string |  no  |  |
- | lenderUserId | string |  yes  |  |
 
 ---
 
@@ -204,8 +136,6 @@ const data = await
  | score | string |  yes  |  |
  | report | string |  yes  |  |
  | createdAt | string |  no  |  |
- | updatedAt | string |  no  |  |
- | deletedAt | string |  no  |  |
 
 ---
 
@@ -222,8 +152,8 @@ const data = await
  | number | string |  yes  |  |
  | detail | any |  yes  |  |
  | valid | boolean |  yes  |  |
- | createdAt | string |  no  |  |
- | updatedAt | string |  no  |  |
+ | createdAt | string |  yes  |  |
+ | updatedAt | string |  yes  |  |
  | deletedAt | string |  no  |  |
  | entityId | string |  no  |  |
 
@@ -269,9 +199,6 @@ const data = await
  | form | any |  no  |  |
  | uiSchema | any |  no  |  |
  | workflowId | string |  no  |  |
- | createdAt | string |  no  |  |
- | updatedAt | string |  no  |  |
- | deletedAt | string |  no  |  |
 
 ---
 
@@ -319,8 +246,8 @@ const data = await
  | active | boolean |  yes  |  |
  | status | string |  yes  |  |
  | documentId | string |  no  |  |
- | createdAt | string |  no  |  |
- | updatedAt | string |  no  |  |
+ | createdAt | string |  yes  |  |
+ | updatedAt | string |  yes  |  |
  | deletedAt | string |  no  |  |
  | lenderKycStepMap | [LenderKycStepMap](#LenderKycStepMap) |  no  |  |
  | entityMapId | string |  no  |  |
@@ -1065,6 +992,31 @@ const data = await
 
  
  
+ #### [StonewallCustomer](#StonewallCustomer)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | mobile | string |  no  |  |
+ | uid | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [GetLimitRequest](#GetLimitRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | lenderSlugs | [any] |  no  |  |
+ | onlyDefaultLender | boolean |  no  |  |
+ | customer | [StonewallCustomer](#StonewallCustomer) |  yes  |  |
+
+---
+
+
+ 
+ 
  #### [DocumentObject](#DocumentObject)
 
  | Properties | Type | Nullable | Description |
@@ -1104,44 +1056,6 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | stepId | string |  yes  |  |
  | data | any |  yes  |  |
-
----
-
-
- 
- 
- #### [RetriggerLenderOnboardRequestV2](#RetriggerLenderOnboardRequestV2)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | lenderUserId | string |  yes  |  |
- | stepName | string |  yes  |  |
- | data | any |  yes  |  |
-
----
-
-
- 
- 
- #### [StonewallCustomer](#StonewallCustomer)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | mobile | string |  no  |  |
- | uid | string |  no  |  |
-
----
-
-
- 
- 
- #### [GetLimitRequest](#GetLimitRequest)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | lenderSlugs | [any] |  no  |  |
- | onlyDefaultLender | boolean |  no  |  |
- | customer | [StonewallCustomer](#StonewallCustomer) |  yes  |  |
 
 ---
 
@@ -1415,17 +1329,6 @@ const data = await
 
  
  
- #### [GetKycDocsResponse](#GetKycDocsResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | documents | [[FindDocResponse](#FindDocResponse)] |  yes  |  |
-
----
-
-
- 
- 
  #### [OrganizationLogosObject](#OrganizationLogosObject)
 
  | Properties | Type | Nullable | Description |
@@ -1547,6 +1450,17 @@ const data = await
 
  
  
+ #### [GetKycDocsResponse](#GetKycDocsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | documents | [[FindDocResponse](#FindDocResponse)] |  yes  |  |
+
+---
+
+
+ 
+ 
  #### [LenderState](#LenderState)
 
  | Properties | Type | Nullable | Description |
@@ -1628,9 +1542,6 @@ const data = await
  | id | string |  yes  |  |
  | name | string |  yes  |  |
  | active | boolean |  yes  |  |
- | createdAt | string |  no  |  |
- | updatedAt | string |  no  |  |
- | deletedAt | string |  no  |  |
 
 ---
 
@@ -1648,9 +1559,6 @@ const data = await
  | lenderId | string |  yes  |  |
  | pgId | string |  yes  |  |
  | active | boolean |  yes  |  |
- | createdAt | string |  no  |  |
- | updatedAt | string |  no  |  |
- | deletedAt | string |  no  |  |
 
 ---
 
@@ -1907,11 +1815,10 @@ const data = await
  | status | string |  yes  |  |
  | active | boolean |  yes  |  |
  | proposedLimit | number |  yes  |  |
- | createdAt | any |  no  |  |
- | updatedAt | any |  no  |  |
+ | createdAt | any |  yes  |  |
+ | updatedAt | any |  yes  |  |
  | deletedAt | any |  no  |  |
  | isDefault | boolean |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1952,7 +1859,6 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | availableLimit | number |  yes  |  |
  | approvedLimit | number |  yes  |  |
- | isEligibleToDrawdown | boolean |  yes  |  |
 
 ---
 
@@ -2173,7 +2079,6 @@ const data = await
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | limit | [IngtrAvailableLimit](#IngtrAvailableLimit) |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2517,18 +2422,6 @@ const data = await
 
  
  
- #### [ManualKycResponse](#ManualKycResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | message | string |  yes  |  |
- | step | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
-
----
-
-
- 
- 
  #### [BreOutput](#BreOutput)
 
  | Properties | Type | Nullable | Description |
@@ -2546,6 +2439,18 @@ const data = await
  | createdAt | string |  yes  |  |
  | updatedAt | string |  yes  |  |
  | deletedAt | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [ManualKycResponse](#ManualKycResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  |  |
+ | step | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
 
 ---
 

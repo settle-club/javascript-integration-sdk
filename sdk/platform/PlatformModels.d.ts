@@ -8,7 +8,7 @@ export class CustomerValidator {
     static getSchemes(): any;
     static checkEligibility(): any;
     static getRepaymentLink(): any;
-    static getAll(): any;
+    static getAllCustomer(): any;
     static addVintageData(): any;
 }
 export class CreditValidator {
@@ -19,7 +19,6 @@ export class CreditValidator {
 }
 export class MultiKycValidator {
     static approvedLenders(): any;
-    static getLimit(): any;
 }
 export class MerchantValidator {
     static getAccessToken(): any;
@@ -27,5 +26,5 @@ export class MerchantValidator {
     static validateCredentials(): any;
 }
 export class PaymentsValidator {
-    static getOutStandingDetails(): any;
+    static getUserCreditSummary(): any;
 }

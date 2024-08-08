@@ -6,14 +6,14 @@
 
 ## Payments Methods
 KYC Service
-* [getOutStandingDetails](#getoutstandingdetails)
+* [getUserCreditSummary](#getusercreditsummary)
 
 
 
 ## Methods with example and description
 
 
-### getOutStandingDetails
+### getUserCreditSummary
 Get user outstanding details.
 
 
@@ -21,7 +21,7 @@ Get user outstanding details.
 ```javascript
 // Promise
 const promise =  
-        payments.getOutStandingDetails(
+        payments.getUserCreditSummary(
             { 
              mobile : value,
              lenderSlugs : value
@@ -31,7 +31,7 @@ const promise =
 
 // Async/Await
 const data = await 
-                    payments.getOutStandingDetails(
+                    payments.getUserCreditSummary(
                     { 
                       mobile : value,
                       lenderSlugs : value
@@ -121,6 +121,61 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
 
 
 ### Schemas
+
+ 
+ 
+ #### [IntegrationResponseMeta](#IntegrationResponseMeta)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | timestamp | string |  yes  | The timestamp when the response was generated. |
+ | version | string |  yes  | The version of the API. |
+ | product | string |  yes  | The name of the product or service. |
+ | requestId | string |  no  | An optional request identifier. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseError](#IntegrationResponseError)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | code | string |  yes  | Error code representing the type of error. |
+ | message | string |  yes  | A human-readable message providing more details about the error. |
+ | exception | string |  yes  | The exception name or type. |
+ | field | string |  no  | The field associated with the error, if applicable. |
+ | location | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationSuccessResponse](#IntegrationSuccessResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the success of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | string |  yes  | The data payload of the response. The structure of this object will vary depending on the specific API endpoint. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationErrorResponse](#IntegrationErrorResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the failure of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | errors | [[IntegrationResponseError](#IntegrationResponseError)] |  no  |  |
+
+---
+
 
  
  
@@ -316,8 +371,8 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | iconUrl | string |  no  |  |
- | logoUrl | string |  no  |  |
+ | iconUrl | string |  yes  |  |
+ | logoUrl | string |  yes  |  |
 
 ---
 
@@ -328,10 +383,10 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | slug | string |  no  |  |
- | name | string |  no  |  |
- | id | string |  no  |  |
- | theme | [LenderTheme](#LenderTheme) |  no  |  |
+ | slug | string |  yes  |  |
+ | name | string |  yes  |  |
+ | id | string |  yes  |  |
+ | theme | [LenderTheme](#LenderTheme) |  yes  |  |
 
 ---
 
@@ -513,27 +568,13 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
 
  
  
- #### [MetaResponse](#MetaResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | timestamp | string |  no  |  |
- | version | string |  no  |  |
- | product | string |  no  |  |
- | requestId | string |  no  |  |
-
----
-
-
- 
- 
  #### [OutstandingData](#OutstandingData)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | lenderDetails | [LenderDetails](#LenderDetails) |  no  |  |
- | availableLimit | number |  no  |  |
- | creditLimit | number |  no  |  |
+ | availableLimit | number |  yes  |  |
+ | creditLimit | number |  yes  |  |
  | dueAmount | number |  no  |  |
  | outstandingAmount | number |  no  |  |
  | dueDate | string |  no  |  |
@@ -547,7 +588,7 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | outstandingDetails | [[OutstandingData](#OutstandingData)] |  no  |  |
+ | outstandingDetails | [[OutstandingData](#OutstandingData)] |  yes  |  |
 
 ---
 
@@ -558,10 +599,9 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
- | mesasge | string |  no  |  |
- | meta | [MetaResponse](#MetaResponse) |  no  |  |
- | data | [OutstandingDetailsData](#OutstandingDetailsData) |  no  |  |
- | __headers | string |  no  |  |
+ | message | string |  yes  |  |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [OutstandingDetailsData](#OutstandingDetailsData) |  yes  |  |
 
 ---
 

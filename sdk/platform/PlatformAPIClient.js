@@ -6,10 +6,10 @@ class APIClient {
    * @param {string} method
    * @param {string} url
    * @param {object} query
-   * @param {string} session
    * @param {object} body
+   * @param {object} headers
    */
-  static async execute(conf, method, url, query, body, session) {
+  static async execute(conf, method, url, query, body, headers = {}) {
     const isOauthRoute = url?.includes("/oauth/");
     let token;
     if (isOauthRoute) {
@@ -24,9 +24,6 @@ class APIClient {
       acc = { ...acc, ...curr };
       return acc;
     }, {});
-    if (session) {
-      extraHeaders.cookie = `user.session=${session}`;
-    }
     if (conf.topSecret) {
       extraHeaders["x-merchant-secret"] = conf.topSecret;
     }
@@ -41,6 +38,7 @@ class APIClient {
       headers: {
         Authorization: (isOauthRoute ? "Basic " : "Bearer ") + token,
         ...extraHeaders,
+        ...headers,
       },
     };
 

@@ -15,7 +15,7 @@ Authentication Service
 * [getSchemes](#getschemes)
 * [checkEligibility](#checkeligibility)
 * [getRepaymentLink](#getrepaymentlink)
-* [getAll](#getall)
+* [getAllCustomer](#getallcustomer)
 * [addVintageData](#addvintagedata)
 
 
@@ -99,7 +99,8 @@ Create Transaction
 const promise =  
         customer.createTransaction(
             { 
-              body : value
+              body : value,
+             session : value
             
          }
         );
@@ -108,7 +109,8 @@ const promise =
 const data = await 
                     customer.createTransaction(
                     { 
-                       body : value
+                       body : value,
+                      session : value
                     
                      });
 ```
@@ -118,7 +120,8 @@ const data = await
 
 
 | Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
+| --------- | -----  | -------- | ----------- |  
+| session | string | no | The user session. |  
 | body | [CreateTransaction](#CreateTransaction) | yes | Request body |
 
 
@@ -844,7 +847,7 @@ Success. The request has been processed successfully and the response contains t
 ---
 
 
-### getAll
+### getAllCustomer
 Get List of Users
 
 
@@ -852,12 +855,11 @@ Get List of Users
 ```javascript
 // Promise
 const promise =  
-        customer.getAll(
+        customer.getAllCustomer(
             { 
              page : value,
              limit : value,
              name : value,
-             id : value,
              mobile : value
             
          }
@@ -865,12 +867,11 @@ const promise =
 
 // Async/Await
 const data = await 
-                    customer.getAll(
+                    customer.getAllCustomer(
                     { 
                       page : value,
                       limit : value,
                       name : value,
-                      id : value,
                       mobile : value
                     
                      });
@@ -885,7 +886,6 @@ const data = await
 | page | number | yes | This is page number |   
 | limit | number | yes | This is no of transaction |    
 | name | string | no | This is name for filter |    
-| id | string | no | This is uuid for filter |    
 | mobile | string | no | This is Mobile Number for filter |  
 
 
@@ -1093,7 +1093,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | message | string |  no  |  |
  | transactionId | string |  no  |  |
  | refundId | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1699,7 +1698,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | message | string |  yes  | Message to be displayed to the user |
  | schemes | [[SchemeResponse](#SchemeResponse)] |  no  | An array of possible schemes of lenders available for a transaction. |
  | limit | [LimitResponse](#LimitResponse) |  no  | Limit details of available and possible lenders for a transaction. |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1716,7 +1714,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | transactionId | string |  no  | A unique identifier for the transaction. This is received only if session is passed and auto capture is true in request. ASP merchants do not receive transaction ID in this response. |
  | status | string |  no  | Indicates transaction status in case of auto disbursal. |
  | userStatus | string |  no  | Represents the status of the user for transaction eligibility |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2551,7 +2548,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | status | string |  no  |  |
  | message | string |  no  |  |
  | errorCode | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2579,7 +2575,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | statusCode | number |  yes  |  |
  | userStatus | string |  no  |  |
  | errorCode | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2675,7 +2670,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | filters | [[Filters](#Filters)] |  yes  |  |
  | page | [PageResponse](#PageResponse) |  yes  |  |
  | listOfUsers | [[UserSchema](#UserSchema)] |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2852,7 +2846,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | lenderId | string |  no  |  |
  | loanAccountNumber | string |  no  |  |
  | refund | [[RefundStatusList](#RefundStatusList)] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2865,7 +2858,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | ---------- | ---- | -------- | ----------- |
  | userId | string |  no  |  |
  | lenders | [[SchemeResponse](#SchemeResponse)] |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -3196,7 +3188,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | message | string |  no  |  |
  | redirectUrl | string |  no  |  |
  | creditLimits | [[CreditLimitObject](#CreditLimitObject)] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -3341,7 +3332,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | message | string |  yes  | Response message indicating the result of the operation. |
  | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
  | data | [RepaymentResponseData](#RepaymentResponseData) |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -3408,7 +3398,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | mesasge | string |  no  |  |
  | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  no  |  |
  | data | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 

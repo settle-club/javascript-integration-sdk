@@ -56,7 +56,6 @@ class PlatformApplicationClient {
  * @property {string} [message]
  * @property {string} [transactionId]
  * @property {string} [refundId]
- * @property {Object} [__headers]
  */
 
 /**
@@ -232,15 +231,15 @@ class PlatformApplicationClient {
 
 /**
  * @typedef UserUpdateRequest
- * @property {Object} [firstName]
- * @property {Object} [lastName]
+ * @property {Object | any} [firstName]
+ * @property {Object | any} [lastName]
  * @property {string} countryCode
  * @property {string} mobile
- * @property {Object} [email]
- * @property {Object} [gender]
- * @property {Object} [dob]
+ * @property {Object | any} [email]
+ * @property {Object | any} [gender]
+ * @property {Object | any} [dob]
  * @property {boolean} [active]
- * @property {Object} [profilePictureUrl]
+ * @property {Object | any} [profilePictureUrl]
  * @property {boolean} [isEmailVerified]
  */
 
@@ -422,7 +421,6 @@ class PlatformApplicationClient {
  * @property {string} message
  * @property {SchemeResponse[]} [schemes]
  * @property {LimitResponse} [limit]
- * @property {Object} [__headers]
  */
 
 /**
@@ -433,7 +431,6 @@ class PlatformApplicationClient {
  * @property {string} [transactionId]
  * @property {string} [status]
  * @property {string} [userStatus]
- * @property {Object} [__headers]
  */
 
 /**
@@ -902,7 +899,6 @@ class PlatformApplicationClient {
  * @property {string} [status]
  * @property {string} [message]
  * @property {string} [errorCode]
- * @property {Object} [__headers]
  */
 
 /**
@@ -918,7 +914,6 @@ class PlatformApplicationClient {
  * @property {number} statusCode
  * @property {string} [userStatus]
  * @property {string} [errorCode]
- * @property {Object} [__headers]
  */
 
 /**
@@ -972,7 +967,6 @@ class PlatformApplicationClient {
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {UserSchema[]} listOfUsers
- * @property {Object} [__headers]
  */
 
 /**
@@ -1077,14 +1071,12 @@ class PlatformApplicationClient {
  * @property {string} [lenderId]
  * @property {string} [loanAccountNumber]
  * @property {RefundStatusList[]} [refund]
- * @property {Object} [__headers]
  */
 
 /**
  * @typedef GetSchemesSuccess
  * @property {string} [userId]
  * @property {SchemeResponse[]} lenders
- * @property {Object} [__headers]
  */
 
 /**
@@ -1277,7 +1269,6 @@ class PlatformApplicationClient {
  * @property {string} [message]
  * @property {string} [redirectUrl]
  * @property {CreditLimitObject[]} [creditLimits]
- * @property {Object} [__headers]
  */
 
 /**
@@ -1362,7 +1353,6 @@ class PlatformApplicationClient {
  * @property {string} message
  * @property {IntegrationResponseMeta} meta
  * @property {RepaymentResponseData} data
- * @property {Object} [__headers]
  */
 
 /**
@@ -1399,7 +1389,6 @@ class PlatformApplicationClient {
  * @property {string} [mesasge]
  * @property {IntegrationResponseMeta} [meta]
  * @property {Object} [data]
- * @property {Object} [__headers]
  */
 
 /**
@@ -1442,7 +1431,6 @@ class PlatformApplicationClient {
 /**
  * @typedef EligiblePlansResponse
  * @property {EligiblePlans[]} [eligiblePlans]
- * @property {Object} [__headers]
  */
 
 /**
@@ -1458,7 +1446,6 @@ class PlatformApplicationClient {
  * @property {string} [transactionId]
  * @property {string} status
  * @property {string} message
- * @property {Object} [__headers]
  */
 
 /**
@@ -1885,7 +1872,6 @@ class PlatformApplicationClient {
  * @property {string} message
  * @property {IntegrationResponseMeta} meta
  * @property {GetTransactionsData} data
- * @property {Object} [__headers]
  */
 
 /**
@@ -1939,13 +1925,21 @@ class PlatformApplicationClient {
  * @typedef OrderDeliveryUpdatesBody
  * @property {string} [orderId]
  * @property {string} [transactionId]
+ * @property {boolean} [includeSummary]
  * @property {OrderShipment[]} shipments
+ */
+
+/**
+ * @typedef OrderShipmentSummary
+ * @property {number} totalAmount
+ * @property {number} processedAmount
+ * @property {number} unprocessedAmount
  */
 
 /**
  * @typedef OrderShipmentResponse
  * @property {string} id
- * @property {string} [urn]
+ * @property {string} urn
  * @property {string} shipmentStatus
  * @property {number} shipmentAmount
  * @property {string} processingStatus
@@ -1956,6 +1950,7 @@ class PlatformApplicationClient {
  * @property {string} orderId
  * @property {string} transactionId
  * @property {OrderShipmentResponse[]} shipments
+ * @property {OrderShipmentSummary} summary
  */
 
 /**
@@ -1964,7 +1959,6 @@ class PlatformApplicationClient {
  * @property {IntegrationResponseMeta} meta
  * @property {OrderDeliveryUpdatesData} data
  * @property {IntegrationResponseError[]} [errors]
- * @property {Object} [__headers]
  */
 
 /**
@@ -1998,7 +1992,6 @@ class PlatformApplicationClient {
  * @property {number} approvedLimit
  * @property {string} [entityId]
  * @property {string} [entityMapId]
- * @property {string} lenderUserId
  */
 
 /**
@@ -2012,8 +2005,6 @@ class PlatformApplicationClient {
  * @property {string} score
  * @property {string} report
  * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -2024,8 +2015,8 @@ class PlatformApplicationClient {
  * @property {string} number
  * @property {Object} detail
  * @property {boolean} valid
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
+ * @property {string} createdAt
+ * @property {string} updatedAt
  * @property {string} [deletedAt]
  * @property {string} [entityId]
  */
@@ -2059,9 +2050,6 @@ class PlatformApplicationClient {
  * @property {Object} [form]
  * @property {Object} [uiSchema]
  * @property {string} [workflowId]
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -2097,8 +2085,8 @@ class PlatformApplicationClient {
  * @property {boolean} active
  * @property {string} status
  * @property {string} [documentId]
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
+ * @property {string} createdAt
+ * @property {string} updatedAt
  * @property {string} [deletedAt]
  * @property {LenderKycStepMap} [lenderKycStepMap]
  * @property {string} [entityMapId]
@@ -2528,6 +2516,19 @@ class PlatformApplicationClient {
  */
 
 /**
+ * @typedef StonewallCustomer
+ * @property {string} [mobile]
+ * @property {string} [uid]
+ */
+
+/**
+ * @typedef GetLimitRequest
+ * @property {Object[]} [lenderSlugs]
+ * @property {boolean} [onlyDefaultLender]
+ * @property {StonewallCustomer} customer
+ */
+
+/**
  * @typedef DocumentObject
  * @property {string} [id]
  * @property {string} [userId]
@@ -2552,26 +2553,6 @@ class PlatformApplicationClient {
  * @typedef RetriggerLenderOnboardRequest
  * @property {string} stepId
  * @property {Object} data
- */
-
-/**
- * @typedef RetriggerLenderOnboardRequestV2
- * @property {string} lenderUserId
- * @property {string} stepName
- * @property {Object} data
- */
-
-/**
- * @typedef StonewallCustomer
- * @property {string} [mobile]
- * @property {string} [uid]
- */
-
-/**
- * @typedef GetLimitRequest
- * @property {Object[]} [lenderSlugs]
- * @property {boolean} [onlyDefaultLender]
- * @property {StonewallCustomer} customer
  */
 
 /**
@@ -2724,11 +2705,6 @@ class PlatformApplicationClient {
  */
 
 /**
- * @typedef GetKycDocsResponse
- * @property {FindDocResponse[]} documents
- */
-
-/**
  * @typedef OrganizationLogosObject
  * @property {string} id
  * @property {string} name
@@ -2796,6 +2772,11 @@ class PlatformApplicationClient {
  */
 
 /**
+ * @typedef GetKycDocsResponse
+ * @property {FindDocResponse[]} documents
+ */
+
+/**
  * @typedef LenderState
  * @property {string} [id]
  * @property {string} name
@@ -2856,9 +2837,6 @@ class PlatformApplicationClient {
  * @property {string} id
  * @property {string} name
  * @property {boolean} active
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -2870,9 +2848,6 @@ class PlatformApplicationClient {
  * @property {string} lenderId
  * @property {string} pgId
  * @property {boolean} active
- * @property {string} [createdAt]
- * @property {string} [updatedAt]
- * @property {string} [deletedAt]
  */
 
 /**
@@ -3015,11 +2990,10 @@ class PlatformApplicationClient {
  * @property {string} status
  * @property {boolean} active
  * @property {number} proposedLimit
- * @property {Object} [createdAt]
- * @property {Object} [updatedAt]
- * @property {Object} [deletedAt]
+ * @property {string | string} createdAt
+ * @property {string | string} updatedAt
+ * @property {string | string} [deletedAt]
  * @property {boolean} [isDefault]
- * @property {Object} [__headers]
  */
 
 /**
@@ -3042,7 +3016,6 @@ class PlatformApplicationClient {
  * @typedef CreditLimit
  * @property {number} availableLimit
  * @property {number} approvedLimit
- * @property {boolean} isEligibleToDrawdown
  */
 
 /**
@@ -3161,7 +3134,6 @@ class PlatformApplicationClient {
 /**
  * @typedef IntgrCreditLimit
  * @property {IngtrAvailableLimit} limit
- * @property {Object} [__headers]
  */
 
 /**
@@ -3334,12 +3306,6 @@ class PlatformApplicationClient {
  */
 
 /**
- * @typedef ManualKycResponse
- * @property {string} message
- * @property {UserKycLenderStepMap} step
- */
-
-/**
  * @typedef BreOutput
  * @property {string} id
  * @property {string} userId
@@ -3354,6 +3320,12 @@ class PlatformApplicationClient {
  * @property {string} createdAt
  * @property {string} updatedAt
  * @property {string} deletedAt
+ */
+
+/**
+ * @typedef ManualKycResponse
+ * @property {string} message
+ * @property {UserKycLenderStepMap} step
  */
 
 /**
@@ -3558,12 +3530,12 @@ class PlatformApplicationClient {
 /**
  * @typedef UpdateOrganization
  * @property {string} id
- * @property {Object} [name]
- * @property {Object} [logo]
- * @property {Object} [website]
- * @property {Object} [disbursementAccountHolderName]
- * @property {Object} [disbursementAccountNumber]
- * @property {Object} [disbursementIfsc]
+ * @property {Object | any} [name]
+ * @property {Object | any} [logo]
+ * @property {Object | any} [website]
+ * @property {Object | any} [disbursementAccountHolderName]
+ * @property {Object | any} [disbursementAccountNumber]
+ * @property {Object | any} [disbursementIfsc]
  * @property {boolean} [active]
  */
 
@@ -3924,7 +3896,6 @@ class PlatformApplicationClient {
  * @property {string} message
  * @property {IntegrationResponseMeta} meta
  * @property {ValidateCredentialsData} data
- * @property {Object} [__headers]
  */
 
 /**
@@ -4234,16 +4205,8 @@ class PlatformApplicationClient {
  */
 
 /**
- * @typedef MetaResponse
- * @property {string} [timestamp]
- * @property {string} [version]
- * @property {string} [product]
- * @property {string} [requestId]
- */
-
-/**
  * @typedef OutstandingDetailsData
- * @property {OutstandingData[]} [outstandingDetails]
+ * @property {OutstandingData[]} outstandingDetails
  */
 
 module.exports = PlatformApplicationClient;
