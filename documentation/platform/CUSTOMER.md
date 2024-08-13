@@ -1763,6 +1763,7 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | token | string |  yes  |  |
+ | intent | string |  no  |  |
 
 ---
 
@@ -2183,13 +2184,32 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
 
  
  
+ #### [MerchantDetailsResponse](#MerchantDetailsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  no  | Unique identifier for the business |
+ | website | string |  no  | Website URL of the business |
+ | businessAddress | string |  no  | Physical address of the business |
+ | pincode | string |  no  | Pincode for the business address |
+ | logo | string |  no  | URL to the business logo |
+ | gstIn | string |  no  | GST number of the business, can be null |
+ | businessName | string |  no  | Business name of the merchant |
+ | name | string |  no  | Name of the merchant |
+ | supportEmail | string |  no  | Support email of the merchant |
+ | description | string |  no  | Support email of the merchant |
+
+---
+
+
+ 
+ 
  #### [NavigationsMobileResponse](#NavigationsMobileResponse)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | tabs | [[TabsSchema](#TabsSchema)] |  yes  |  |
  | profileSections | [[ProfileSectionSchema](#ProfileSectionSchema)] |  yes  |  |
- | footer | string |  no  |  |
 
 ---
 
@@ -2663,13 +2683,40 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
 
  
  
- #### [UserResponse](#UserResponse)
+ #### [UserResponseMeta](#UserResponseMeta)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | timestamp | string |  yes  | The timestamp when the response was generated. |
+ | version | string |  yes  | The version of the API. |
+ | product | string |  yes  | The name of the product or service. |
+ | requestId | string |  no  | An optional request identifier. |
+
+---
+
+
+ 
+ 
+ #### [UserResponseData](#UserResponseData)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | filters | [[Filters](#Filters)] |  yes  |  |
  | page | [PageResponse](#PageResponse) |  yes  |  |
  | listOfUsers | [[UserSchema](#UserSchema)] |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [UserResponse](#UserResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [UserResponseMeta](#UserResponseMeta) |  yes  |  |
+ | data | [UserResponseData](#UserResponseData) |  yes  |  |
 
 ---
 
@@ -2858,17 +2905,6 @@ Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for mo
  | ---------- | ---- | -------- | ----------- |
  | userId | string |  no  |  |
  | lenders | [[SchemeResponse](#SchemeResponse)] |  yes  |  |
-
----
-
-
- 
- 
- #### [ActiveEntityResponse](#ActiveEntityResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | activeEntity | string |  no  |  |
 
 ---
 

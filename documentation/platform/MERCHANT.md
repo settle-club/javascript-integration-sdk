@@ -748,6 +748,8 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
  | disbursementIfsc | string |  no  |  |
  | businessName | string |  no  |  |
  | email | string |  no  |  |
+ | supportEmail | string |  no  |  |
+ | description | string |  no  |  |
  | businessAddress | string |  no  |  |
  | pincode | string |  no  |  |
  | b2b | boolean |  no  |  |
@@ -852,6 +854,8 @@ Success. Returns a JSON object as shown below. Refer `ValidateCredentialsRespons
  | b2c | boolean |  no  |  |
  | businessName | string |  no  |  |
  | email | string |  no  |  |
+ | supportEmail | string |  no  |  |
+ | description | string |  no  |  |
  | businessAddress | string |  no  |  |
  | pincode | string |  no  |  |
  | documents | [[Documents](#Documents)] |  no  |  |

@@ -1165,7 +1165,6 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | status | string |  yes  |  |
  | info | string |  yes  |  |
- | number | string |  yes  |  |
  | details | any |  no  |  |
  | name | string |  no  |  |
 
@@ -1444,17 +1443,6 @@ const data = await
  | ---------- | ---- | -------- | ----------- |
  | status | string |  yes  |  |
  | approvedLenders | [[BreOutput](#BreOutput)] |  no  |  |
-
----
-
-
- 
- 
- #### [GetKycDocsResponse](#GetKycDocsResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | documents | [[FindDocResponse](#FindDocResponse)] |  yes  |  |
 
 ---
 

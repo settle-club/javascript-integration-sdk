@@ -474,6 +474,7 @@ class PlatformClient {
 /**
  * @typedef InitiateTransactions
  * @property {string} token
+ * @property {string} [intent]
  */
 
 /**
@@ -723,10 +724,23 @@ class PlatformClient {
  */
 
 /**
+ * @typedef MerchantDetailsResponse
+ * @property {string} [id]
+ * @property {string} [website]
+ * @property {string} [businessAddress]
+ * @property {string} [pincode]
+ * @property {string} [logo]
+ * @property {string} [gstIn]
+ * @property {string} [businessName]
+ * @property {string} [name]
+ * @property {string} [supportEmail]
+ * @property {string} [description]
+ */
+
+/**
  * @typedef NavigationsMobileResponse
  * @property {TabsSchema[]} tabs
  * @property {ProfileSectionSchema[]} profileSections
- * @property {Object} [footer]
  */
 
 /**
@@ -981,10 +995,25 @@ class PlatformClient {
  */
 
 /**
- * @typedef UserResponse
+ * @typedef UserResponseMeta
+ * @property {string} timestamp
+ * @property {string} version
+ * @property {string} product
+ * @property {string} [requestId]
+ */
+
+/**
+ * @typedef UserResponseData
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {UserSchema[]} listOfUsers
+ */
+
+/**
+ * @typedef UserResponse
+ * @property {string} message
+ * @property {UserResponseMeta} meta
+ * @property {UserResponseData} data
  */
 
 /**
@@ -1095,11 +1124,6 @@ class PlatformClient {
  * @typedef GetSchemesSuccess
  * @property {string} [userId]
  * @property {SchemeResponse[]} lenders
- */
-
-/**
- * @typedef ActiveEntityResponse
- * @property {Object} [activeEntity]
  */
 
 /**
@@ -1494,7 +1518,6 @@ class PlatformClient {
  * @property {string} [lenderName]
  * @property {string} [lenderLogo]
  * @property {string} [loanType]
- * @property {string} [repaymentTransactionId]
  * @property {string} [nextDueDate]
  * @property {number} [paidPercent]
  * @property {LenderDetail} [lenderDetail]
@@ -1521,16 +1544,6 @@ class PlatformClient {
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {Transactions[]} transactions
- */
-
-/**
- * @typedef MerchantTransactions
- * @property {string} [outstandingAmount]
- */
-
-/**
- * @typedef MerchantTransactionSummary
- * @property {MerchantTransactions} [merchantOutstandingSummary]
  */
 
 /**
@@ -1814,6 +1827,87 @@ class PlatformClient {
  */
 
 /**
+ * @typedef OrderShipmentAddressGeoLocation
+ * @property {number} latitude
+ * @property {number} longitude
+ */
+
+/**
+ * @typedef OrderShipmentAddress
+ * @property {string} [line1]
+ * @property {string} [line2]
+ * @property {string} [city]
+ * @property {string} [state]
+ * @property {string} [country]
+ * @property {string} [pincode]
+ * @property {string} [type]
+ * @property {OrderShipmentAddressGeoLocation} [geoLocation]
+ */
+
+/**
+ * @typedef OrderShipmentItem
+ * @property {string} [category]
+ * @property {string} [sku]
+ * @property {number} [rate]
+ * @property {number} [quantity]
+ */
+
+/**
+ * @typedef OrderShipment
+ * @property {string} id
+ * @property {string} [urn]
+ * @property {number} amount
+ * @property {string} timestamp
+ * @property {string} status
+ * @property {string} [remark]
+ * @property {OrderShipmentItem[]} [items]
+ * @property {OrderShipmentAddress} [shippingAddress]
+ * @property {OrderShipmentAddress} [billingAddress]
+ */
+
+/**
+ * @typedef OrderDeliveryUpdatesBody
+ * @property {string} [orderId]
+ * @property {string} [transactionId]
+ * @property {boolean} [includeSummary]
+ * @property {OrderShipment[]} shipments
+ */
+
+/**
+ * @typedef OrderShipmentSummary
+ * @property {number} orderAmount
+ * @property {number} capturedAmount
+ * @property {number} uncapturedAmount
+ * @property {number} capturedAmountForDisbursal
+ * @property {number} capturedAmountForCancellation
+ */
+
+/**
+ * @typedef OrderShipmentResponse
+ * @property {string} id
+ * @property {string} urn
+ * @property {string} shipmentStatus
+ * @property {number} shipmentAmount
+ * @property {string} processingStatus
+ */
+
+/**
+ * @typedef OrderDeliveryUpdatesData
+ * @property {string} orderId
+ * @property {string} transactionId
+ * @property {OrderShipmentResponse[]} shipments
+ * @property {OrderShipmentSummary} [summary]
+ */
+
+/**
+ * @typedef OrderDeliveryUpdatesResponse
+ * @property {string} message
+ * @property {IntegrationResponseMeta} meta
+ * @property {OrderDeliveryUpdatesData} data
+ * @property {IntegrationResponseError[]} [errors]
+ */
+
+/**
  * @typedef TransactionOrder
  * @property {string} id
  * @property {number} amount
@@ -1898,85 +1992,6 @@ class PlatformClient {
  * @property {string} [endDate]
  * @property {string} [merchantId]
  * @property {string} [type]
- */
-
-/**
- * @typedef OrderShipmentAddressGeoLocation
- * @property {number} latitude
- * @property {number} longitude
- */
-
-/**
- * @typedef OrderShipmentAddress
- * @property {string} [line1]
- * @property {string} [line2]
- * @property {string} [city]
- * @property {string} [state]
- * @property {string} [country]
- * @property {string} [pincode]
- * @property {string} [type]
- * @property {OrderShipmentAddressGeoLocation} [geoLocation]
- */
-
-/**
- * @typedef OrderShipmentItem
- * @property {string} [category]
- * @property {string} [sku]
- * @property {number} [rate]
- * @property {number} [quantity]
- */
-
-/**
- * @typedef OrderShipment
- * @property {string} id
- * @property {string} [urn]
- * @property {number} amount
- * @property {string} timestamp
- * @property {string} status
- * @property {string} [remark]
- * @property {OrderShipmentItem[]} [items]
- * @property {OrderShipmentAddress} [shippingAddress]
- * @property {OrderShipmentAddress} [billingAddress]
- */
-
-/**
- * @typedef OrderDeliveryUpdatesBody
- * @property {string} [orderId]
- * @property {string} [transactionId]
- * @property {boolean} [includeSummary]
- * @property {OrderShipment[]} shipments
- */
-
-/**
- * @typedef OrderShipmentSummary
- * @property {number} totalAmount
- * @property {number} processedAmount
- * @property {number} unprocessedAmount
- */
-
-/**
- * @typedef OrderShipmentResponse
- * @property {string} id
- * @property {string} urn
- * @property {string} shipmentStatus
- * @property {number} shipmentAmount
- * @property {string} processingStatus
- */
-
-/**
- * @typedef OrderDeliveryUpdatesData
- * @property {string} orderId
- * @property {string} transactionId
- * @property {OrderShipmentResponse[]} shipments
- * @property {OrderShipmentSummary} summary
- */
-
-/**
- * @typedef OrderDeliveryUpdatesResponse
- * @property {string} message
- * @property {IntegrationResponseMeta} meta
- * @property {OrderDeliveryUpdatesData} data
- * @property {IntegrationResponseError[]} [errors]
  */
 
 /**
@@ -2616,7 +2631,6 @@ class PlatformClient {
  * @typedef FindDocResponse
  * @property {string} status
  * @property {string} info
- * @property {string} number
  * @property {Object} [details]
  * @property {string} [name]
  */
@@ -2787,11 +2801,6 @@ class PlatformClient {
  * @typedef BreResultStatus
  * @property {string} status
  * @property {BreOutput[]} [approvedLenders]
- */
-
-/**
- * @typedef GetKycDocsResponse
- * @property {FindDocResponse[]} documents
  */
 
 /**
@@ -3523,6 +3532,8 @@ class PlatformClient {
  * @property {string} [disbursementIfsc]
  * @property {string} [businessName]
  * @property {string} [email]
+ * @property {string} [supportEmail]
+ * @property {string} [description]
  * @property {string} [businessAddress]
  * @property {string} [pincode]
  * @property {boolean} [b2b]
@@ -3579,6 +3590,8 @@ class PlatformClient {
  * @property {boolean} [b2c]
  * @property {string} [businessName]
  * @property {string} [email]
+ * @property {string} [supportEmail]
+ * @property {string} [description]
  * @property {string} [businessAddress]
  * @property {string} [pincode]
  * @property {Documents[]} [documents]
@@ -4032,7 +4045,6 @@ class PlatformClient {
  * @property {string} bankId
  * @property {string} bankName
  * @property {string} [chargeToken]
- * @property {string} [transactionId]
  */
 
 /**
@@ -4047,7 +4059,6 @@ class PlatformClient {
  * @property {number} amount
  * @property {string} vpa
  * @property {string} [chargeToken]
- * @property {string} [transactionId]
  */
 
 /**
@@ -4207,14 +4218,6 @@ class PlatformClient {
 /**
  * @typedef PaymentOptionsResponse
  * @property {PaymentsObject[]} [paymentOptions]
- */
-
-/**
- * @typedef CheckEMandateStatusRequest
- * @property {string} [orderId]
- * @property {string} [paymentId]
- * @property {string} [scheduledEnd]
- * @property {string} [ruleAmountValue]
  */
 
 /**
@@ -4664,7 +4667,7 @@ class Credit {
    * @param {Object} arg - Arg object.
    * @param {OrderDeliveryUpdatesBody} arg.body
    * @summary: Update delivery status for an order
-   * @description: Use this API to update the delivery status of an order using order ID or transaction ID, and to trigger loan disbursals based on defined configurations.
+   * @description: This API updates an order's delivery status using the order ID or transaction ID and manages loan disbursal or cancellation following delivery. It is utilized when the system configuration is set to delay loan disbursal until after delivery, indicated by the 'DELAYED' type and 'DELIVERY' event. If 'delayDays' is set to 0, disbursal occurs within an hour after delivery. Additionally, this API facilitates loan cancellation through specific shipment statuses, offering a precise method for loan management based on delivery outcomes.
    */
   updateOrderDeliveryStatus({ body } = {}) {
     const { error } = CreditValidator.updateOrderDeliveryStatus().validate(

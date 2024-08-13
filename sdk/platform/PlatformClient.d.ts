@@ -11,7 +11,7 @@ declare class PlatformClient {
     setExtraHeaders(header: any): void;
 }
 declare namespace PlatformClient {
-    export { IntegrationResponseMeta, IntegrationResponseError, IntegrationSuccessResponse, IntegrationErrorResponse, RefundResponse, UserSource, UserSchema, count, FilterByDate, LenderCount, LenderSchema, TotalUsersPerLender, TotalUsersPerLenderData, TotalUserByLender, UsersByLender, ErrorResponse, EditProfileRequest, VerifyOtpRequest, SendMobileOtpRequest, ReSendMobileOtpRequest, SendOtpRequest, ApplicationUser, SendOtpResponse, EmailUpdate, UserUpdateRequest, LenderUpdateRequest, ProfileEditSuccess, LoginSuccess, VerifyOtpSuccess, LogoutSuccess, OtpSuccess, SessionListSuccess, VerifyMobileOTPSuccess, Location, OrderAddress, CustomerObject, Order, VerifyOrder, OrderUid, CustomerMeta, Device, ValidateCustomer, CreateTransaction, ResendPaymentRequest, ValidateCustomerSuccess, CreateTransactionSuccess, SupportDocuments, CreateTicketResponse, CreateTicket, InitiateTransactions, GetMobileFromToken, GetDataFromToken, MerchantDetails, InitiateTransactionsSuccess, RetrieveMobileFromToken, CreateDashboardTemplateRequest, TemplateSections, TemplateComponent, PartnerApplications, Offerings, Banners, Tips, DashboardTemplateResponse, SectionSchema, PartnerApplicationsResponse, OfferingsResponse, BannersResponse, TipsSection, TipsResponse, TipsCategories, ActionSchema, UpdateDashboardTemplateRequest, UpdateTemplateSections, UpdateTemplateComponent, UpdatePartnerApplications, UpdateOfferings, UpdateBanners, UpdateTips, NavigationsMobileResponse, TabsSchema, PageSchema, ProfileSectionSchema, ProfileNavigationSchema, SendPNSRegisterRequest, PNSRegisterResponse, FaqResponse, CategorySchema, QuestionSchema, SupportCategories, SupportCategoriesResponse, SanctionLetterResponse, KfsDocumentResponse, UserWhiteListedResponse, UserConsentRequest, Consents, UserConsentRequestV2, UserConsentResponse, UserKycSteps, CreateKycStepRequest, RemoveKycStepRequest, KycUpdateMessage, MobileFromLinkingRequest, MobileFromLinkingResponse, SessionFromLinkingRequest, SessionFromLinkingResponse, LinkAccount, LinkAccountSuccess, UnlinkAccount, UnlinkAccountSuccess, Refund, Translation, FilterKeys, FilterValues, Filters, PageResponse, UserResponse, UserDetailRequest, UserConsents, CreditScoreSchema, CreditLimitSchema, Screen, UserStateSchema, GetAccessTokenResponse, RefreshTokenResponse, RefreshTokenRequest, Items, RefundStatusList, RefundStatus, GetSchemesSuccess, ActiveEntityResponse, CustomerMetricsPivots, CustomerMetricsSubResponse, CustomerMetricsAnalytics, CustomerMetricsFilters, CustomerMetrics, SchemeResponse, SchemePaymentOptionsResponse, SchemeEmiPaymentOptionResponse, SchemeEmiScheduleResponse, SchemePayLaterPaymentOptionResponse, LimitResponse, AvailableOrPossibleLender, GetSchemesRequest, CustomerMetricsResponse, CustomerMetricsRequest, SourceAnalyticsRequest, LenderResponse, CreditLimitObject, BusinessDetails, DocumentItems, VintageItems, EligibilitySuccess, CheckEligibilityRequest, EmiSchedule, PaymentOption, PaymentOptions, LenderAndPaymentOption, GetSchemesSuccessOld, PageSchemaResponse, userCountRequest, RepaymentRequest, RepaymentResponse, RepaymentResponseData, VerifyMagicLinkResponse, VerifyMagicLinkRequest, VintageData, AddVintageResponse, DisbursalRequest, WorkflowUser, EligiblePlansRequest, EligiblePlans, EligiblePlansResponse, DisbursalResponse, OrderStatus, DisbursalStatusRequest, Transactions, LenderDetail, TransactionResponse, MerchantTransactions, MerchantTransactionSummary, GetReconciliationFileResponse, ReconFile, UploadReconciliationFileRequest, UploadReconciliationFileResponse, TransactionCount, RefundCount, OrganizationTransactionsCount, OrganizationTransactionsSum, UniqueCustomersInOrg, TransactionAmount, SchemaForOneDayTotal, SumofOneDayTransactions, AverageTransaction, AllTransactionsResponse, TotalRefund, TotalRepayment, TotalOverDue, TotalLoansDisbursed, OrganizationTransactionResponse, TrFilters, TrPageResponse, OrgTransactions, TrFilterKeys, TrFilterValues, KfsRequest, KfsResponse, LenderTransactionState, TransactionStateResponse, Theme, Emi, MetricPivots, TransactionMetricSubResponse, TransactionMetrics, LenderCustomerTransactionMetricsFilters, LenderCustomerTransactionMetrics, LenderCustomerTransactionMetricsResponse, LenderCustomerTransactionMetricsRequest, TransactionOrder, TransactionMerchant, TransactionLoan, TransactionLoanEmi, TransactionLender, UserTransaction, Pagination, GetTransactionsData, GetTransactionsResponse, SummaryRequest, OrderShipmentAddressGeoLocation, OrderShipmentAddress, OrderShipmentItem, OrderShipment, OrderDeliveryUpdatesBody, OrderShipmentSummary, OrderShipmentResponse, OrderDeliveryUpdatesData, OrderDeliveryUpdatesResponse, Lender, UserLender, SourceCreditReport, Document, UserKycDetail, Form, LenderKycStepMap, UserKycLenderStepMap, ProofOfIdentity, ProofOfAddress, EAadhaarData, EntityMapDto, EntityDto, MerchantSchema, Consent, ValidatePanRequest, BankDetails, DocumentData, ConfirmPanRequest, LivelinessDetails, UploadDocumentRequest, UploadDocumentRequestV1, UploadDocumentRequestV3, AadhaarRequest, UploadAadhaarRequest, UploadLivelinessRequest, UploadAadhaarRequestV1, UploadLivelinessRequestV1, UploadAadhaarRequestV2, UploadLivelinessRequestV2, UploadAadhaarRequestV3, UploadLivelinessRequestV3, UploadBankDetailsRequest, InitiateKycRequest, InitiateKycRequestV1, LenderOnboardRequest, LenderOnboardRequestV1, UpdateLenderStatusRequest, UpdateProfileRequest, UpdateEntityRequest, CreateKycStepsRequest, CreateLenderPgConfigRequest, CreateLenderStateRequest, UpdateLenderRequest, OtherPolicyFilters, GetPolicyFilters, GetPolicyFilters2, MerchantConfigRequest, PanDetails, AvailableLendersRequest, InitialData, ExecutePolicyRequest, ExecutePolicyRequest2, RegisterGstRequest, PopulateFormRequest, ValidateFormFieldRequest, MerchantMetricFilter, LenderCustomerMetricsRequest, StonewallCustomer, GetLimitRequest, DocumentObject, ManualKycRequest, RetriggerLenderOnboardRequest, BusinessDetail, DocumentObjects, AddVintageRequest, KycCountByStatus, FindDocResponse, LenderKycStatus, StateResponeDto, KycStateMachineDto, InitiateKycDto, LenderOnboardDto, StepDetails, OnboardStatusDto, LenderFilters, Policy, OrganizationLogosObject, MetricSubTypes, MetricTypes, BreApprovedUsersResponse, Metrics, MetricData, GetAllUserLendersByEnityId, ApprovedLenders, BreResultStatus, GetKycDocsResponse, LenderState, UserLenderState, LenderConfig, Pg, LenderPgConfig, FileUploadResponse, PresignedUrl, PresignedUrlV2, LenderDocument, Commercial, KycStatusResponse, WorkflowResponse, Action, InitiateKycResponse, UploadDocResponse, LenderOnboardResponse, OnboardingStatusResponse, SignedUrlResponse, SignedUrlV2Response, PresignedUrlV3, SignedUrlV3Response, DigilockerLinkResponse, GetDocumentsResponse, ApprovedLendersTransaction, ApprovedPossibleLenders, AvailableLenders, CreditLimit, CreditLimitResponse, LenderPgConfigResponse, GetLendersResponse, LenderConfigurationResponse, UpsertLenderResponse, UpsertLenderConfigResponse, CreateKycStepsSchema, CreatePaymentGatewaySchema, CreateLenderStateSchema, GetAllPaymentGatewaysSchema, PolicyResponse, CreditCheckBreResponse, MerchantConfigResponse, UserLenderByIdAndStatusResponse, IntgrAvailableCreditLimit, IngtrAvailableLimit, IntgrCreditLimit, PossibleLendersInternal, PossibleLendersInternalResponse, GetTotalKycResponse, GetTotalKycCompletedUsersResponse, GetTotalPendingUsersResponse, GetTotalCreditProvidedResponse, MetaSchemaResponse, MetaSchema, AddMetaSchema, AddMetaSchemaRequest, ValidatePanResponse, ConfirmPanResonse, LenderCountResponse, OnboardStepsDto, OnboardStepsResponse, LenderDocumentResponse, GetUserLendersResponse, CreditReportResponse, KycDetailsReponse, GetDocumentByIdResponse, GetAllFormsResponse, UpsertFormResponse, GstDetails, GstDetailsResponse, RegisterGstResponse, PopulateFormResponse, ValidateFormFieldResponse, LenderCustomerMetricsResponse, BreOutput, ManualKycResponse, CustomerKycDetailsReponse, PlatformFees, CommercialResponse, BlockUserRequestSchema, EditEmailRequestSchema, SendVerificationLinkMobileRequestSchema, EditMobileRequestSchema, UpdateEmail, EditProfileRequestSchema, EditProfileMobileSchema, SendEmailOtpRequestSchema, VerifyEmailOtpRequestSchema, ReSendMobileOtpRequestSchema, ResetPasswordSuccess, RegisterFormSuccess, VerifyEmailSuccess, BlockUserSuccess, EmailOtpSuccess, VerifyEmailOTPSuccess, SendMobileVerifyLinkSuccess, SendEmailVerifyLinkSuccess, UserSearchResponseSchema, CustomerListResponseSchema, PaginationSchema, UserObjectSchema, CreateOrganization, UpdateLogo, AddMetaSchemaResponse, UpdateOrganization, UpdateFinancials, Documents, FinancialDetails, GetOrganization, OrganizationDetails, Organization, OrganizationList, OrganizationCount, TeamMembers, Member, Profile, AddTeamMember, UpdateTeamMemberRole, RemoveTeamMemberResponse, AddTeamMemberResponse, ApiKey, UpdateApiHook, ApiHookDetails, UpdateApiHookResponse, OrganizationIp, AddOrganizationIpDetails, AddUpdateCsvFileResponse, AddUpdateCsvFileRequest, CsvFile, AddReportCsvFileResponse, AddReportCsvFileRequest, ReportCsvFileResponse, AddReportRequestArray, AddReportRequest, AddReportResponseArray, AddReportResponse, VintageDataResponseObject, VintageDataResponse, AddSkuRequestArray, AddSkuRequest, AddSkuResponse, RestrictedSkuSchema, OrganizationIpResponse, OrganizationIpDetails, RefundSuccess, RefundItem, ValidateCredentialsData, ValidateCredentialsResponse, PaymentLinkResponse, ApplicationCutomer, GeoLocation, Address, OrderItems, PaymentLinkRequest, UpdateLenderStatusSchemaRequest, UpdateLenderStatusSchemaResponse, LenderTheme, LenderDetails, OutstandingData, OutstandingDetailsResponse, CreateUserRequestSchema, CreateUserResponseSchema, RepaymentUsingNetbanking, RepaymentUsingNetbankingResponse, RepaymentUsingUPI, RepaymentUsingUPIResponse, RegisterUPIMandateRequest, RegisterUPIMandateResponse, RegisterUPIMandateStatusCheckRequest, RegisterMandateStatusCheckResponse, TransactionStatusRequest, TransactionStatusResponse, BankList, PaymentsObject, OutstandingDetail, OutstandingSummary, DueSummaryOutstanding, OutstandingMessage, UserCredit, DueTransactionsOutstanding, RepaymentSummaryOutstanding, OutstandingDetailsRepayment, PaymentOptionsResponse, CheckEMandateStatusRequest, AutoPayStatusResponse, OutstandingDetailsData };
+    export { IntegrationResponseMeta, IntegrationResponseError, IntegrationSuccessResponse, IntegrationErrorResponse, RefundResponse, UserSource, UserSchema, count, FilterByDate, LenderCount, LenderSchema, TotalUsersPerLender, TotalUsersPerLenderData, TotalUserByLender, UsersByLender, ErrorResponse, EditProfileRequest, VerifyOtpRequest, SendMobileOtpRequest, ReSendMobileOtpRequest, SendOtpRequest, ApplicationUser, SendOtpResponse, EmailUpdate, UserUpdateRequest, LenderUpdateRequest, ProfileEditSuccess, LoginSuccess, VerifyOtpSuccess, LogoutSuccess, OtpSuccess, SessionListSuccess, VerifyMobileOTPSuccess, Location, OrderAddress, CustomerObject, Order, VerifyOrder, OrderUid, CustomerMeta, Device, ValidateCustomer, CreateTransaction, ResendPaymentRequest, ValidateCustomerSuccess, CreateTransactionSuccess, SupportDocuments, CreateTicketResponse, CreateTicket, InitiateTransactions, GetMobileFromToken, GetDataFromToken, MerchantDetails, InitiateTransactionsSuccess, RetrieveMobileFromToken, CreateDashboardTemplateRequest, TemplateSections, TemplateComponent, PartnerApplications, Offerings, Banners, Tips, DashboardTemplateResponse, SectionSchema, PartnerApplicationsResponse, OfferingsResponse, BannersResponse, TipsSection, TipsResponse, TipsCategories, ActionSchema, UpdateDashboardTemplateRequest, UpdateTemplateSections, UpdateTemplateComponent, UpdatePartnerApplications, UpdateOfferings, UpdateBanners, UpdateTips, MerchantDetailsResponse, NavigationsMobileResponse, TabsSchema, PageSchema, ProfileSectionSchema, ProfileNavigationSchema, SendPNSRegisterRequest, PNSRegisterResponse, FaqResponse, CategorySchema, QuestionSchema, SupportCategories, SupportCategoriesResponse, SanctionLetterResponse, KfsDocumentResponse, UserWhiteListedResponse, UserConsentRequest, Consents, UserConsentRequestV2, UserConsentResponse, UserKycSteps, CreateKycStepRequest, RemoveKycStepRequest, KycUpdateMessage, MobileFromLinkingRequest, MobileFromLinkingResponse, SessionFromLinkingRequest, SessionFromLinkingResponse, LinkAccount, LinkAccountSuccess, UnlinkAccount, UnlinkAccountSuccess, Refund, Translation, FilterKeys, FilterValues, Filters, PageResponse, UserResponseMeta, UserResponseData, UserResponse, UserDetailRequest, UserConsents, CreditScoreSchema, CreditLimitSchema, Screen, UserStateSchema, GetAccessTokenResponse, RefreshTokenResponse, RefreshTokenRequest, Items, RefundStatusList, RefundStatus, GetSchemesSuccess, CustomerMetricsPivots, CustomerMetricsSubResponse, CustomerMetricsAnalytics, CustomerMetricsFilters, CustomerMetrics, SchemeResponse, SchemePaymentOptionsResponse, SchemeEmiPaymentOptionResponse, SchemeEmiScheduleResponse, SchemePayLaterPaymentOptionResponse, LimitResponse, AvailableOrPossibleLender, GetSchemesRequest, CustomerMetricsResponse, CustomerMetricsRequest, SourceAnalyticsRequest, LenderResponse, CreditLimitObject, BusinessDetails, DocumentItems, VintageItems, EligibilitySuccess, CheckEligibilityRequest, EmiSchedule, PaymentOption, PaymentOptions, LenderAndPaymentOption, GetSchemesSuccessOld, PageSchemaResponse, userCountRequest, RepaymentRequest, RepaymentResponse, RepaymentResponseData, VerifyMagicLinkResponse, VerifyMagicLinkRequest, VintageData, AddVintageResponse, DisbursalRequest, WorkflowUser, EligiblePlansRequest, EligiblePlans, EligiblePlansResponse, DisbursalResponse, OrderStatus, DisbursalStatusRequest, Transactions, LenderDetail, TransactionResponse, GetReconciliationFileResponse, ReconFile, UploadReconciliationFileRequest, UploadReconciliationFileResponse, TransactionCount, RefundCount, OrganizationTransactionsCount, OrganizationTransactionsSum, UniqueCustomersInOrg, TransactionAmount, SchemaForOneDayTotal, SumofOneDayTransactions, AverageTransaction, AllTransactionsResponse, TotalRefund, TotalRepayment, TotalOverDue, TotalLoansDisbursed, OrganizationTransactionResponse, TrFilters, TrPageResponse, OrgTransactions, TrFilterKeys, TrFilterValues, KfsRequest, KfsResponse, LenderTransactionState, TransactionStateResponse, Theme, Emi, MetricPivots, TransactionMetricSubResponse, TransactionMetrics, LenderCustomerTransactionMetricsFilters, LenderCustomerTransactionMetrics, LenderCustomerTransactionMetricsResponse, LenderCustomerTransactionMetricsRequest, OrderShipmentAddressGeoLocation, OrderShipmentAddress, OrderShipmentItem, OrderShipment, OrderDeliveryUpdatesBody, OrderShipmentSummary, OrderShipmentResponse, OrderDeliveryUpdatesData, OrderDeliveryUpdatesResponse, TransactionOrder, TransactionMerchant, TransactionLoan, TransactionLoanEmi, TransactionLender, UserTransaction, Pagination, GetTransactionsData, GetTransactionsResponse, SummaryRequest, Lender, UserLender, SourceCreditReport, Document, UserKycDetail, Form, LenderKycStepMap, UserKycLenderStepMap, ProofOfIdentity, ProofOfAddress, EAadhaarData, EntityMapDto, EntityDto, MerchantSchema, Consent, ValidatePanRequest, BankDetails, DocumentData, ConfirmPanRequest, LivelinessDetails, UploadDocumentRequest, UploadDocumentRequestV1, UploadDocumentRequestV3, AadhaarRequest, UploadAadhaarRequest, UploadLivelinessRequest, UploadAadhaarRequestV1, UploadLivelinessRequestV1, UploadAadhaarRequestV2, UploadLivelinessRequestV2, UploadAadhaarRequestV3, UploadLivelinessRequestV3, UploadBankDetailsRequest, InitiateKycRequest, InitiateKycRequestV1, LenderOnboardRequest, LenderOnboardRequestV1, UpdateLenderStatusRequest, UpdateProfileRequest, UpdateEntityRequest, CreateKycStepsRequest, CreateLenderPgConfigRequest, CreateLenderStateRequest, UpdateLenderRequest, OtherPolicyFilters, GetPolicyFilters, GetPolicyFilters2, MerchantConfigRequest, PanDetails, AvailableLendersRequest, InitialData, ExecutePolicyRequest, ExecutePolicyRequest2, RegisterGstRequest, PopulateFormRequest, ValidateFormFieldRequest, MerchantMetricFilter, LenderCustomerMetricsRequest, StonewallCustomer, GetLimitRequest, DocumentObject, ManualKycRequest, RetriggerLenderOnboardRequest, BusinessDetail, DocumentObjects, AddVintageRequest, KycCountByStatus, FindDocResponse, LenderKycStatus, StateResponeDto, KycStateMachineDto, InitiateKycDto, LenderOnboardDto, StepDetails, OnboardStatusDto, LenderFilters, Policy, OrganizationLogosObject, MetricSubTypes, MetricTypes, BreApprovedUsersResponse, Metrics, MetricData, GetAllUserLendersByEnityId, ApprovedLenders, BreResultStatus, LenderState, UserLenderState, LenderConfig, Pg, LenderPgConfig, FileUploadResponse, PresignedUrl, PresignedUrlV2, LenderDocument, Commercial, KycStatusResponse, WorkflowResponse, Action, InitiateKycResponse, UploadDocResponse, LenderOnboardResponse, OnboardingStatusResponse, SignedUrlResponse, SignedUrlV2Response, PresignedUrlV3, SignedUrlV3Response, DigilockerLinkResponse, GetDocumentsResponse, ApprovedLendersTransaction, ApprovedPossibleLenders, AvailableLenders, CreditLimit, CreditLimitResponse, LenderPgConfigResponse, GetLendersResponse, LenderConfigurationResponse, UpsertLenderResponse, UpsertLenderConfigResponse, CreateKycStepsSchema, CreatePaymentGatewaySchema, CreateLenderStateSchema, GetAllPaymentGatewaysSchema, PolicyResponse, CreditCheckBreResponse, MerchantConfigResponse, UserLenderByIdAndStatusResponse, IntgrAvailableCreditLimit, IngtrAvailableLimit, IntgrCreditLimit, PossibleLendersInternal, PossibleLendersInternalResponse, GetTotalKycResponse, GetTotalKycCompletedUsersResponse, GetTotalPendingUsersResponse, GetTotalCreditProvidedResponse, MetaSchemaResponse, MetaSchema, AddMetaSchema, AddMetaSchemaRequest, ValidatePanResponse, ConfirmPanResonse, LenderCountResponse, OnboardStepsDto, OnboardStepsResponse, LenderDocumentResponse, GetUserLendersResponse, CreditReportResponse, KycDetailsReponse, GetDocumentByIdResponse, GetAllFormsResponse, UpsertFormResponse, GstDetails, GstDetailsResponse, RegisterGstResponse, PopulateFormResponse, ValidateFormFieldResponse, LenderCustomerMetricsResponse, BreOutput, ManualKycResponse, CustomerKycDetailsReponse, PlatformFees, CommercialResponse, BlockUserRequestSchema, EditEmailRequestSchema, SendVerificationLinkMobileRequestSchema, EditMobileRequestSchema, UpdateEmail, EditProfileRequestSchema, EditProfileMobileSchema, SendEmailOtpRequestSchema, VerifyEmailOtpRequestSchema, ReSendMobileOtpRequestSchema, ResetPasswordSuccess, RegisterFormSuccess, VerifyEmailSuccess, BlockUserSuccess, EmailOtpSuccess, VerifyEmailOTPSuccess, SendMobileVerifyLinkSuccess, SendEmailVerifyLinkSuccess, UserSearchResponseSchema, CustomerListResponseSchema, PaginationSchema, UserObjectSchema, CreateOrganization, UpdateLogo, AddMetaSchemaResponse, UpdateOrganization, UpdateFinancials, Documents, FinancialDetails, GetOrganization, OrganizationDetails, Organization, OrganizationList, OrganizationCount, TeamMembers, Member, Profile, AddTeamMember, UpdateTeamMemberRole, RemoveTeamMemberResponse, AddTeamMemberResponse, ApiKey, UpdateApiHook, ApiHookDetails, UpdateApiHookResponse, OrganizationIp, AddOrganizationIpDetails, AddUpdateCsvFileResponse, AddUpdateCsvFileRequest, CsvFile, AddReportCsvFileResponse, AddReportCsvFileRequest, ReportCsvFileResponse, AddReportRequestArray, AddReportRequest, AddReportResponseArray, AddReportResponse, VintageDataResponseObject, VintageDataResponse, AddSkuRequestArray, AddSkuRequest, AddSkuResponse, RestrictedSkuSchema, OrganizationIpResponse, OrganizationIpDetails, RefundSuccess, RefundItem, ValidateCredentialsData, ValidateCredentialsResponse, PaymentLinkResponse, ApplicationCutomer, GeoLocation, Address, OrderItems, PaymentLinkRequest, UpdateLenderStatusSchemaRequest, UpdateLenderStatusSchemaResponse, LenderTheme, LenderDetails, OutstandingData, OutstandingDetailsResponse, CreateUserRequestSchema, CreateUserResponseSchema, RepaymentUsingNetbanking, RepaymentUsingNetbankingResponse, RepaymentUsingUPI, RepaymentUsingUPIResponse, RegisterUPIMandateRequest, RegisterUPIMandateResponse, RegisterUPIMandateStatusCheckRequest, RegisterMandateStatusCheckResponse, TransactionStatusRequest, TransactionStatusResponse, BankList, PaymentsObject, OutstandingDetail, OutstandingSummary, DueSummaryOutstanding, OutstandingMessage, UserCredit, DueTransactionsOutstanding, RepaymentSummaryOutstanding, OutstandingDetailsRepayment, PaymentOptionsResponse, AutoPayStatusResponse, OutstandingDetailsData };
 }
 /**
  * @typedef IntegrationResponseMeta
@@ -401,6 +401,7 @@ declare namespace PlatformClient {
 /**
  * @typedef InitiateTransactions
  * @property {string} token
+ * @property {string} [intent]
  */
 /**
  * @typedef GetMobileFromToken
@@ -621,10 +622,22 @@ declare namespace PlatformClient {
  * @property {boolean} [active]
  */
 /**
+ * @typedef MerchantDetailsResponse
+ * @property {string} [id]
+ * @property {string} [website]
+ * @property {string} [businessAddress]
+ * @property {string} [pincode]
+ * @property {string} [logo]
+ * @property {string} [gstIn]
+ * @property {string} [businessName]
+ * @property {string} [name]
+ * @property {string} [supportEmail]
+ * @property {string} [description]
+ */
+/**
  * @typedef NavigationsMobileResponse
  * @property {TabsSchema[]} tabs
  * @property {ProfileSectionSchema[]} profileSections
- * @property {Object} [footer]
  */
 /**
  * @typedef TabsSchema
@@ -842,10 +855,23 @@ declare namespace PlatformClient {
  * @property {number} itemTotal
  */
 /**
- * @typedef UserResponse
+ * @typedef UserResponseMeta
+ * @property {string} timestamp
+ * @property {string} version
+ * @property {string} product
+ * @property {string} [requestId]
+ */
+/**
+ * @typedef UserResponseData
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {UserSchema[]} listOfUsers
+ */
+/**
+ * @typedef UserResponse
+ * @property {string} message
+ * @property {UserResponseMeta} meta
+ * @property {UserResponseData} data
  */
 /**
  * @typedef UserDetailRequest
@@ -943,10 +969,6 @@ declare namespace PlatformClient {
  * @typedef GetSchemesSuccess
  * @property {string} [userId]
  * @property {SchemeResponse[]} lenders
- */
-/**
- * @typedef ActiveEntityResponse
- * @property {Object} [activeEntity]
  */
 /**
  * @typedef CustomerMetricsPivots
@@ -1295,7 +1317,6 @@ declare namespace PlatformClient {
  * @property {string} [lenderName]
  * @property {string} [lenderLogo]
  * @property {string} [loanType]
- * @property {string} [repaymentTransactionId]
  * @property {string} [nextDueDate]
  * @property {number} [paidPercent]
  * @property {LenderDetail} [lenderDetail]
@@ -1320,14 +1341,6 @@ declare namespace PlatformClient {
  * @property {Filters[]} filters
  * @property {PageResponse} page
  * @property {Transactions[]} transactions
- */
-/**
- * @typedef MerchantTransactions
- * @property {string} [outstandingAmount]
- */
-/**
- * @typedef MerchantTransactionSummary
- * @property {MerchantTransactions} [merchantOutstandingSummary]
  */
 /**
  * @typedef GetReconciliationFileResponse
@@ -1573,6 +1586,78 @@ declare namespace PlatformClient {
  * @property {number} [pivotPoints]
  */
 /**
+ * @typedef OrderShipmentAddressGeoLocation
+ * @property {number} latitude
+ * @property {number} longitude
+ */
+/**
+ * @typedef OrderShipmentAddress
+ * @property {string} [line1]
+ * @property {string} [line2]
+ * @property {string} [city]
+ * @property {string} [state]
+ * @property {string} [country]
+ * @property {string} [pincode]
+ * @property {string} [type]
+ * @property {OrderShipmentAddressGeoLocation} [geoLocation]
+ */
+/**
+ * @typedef OrderShipmentItem
+ * @property {string} [category]
+ * @property {string} [sku]
+ * @property {number} [rate]
+ * @property {number} [quantity]
+ */
+/**
+ * @typedef OrderShipment
+ * @property {string} id
+ * @property {string} [urn]
+ * @property {number} amount
+ * @property {string} timestamp
+ * @property {string} status
+ * @property {string} [remark]
+ * @property {OrderShipmentItem[]} [items]
+ * @property {OrderShipmentAddress} [shippingAddress]
+ * @property {OrderShipmentAddress} [billingAddress]
+ */
+/**
+ * @typedef OrderDeliveryUpdatesBody
+ * @property {string} [orderId]
+ * @property {string} [transactionId]
+ * @property {boolean} [includeSummary]
+ * @property {OrderShipment[]} shipments
+ */
+/**
+ * @typedef OrderShipmentSummary
+ * @property {number} orderAmount
+ * @property {number} capturedAmount
+ * @property {number} uncapturedAmount
+ * @property {number} capturedAmountForDisbursal
+ * @property {number} capturedAmountForCancellation
+ */
+/**
+ * @typedef OrderShipmentResponse
+ * @property {string} id
+ * @property {string} urn
+ * @property {string} shipmentStatus
+ * @property {number} shipmentAmount
+ * @property {string} processingStatus
+ */
+/**
+ * @typedef OrderDeliveryUpdatesData
+ * @property {string} orderId
+ * @property {string} transactionId
+ * @property {OrderShipmentResponse[]} shipments
+ * @property {OrderShipmentSummary} [summary]
+ */
+/**
+ * @typedef OrderDeliveryUpdatesResponse
+ * @property {string} message
+ * @property {IntegrationResponseMeta} meta
+ * @property {OrderDeliveryUpdatesData} data
+ * @property {IntegrationResponseError[]} [errors]
+ */
+/**
  * @typedef TransactionOrder
  * @property {string} id
  * @property {number} amount
@@ -1648,76 +1733,6 @@ declare namespace PlatformClient {
  * @property {string} [endDate]
  * @property {string} [merchantId]
  * @property {string} [type]
- */
-/**
- * @typedef OrderShipmentAddressGeoLocation
- * @property {number} latitude
- * @property {number} longitude
- */
-/**
- * @typedef OrderShipmentAddress
- * @property {string} [line1]
- * @property {string} [line2]
- * @property {string} [city]
- * @property {string} [state]
- * @property {string} [country]
- * @property {string} [pincode]
- * @property {string} [type]
- * @property {OrderShipmentAddressGeoLocation} [geoLocation]
- */
-/**
- * @typedef OrderShipmentItem
- * @property {string} [category]
- * @property {string} [sku]
- * @property {number} [rate]
- * @property {number} [quantity]
- */
-/**
- * @typedef OrderShipment
- * @property {string} id
- * @property {string} [urn]
- * @property {number} amount
- * @property {string} timestamp
- * @property {string} status
- * @property {string} [remark]
- * @property {OrderShipmentItem[]} [items]
- * @property {OrderShipmentAddress} [shippingAddress]
- * @property {OrderShipmentAddress} [billingAddress]
- */
-/**
- * @typedef OrderDeliveryUpdatesBody
- * @property {string} [orderId]
- * @property {string} [transactionId]
- * @property {boolean} [includeSummary]
- * @property {OrderShipment[]} shipments
- */
-/**
- * @typedef OrderShipmentSummary
- * @property {number} totalAmount
- * @property {number} processedAmount
- * @property {number} unprocessedAmount
- */
-/**
- * @typedef OrderShipmentResponse
- * @property {string} id
- * @property {string} urn
- * @property {string} shipmentStatus
- * @property {number} shipmentAmount
- * @property {string} processingStatus
- */
-/**
- * @typedef OrderDeliveryUpdatesData
- * @property {string} orderId
- * @property {string} transactionId
- * @property {OrderShipmentResponse[]} shipments
- * @property {OrderShipmentSummary} summary
- */
-/**
- * @typedef OrderDeliveryUpdatesResponse
- * @property {string} message
- * @property {IntegrationResponseMeta} meta
- * @property {OrderDeliveryUpdatesData} data
- * @property {IntegrationResponseError[]} [errors]
  */
 /**
  * @typedef Lender
@@ -2289,7 +2304,6 @@ declare namespace PlatformClient {
  * @typedef FindDocResponse
  * @property {string} status
  * @property {string} info
- * @property {string} number
  * @property {Object} [details]
  * @property {string} [name]
  */
@@ -2442,10 +2456,6 @@ declare namespace PlatformClient {
  * @typedef BreResultStatus
  * @property {string} status
  * @property {BreOutput[]} [approvedLenders]
- */
-/**
- * @typedef GetKycDocsResponse
- * @property {FindDocResponse[]} documents
  */
 /**
  * @typedef LenderState
@@ -3077,6 +3087,8 @@ declare namespace PlatformClient {
  * @property {string} [disbursementIfsc]
  * @property {string} [businessName]
  * @property {string} [email]
+ * @property {string} [supportEmail]
+ * @property {string} [description]
  * @property {string} [businessAddress]
  * @property {string} [pincode]
  * @property {boolean} [b2b]
@@ -3127,6 +3139,8 @@ declare namespace PlatformClient {
  * @property {boolean} [b2c]
  * @property {string} [businessName]
  * @property {string} [email]
+ * @property {string} [supportEmail]
+ * @property {string} [description]
  * @property {string} [businessAddress]
  * @property {string} [pincode]
  * @property {Documents[]} [documents]
@@ -3525,7 +3539,6 @@ declare namespace PlatformClient {
  * @property {string} bankId
  * @property {string} bankName
  * @property {string} [chargeToken]
- * @property {string} [transactionId]
  */
 /**
  * @typedef RepaymentUsingNetbankingResponse
@@ -3538,7 +3551,6 @@ declare namespace PlatformClient {
  * @property {number} amount
  * @property {string} vpa
  * @property {string} [chargeToken]
- * @property {string} [transactionId]
  */
 /**
  * @typedef RepaymentUsingUPIResponse
@@ -3680,13 +3692,6 @@ declare namespace PlatformClient {
 /**
  * @typedef PaymentOptionsResponse
  * @property {PaymentsObject[]} [paymentOptions]
- */
-/**
- * @typedef CheckEMandateStatusRequest
- * @property {string} [orderId]
- * @property {string} [paymentId]
- * @property {string} [scheduledEnd]
- * @property {string} [ruleAmountValue]
  */
 /**
  * @typedef AutoPayStatusResponse
@@ -3836,7 +3841,7 @@ declare class Credit {
      * @param {Object} arg - Arg object.
      * @param {OrderDeliveryUpdatesBody} arg.body
      * @summary: Update delivery status for an order
-     * @description: Use this API to update the delivery status of an order using order ID or transaction ID, and to trigger loan disbursals based on defined configurations.
+     * @description: This API updates an order's delivery status using the order ID or transaction ID and manages loan disbursal or cancellation following delivery. It is utilized when the system configuration is set to delay loan disbursal until after delivery, indicated by the 'DELAYED' type and 'DELIVERY' event. If 'delayDays' is set to 0, disbursal occurs within an hour after delivery. Additionally, this API facilitates loan cancellation through specific shipment statuses, offering a precise method for loan management based on delivery outcomes.
      */
     updateOrderDeliveryStatus({ body }?: {
         body: OrderDeliveryUpdatesBody;
@@ -4260,6 +4265,7 @@ type CreateTicket = {
 };
 type InitiateTransactions = {
     token: string;
+    intent?: string;
 };
 type GetMobileFromToken = {
     token: string;
@@ -4451,10 +4457,21 @@ type UpdateTips = {
     sequence?: number;
     active?: boolean;
 };
+type MerchantDetailsResponse = {
+    id?: string;
+    website?: string;
+    businessAddress?: string;
+    pincode?: string;
+    logo?: string;
+    gstIn?: string;
+    businessName?: string;
+    name?: string;
+    supportEmail?: string;
+    description?: string;
+};
 type NavigationsMobileResponse = {
     tabs: TabsSchema[];
     profileSections: ProfileSectionSchema[];
-    footer?: any;
 };
 type TabsSchema = {
     title: string;
@@ -4635,10 +4652,21 @@ type PageResponse = {
     size: number;
     itemTotal: number;
 };
-type UserResponse = {
+type UserResponseMeta = {
+    timestamp: string;
+    version: string;
+    product: string;
+    requestId?: string;
+};
+type UserResponseData = {
     filters: Filters[];
     page: PageResponse;
     listOfUsers: UserSchema[];
+};
+type UserResponse = {
+    message: string;
+    meta: UserResponseMeta;
+    data: UserResponseData;
 };
 type UserDetailRequest = {
     id: string;
@@ -4723,9 +4751,6 @@ type RefundStatus = {
 type GetSchemesSuccess = {
     userId?: string;
     lenders: SchemeResponse[];
-};
-type ActiveEntityResponse = {
-    activeEntity?: any;
 };
 type CustomerMetricsPivots = {
     date?: string;
@@ -5028,7 +5053,6 @@ type Transactions = {
     lenderName?: string;
     lenderLogo?: string;
     loanType?: string;
-    repaymentTransactionId?: string;
     nextDueDate?: string;
     paidPercent?: number;
     lenderDetail?: LenderDetail;
@@ -5051,12 +5075,6 @@ type TransactionResponse = {
     filters: Filters[];
     page: PageResponse;
     transactions: Transactions[];
-};
-type MerchantTransactions = {
-    outstandingAmount?: string;
-};
-type MerchantTransactionSummary = {
-    merchantOutstandingSummary?: MerchantTransactions;
 };
 type GetReconciliationFileResponse = {
     files: ReconFile[];
@@ -5264,6 +5282,69 @@ type LenderCustomerTransactionMetricsRequest = {
     lenderId?: string;
     pivotPoints?: number;
 };
+type OrderShipmentAddressGeoLocation = {
+    latitude: number;
+    longitude: number;
+};
+type OrderShipmentAddress = {
+    line1?: string;
+    line2?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    pincode?: string;
+    type?: string;
+    geoLocation?: OrderShipmentAddressGeoLocation;
+};
+type OrderShipmentItem = {
+    category?: string;
+    sku?: string;
+    rate?: number;
+    quantity?: number;
+};
+type OrderShipment = {
+    id: string;
+    urn?: string;
+    amount: number;
+    timestamp: string;
+    status: string;
+    remark?: string;
+    items?: OrderShipmentItem[];
+    shippingAddress?: OrderShipmentAddress;
+    billingAddress?: OrderShipmentAddress;
+};
+type OrderDeliveryUpdatesBody = {
+    orderId?: string;
+    transactionId?: string;
+    includeSummary?: boolean;
+    shipments: OrderShipment[];
+};
+type OrderShipmentSummary = {
+    orderAmount: number;
+    capturedAmount: number;
+    uncapturedAmount: number;
+    capturedAmountForDisbursal: number;
+    capturedAmountForCancellation: number;
+};
+type OrderShipmentResponse = {
+    id: string;
+    urn: string;
+    shipmentStatus: string;
+    shipmentAmount: number;
+    processingStatus: string;
+};
+type OrderDeliveryUpdatesData = {
+    orderId: string;
+    transactionId: string;
+    shipments: OrderShipmentResponse[];
+    summary?: OrderShipmentSummary;
+};
+type OrderDeliveryUpdatesResponse = {
+    message: string;
+    meta: IntegrationResponseMeta;
+    data: OrderDeliveryUpdatesData;
+    errors?: IntegrationResponseError[];
+};
 type TransactionOrder = {
     id: string;
     amount: number;
@@ -5330,67 +5411,6 @@ type SummaryRequest = {
     endDate?: string;
     merchantId?: string;
     type?: string;
-};
-type OrderShipmentAddressGeoLocation = {
-    latitude: number;
-    longitude: number;
-};
-type OrderShipmentAddress = {
-    line1?: string;
-    line2?: string;
-    city?: string;
-    state?: string;
-    country?: string;
-    pincode?: string;
-    type?: string;
-    geoLocation?: OrderShipmentAddressGeoLocation;
-};
-type OrderShipmentItem = {
-    category?: string;
-    sku?: string;
-    rate?: number;
-    quantity?: number;
-};
-type OrderShipment = {
-    id: string;
-    urn?: string;
-    amount: number;
-    timestamp: string;
-    status: string;
-    remark?: string;
-    items?: OrderShipmentItem[];
-    shippingAddress?: OrderShipmentAddress;
-    billingAddress?: OrderShipmentAddress;
-};
-type OrderDeliveryUpdatesBody = {
-    orderId?: string;
-    transactionId?: string;
-    includeSummary?: boolean;
-    shipments: OrderShipment[];
-};
-type OrderShipmentSummary = {
-    totalAmount: number;
-    processedAmount: number;
-    unprocessedAmount: number;
-};
-type OrderShipmentResponse = {
-    id: string;
-    urn: string;
-    shipmentStatus: string;
-    shipmentAmount: number;
-    processingStatus: string;
-};
-type OrderDeliveryUpdatesData = {
-    orderId: string;
-    transactionId: string;
-    shipments: OrderShipmentResponse[];
-    summary: OrderShipmentSummary;
-};
-type OrderDeliveryUpdatesResponse = {
-    message: string;
-    meta: IntegrationResponseMeta;
-    data: OrderDeliveryUpdatesData;
-    errors?: IntegrationResponseError[];
 };
 type Lender = {
     id?: string;
@@ -5894,7 +5914,6 @@ type KycCountByStatus = {
 type FindDocResponse = {
     status: string;
     info: string;
-    number: string;
     details?: any;
     name?: string;
 };
@@ -6029,9 +6048,6 @@ type ApprovedLenders = {
 type BreResultStatus = {
     status: string;
     approvedLenders?: BreOutput[];
-};
-type GetKycDocsResponse = {
-    documents: FindDocResponse[];
 };
 type LenderState = {
     id?: string;
@@ -6563,6 +6579,8 @@ type CreateOrganization = {
     disbursementIfsc?: string;
     businessName?: string;
     email?: string;
+    supportEmail?: string;
+    description?: string;
     businessAddress?: string;
     pincode?: string;
     b2b?: boolean;
@@ -6607,6 +6625,8 @@ type FinancialDetails = {
     b2c?: boolean;
     businessName?: string;
     email?: string;
+    supportEmail?: string;
+    description?: string;
     businessAddress?: string;
     pincode?: string;
     documents?: Documents[];
@@ -6950,7 +6970,6 @@ type RepaymentUsingNetbanking = {
     bankId: string;
     bankName: string;
     chargeToken?: string;
-    transactionId?: string;
 };
 type RepaymentUsingNetbankingResponse = {
     form?: string;
@@ -6961,7 +6980,6 @@ type RepaymentUsingUPI = {
     amount: number;
     vpa: string;
     chargeToken?: string;
-    transactionId?: string;
 };
 type RepaymentUsingUPIResponse = {
     isDifferent?: boolean;
@@ -7085,12 +7103,6 @@ type OutstandingDetailsRepayment = {
 };
 type PaymentOptionsResponse = {
     paymentOptions?: PaymentsObject[];
-};
-type CheckEMandateStatusRequest = {
-    orderId?: string;
-    paymentId?: string;
-    scheduledEnd?: string;
-    ruleAmountValue?: string;
 };
 type AutoPayStatusResponse = {
     status?: string;
