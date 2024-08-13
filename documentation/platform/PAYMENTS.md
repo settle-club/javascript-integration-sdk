@@ -202,7 +202,6 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
  | bankId | string |  yes  |  |
  | bankName | string |  yes  |  |
  | chargeToken | string |  no  |  |
- | transactionId | string |  no  |  |
 
 ---
 
@@ -229,7 +228,6 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
  | amount | number |  yes  |  |
  | vpa | string |  yes  |  |
  | chargeToken | string |  no  |  |
- | transactionId | string |  no  |  |
 
 ---
 
@@ -537,20 +535,6 @@ Success. Returns a JSON object as shown below. Refer `PaymentLinkResponse` for m
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | paymentOptions | [[PaymentsObject](#PaymentsObject)] |  no  |  |
-
----
-
-
- 
- 
- #### [CheckEMandateStatusRequest](#CheckEMandateStatusRequest)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | orderId | string |  no  |  |
- | paymentId | string |  no  |  |
- | scheduledEnd | string |  no  |  |
- | ruleAmountValue | string |  no  |  |
 
 ---
 

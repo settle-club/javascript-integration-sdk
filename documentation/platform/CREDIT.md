@@ -221,7 +221,7 @@ const data = await
 | body | [OrderDeliveryUpdatesBody](#OrderDeliveryUpdatesBody) | yes | Request body |
 
 
-Use this API to update the delivery status of an order using order ID or transaction ID, and to trigger loan disbursals based on defined configurations.
+This API updates an order's delivery status using the order ID or transaction ID and manages loan disbursal or cancellation following delivery. It is utilized when the system configuration is set to delay loan disbursal until after delivery, indicated by the 'DELAYED' type and 'DELIVERY' event. If 'delayDays' is set to 0, disbursal occurs within an hour after delivery. Additionally, this API facilitates loan cancellation through specific shipment statuses, offering a precise method for loan management based on delivery outcomes.
 
 *Returned Response:*
 
@@ -248,27 +248,29 @@ Success. Returns a JSON object as shown below. Refer `OrderDeliveryUpdatesRespon
     "message": "The request has been processed successfully.",
     "data": {
       "orderId": "ORD1234",
-      "transactionId": "ORD1234",
+      "transactionId": "TXN1234",
       "shipments": [
         {
-          "id": "ship1234",
-          "urn": "ship1234_0",
-          "shipmentStatus": "DELIVERED",
-          "shipmentAmount": 5000,
-          "processingStatus": "PROCESSED"
+          "id": "ship12345",
+          "urn": "ship12345_0",
+          "shipmentStatus": "CANCELLED",
+          "shipmentAmount": 100,
+          "processingStatus": "CAPTURED"
         },
         {
-          "id": "ship3245",
-          "urn": "ship3245_1",
-          "shipmentStatus": "CANCELLED",
-          "shipmentAmount": 2000,
-          "processingStatus": "PROCESSED"
+          "id": "ship12345",
+          "urn": "ship12345_1",
+          "shipmentStatus": "DELIVERED",
+          "shipmentAmount": 500,
+          "processingStatus": "CAPTURED"
         }
       ],
       "summary": {
-        "totalAmount": 10000,
-        "processedAmount": 7000,
-        "unprocessedAmount": 3000
+        "orderAmount": 600,
+        "capturedAmount": 600,
+        "uncapturedAmount": 0,
+        "capturedAmountForDisbursal": 500,
+        "capturedAmountForCancellation": 100
       }
     },
     "meta": {
@@ -687,7 +689,6 @@ Success. The request has been processed successfully and the response contains t
  | lenderName | string |  no  |  |
  | lenderLogo | string |  no  |  |
  | loanType | string |  no  |  |
- | repaymentTransactionId | string |  no  |  |
  | nextDueDate | string |  no  |  |
  | paidPercent | number |  no  |  |
  | lenderDetail | [LenderDetail](#LenderDetail) |  no  |  |
@@ -792,28 +793,6 @@ Success. The request has been processed successfully and the response contains t
  | filters | [[Filters](#Filters)] |  yes  |  |
  | page | [PageResponse](#PageResponse) |  yes  |  |
  | transactions | [[Transactions](#Transactions)] |  yes  |  |
-
----
-
-
- 
- 
- #### [MerchantTransactions](#MerchantTransactions)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | outstandingAmount | string |  no  |  |
-
----
-
-
- 
- 
- #### [MerchantTransactionSummary](#MerchantTransactionSummary)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | merchantOutstandingSummary | [MerchantTransactions](#MerchantTransactions) |  no  |  |
 
 ---
 
@@ -1322,6 +1301,141 @@ Success. The request has been processed successfully and the response contains t
 
  
  
+ #### [OrderShipmentAddressGeoLocation](#OrderShipmentAddressGeoLocation)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | latitude | number |  yes  | The latitude of the location. |
+ | longitude | number |  yes  | The longitude of the location. |
+
+---
+
+
+ 
+ 
+ #### [OrderShipmentAddress](#OrderShipmentAddress)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | line1 | string |  no  | The first line of the address. |
+ | line2 | string |  no  | The second line of the address. |
+ | city | string |  no  | The city of the address. |
+ | state | string |  no  | The state of the address. |
+ | country | string |  no  | The country of the address. |
+ | pincode | string |  no  | The postal code of the address. |
+ | type | string |  no  | The type of address (e.g., residential, business). |
+ | geoLocation | [OrderShipmentAddressGeoLocation](#OrderShipmentAddressGeoLocation) |  no  | The geographical location of the address. |
+
+---
+
+
+ 
+ 
+ #### [OrderShipmentItem](#OrderShipmentItem)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | category | string |  no  | The category of the item. |
+ | sku | string |  no  | The stock keeping unit for the item. |
+ | rate | number |  no  | The price of a single item. |
+ | quantity | number |  no  | The quantity of the item. |
+
+---
+
+
+ 
+ 
+ #### [OrderShipment](#OrderShipment)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  | The identifier for the shipment. |
+ | urn | string |  no  | A unique reference number for the shipment. This is optional; the system will generate a URN if not provided. There can be multiple shipment objects with the same shipment ID, making the URN a unique identifier within the system. |
+ | amount | number |  yes  | The amount corresponding to the shipment that is subject to the status update. |
+ | timestamp | string |  yes  | The timestamp when the status of the shipment was updated. |
+ | status | string |  yes  | The current status of the shipment. |
+ | remark | string |  no  | Any remarks regarding the shipment. |
+ | items | [[OrderShipmentItem](#OrderShipmentItem)] |  no  | The list of items in the shipment. |
+ | shippingAddress | [OrderShipmentAddress](#OrderShipmentAddress) |  no  | The shipping address for the shipment. |
+ | billingAddress | [OrderShipmentAddress](#OrderShipmentAddress) |  no  | The billing address for the shipment. |
+
+---
+
+
+ 
+ 
+ #### [OrderDeliveryUpdatesBody](#OrderDeliveryUpdatesBody)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | orderId | string |  no  | The unique identifier for the order. Required if transactionId is not provided. |
+ | transactionId | string |  no  | The unique identifier for the transaction. Required if orderId is not provided. |
+ | includeSummary | boolean |  no  | A flag to include a summary object in the response, containing data like processed amount and unprocessed amount. |
+ | shipments | [[OrderShipment](#OrderShipment)] |  yes  | The list of shipments for which the status needs to be updated. Only include shipments requiring a status change. |
+
+---
+
+
+ 
+ 
+ #### [OrderShipmentSummary](#OrderShipmentSummary)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | orderAmount | number |  yes  | The total order amount. |
+ | capturedAmount | number |  yes  | The total captured amount. This is the sum of the amounts of all captured shipments. |
+ | uncapturedAmount | number |  yes  | The total uncaptured amount. This is calculated as totalAmount - capturedAmount. |
+ | capturedAmountForDisbursal | number |  yes  | The total amount captured for disbursal. This represents the sum of amounts from all shipments marked for disbursal. |
+ | capturedAmountForCancellation | number |  yes  | The total amount captured for cancellation. This aggregates the amounts from all shipments identified for cancellation. |
+
+---
+
+
+ 
+ 
+ #### [OrderShipmentResponse](#OrderShipmentResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  yes  | The unique identifier of the shipment. |
+ | urn | string |  yes  | A unique resource identifier for the shipment. |
+ | shipmentStatus | string |  yes  | The status of the shipment. |
+ | shipmentAmount | number |  yes  | The total amount associated with the shipment. |
+ | processingStatus | string |  yes  | The processing status of the order shipment. |
+
+---
+
+
+ 
+ 
+ #### [OrderDeliveryUpdatesData](#OrderDeliveryUpdatesData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | orderId | string |  yes  | The unique identifier for the order. |
+ | transactionId | string |  yes  | The unique identifier for the order. |
+ | shipments | [[OrderShipmentResponse](#OrderShipmentResponse)] |  yes  | The list of shipments for which the status was updated. |
+ | summary | [OrderShipmentSummary](#OrderShipmentSummary) |  no  | A summary object containing various amounts related to the order. |
+
+---
+
+
+ 
+ 
+ #### [OrderDeliveryUpdatesResponse](#OrderDeliveryUpdatesResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [OrderDeliveryUpdatesData](#OrderDeliveryUpdatesData) |  yes  |  |
+ | errors | [[IntegrationResponseError](#IntegrationResponseError)] |  no  |  |
+
+---
+
+
+ 
+ 
  #### [TransactionOrder](#TransactionOrder)
 
  | Properties | Type | Nullable | Description |
@@ -1463,139 +1577,6 @@ Success. The request has been processed successfully and the response contains t
  | endDate | string |  no  |  |
  | merchantId | string |  no  |  |
  | type | string |  no  |  |
-
----
-
-
- 
- 
- #### [OrderShipmentAddressGeoLocation](#OrderShipmentAddressGeoLocation)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | latitude | number |  yes  | The latitude of the location. |
- | longitude | number |  yes  | The longitude of the location. |
-
----
-
-
- 
- 
- #### [OrderShipmentAddress](#OrderShipmentAddress)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | line1 | string |  no  | The first line of the address. |
- | line2 | string |  no  | The second line of the address. |
- | city | string |  no  | The city of the address. |
- | state | string |  no  | The state of the address. |
- | country | string |  no  | The country of the address. |
- | pincode | string |  no  | The postal code of the address. |
- | type | string |  no  | The type of address (e.g., residential, business). |
- | geoLocation | [OrderShipmentAddressGeoLocation](#OrderShipmentAddressGeoLocation) |  no  | The geographical location of the address. |
-
----
-
-
- 
- 
- #### [OrderShipmentItem](#OrderShipmentItem)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | category | string |  no  | The category of the item. |
- | sku | string |  no  | The stock keeping unit for the item. |
- | rate | number |  no  | The price of a single item. |
- | quantity | number |  no  | The quantity of the item. |
-
----
-
-
- 
- 
- #### [OrderShipment](#OrderShipment)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | id | string |  yes  | The identifier for the shipment. |
- | urn | string |  no  | A unique reference number for the shipment. This is optional; the system will generate a URN if not provided. There can be multiple shipment objects with the same shipment ID, making the URN a unique identifier within the system. |
- | amount | number |  yes  | The amount corresponding to the shipment that is subject to the status update. |
- | timestamp | string |  yes  | The timestamp when the status of the shipment was updated. |
- | status | string |  yes  | The current status of the shipment. |
- | remark | string |  no  | Any remarks regarding the shipment. |
- | items | [[OrderShipmentItem](#OrderShipmentItem)] |  no  | The list of items in the shipment. |
- | shippingAddress | [OrderShipmentAddress](#OrderShipmentAddress) |  no  | The shipping address for the shipment. |
- | billingAddress | [OrderShipmentAddress](#OrderShipmentAddress) |  no  | The billing address for the shipment. |
-
----
-
-
- 
- 
- #### [OrderDeliveryUpdatesBody](#OrderDeliveryUpdatesBody)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | orderId | string |  no  | The unique identifier for the order. Required if transactionId is not provided. |
- | transactionId | string |  no  | The unique identifier for the transaction. Required if orderId is not provided. |
- | includeSummary | boolean |  no  | A flag to include a summary object in the response, containing data like processed amount and unprocessed amount. |
- | shipments | [[OrderShipment](#OrderShipment)] |  yes  | The list of shipments for which the status needs to be updated. Only include shipments requiring a status change. |
-
----
-
-
- 
- 
- #### [OrderShipmentSummary](#OrderShipmentSummary)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | totalAmount | number |  yes  | The total order amount. |
- | processedAmount | number |  yes  | The total processed amount. This is the sum of the amounts of all processed shipments. |
- | unprocessedAmount | number |  yes  | The total unprocessed amount. This is calculated as totalAmount - processedAmount. |
-
----
-
-
- 
- 
- #### [OrderShipmentResponse](#OrderShipmentResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | id | string |  yes  | The unique identifier of the shipment. |
- | urn | string |  yes  | A unique resource identifier for the shipment. |
- | shipmentStatus | string |  yes  | The status of the shipment. |
- | shipmentAmount | number |  yes  | The total amount associated with the shipment. |
- | processingStatus | string |  yes  | The processing status of the order shipment. |
-
----
-
-
- 
- 
- #### [OrderDeliveryUpdatesData](#OrderDeliveryUpdatesData)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | orderId | string |  yes  | The unique identifier for the order. |
- | transactionId | string |  yes  | The unique identifier for the order. |
- | shipments | [[OrderShipmentResponse](#OrderShipmentResponse)] |  yes  | The list of shipments for which the status was updated. |
- | summary | [OrderShipmentSummary](#OrderShipmentSummary) |  yes  | A summary object containing various amounts related to the order. |
-
----
-
-
- 
- 
- #### [OrderDeliveryUpdatesResponse](#OrderDeliveryUpdatesResponse)
-
- | Properties | Type | Nullable | Description |
- | ---------- | ---- | -------- | ----------- |
- | message | string |  yes  | Response message indicating the result of the operation. |
- | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
- | data | [OrderDeliveryUpdatesData](#OrderDeliveryUpdatesData) |  yes  |  |
- | errors | [[IntegrationResponseError](#IntegrationResponseError)] |  no  |  |
 
 ---
 
