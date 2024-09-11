@@ -34,6 +34,20 @@ function convertUrlToAction(url) {
   };
 }
 
+function convertPageToUrl(action) {
+  const item = Object.assign({}, Constant.NAVIGATORS[action.page.type]);
+  if (item) {
+    //get param
+    item.link = utils.generateUrlWithParams(item, action.page.params);
+    //get query
+    if (action.page.query && Object.keys(action.page.query).length > 0) {
+      item.link += "/?" + utils.transformRequestOptions(action.page.query);
+    }
+    return item.link;
+  }
+  return "";
+}
+
 function convertActionToUrl(action) {
   switch (action.type) {
     case utils.NAV_TYPE.PAGE: {
@@ -58,4 +72,5 @@ function convertActionToUrl(action) {
 module.exports = {
   convertActionToUrl,
   convertUrlToAction,
+  convertPageToUrl,
 };

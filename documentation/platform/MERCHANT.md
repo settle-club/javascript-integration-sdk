@@ -8,6 +8,7 @@
 Authentication Service
 * [getAccessToken](#getaccesstoken)
 * [renewAccessToken](#renewaccesstoken)
+* [validateCredentials](#validatecredentials)
 
 
 
@@ -218,6 +219,72 @@ true
 
 ```json
 "600"
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
+### validateCredentials
+Validate organization's credentials
+
+
+
+```javascript
+// Promise
+const promise =  
+        merchant.validateCredentials(
+            
+            
+        
+        );
+
+// Async/Await
+const data = await 
+                    merchant.validateCredentials(
+                    
+                    
+                    );
+```
+
+
+
+
+
+
+Use this API to validate organization's credentials
+
+*Returned Response:*
+
+
+
+
+[ValidateCredentialsResponse](#ValidateCredentialsResponse)
+
+Success. Returns a JSON object as shown below. Refer `ValidateCredentialsResponse` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; $ref</i></summary>
+
+```json
+"#/components/schemas/ValidateCredentialsResponseExample"
 ```
 </details>
 
@@ -681,6 +748,8 @@ true
  | disbursementIfsc | string |  no  |  |
  | businessName | string |  no  |  |
  | email | string |  no  |  |
+ | supportEmail | string |  no  |  |
+ | description | string |  no  |  |
  | businessAddress | string |  no  |  |
  | pincode | string |  no  |  |
  | b2b | boolean |  no  |  |
@@ -785,6 +854,8 @@ true
  | b2c | boolean |  no  |  |
  | businessName | string |  no  |  |
  | email | string |  no  |  |
+ | supportEmail | string |  no  |  |
+ | description | string |  no  |  |
  | businessAddress | string |  no  |  |
  | pincode | string |  no  |  |
  | documents | [[Documents](#Documents)] |  no  |  |
@@ -1431,7 +1502,6 @@ true
  | refreshTokenExpiryAt | string |  no  |  |
  | refreshTokenExpiryIn | string |  no  |  |
  | scope | [string] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1446,7 +1516,6 @@ true
  | accessToken | string |  no  |  |
  | tokenExpireAt | string |  no  |  |
  | tokenExpiryIn | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1458,6 +1527,74 @@ true
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | token | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseMeta](#IntegrationResponseMeta)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | timestamp | string |  yes  | The timestamp when the response was generated. |
+ | version | string |  yes  | The version of the API. |
+ | product | string |  yes  | The name of the product or service. |
+ | requestId | string |  no  | An optional request identifier. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseError](#IntegrationResponseError)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | code | string |  yes  | Error code representing the type of error. |
+ | message | string |  yes  | A human-readable message providing more details about the error. |
+ | exception | string |  yes  | The exception name or type. |
+ | field | string |  no  | The field associated with the error, if applicable. |
+ | location | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationErrorResponse](#IntegrationErrorResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the failure of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | error | [IntegrationResponseError](#IntegrationResponseError) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [ValidateCredentialsData](#ValidateCredentialsData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | success | boolean |  yes  |  |
+ | organizationId | string |  yes  |  |
+ | organizationName | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [ValidateCredentialsResponse](#ValidateCredentialsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [ValidateCredentialsData](#ValidateCredentialsData) |  yes  |  |
 
 ---
 
@@ -1602,6 +1739,59 @@ true
  | mid | string |  no  |  |
  | enable | boolean |  no  |  |
  | data | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [LenderTheme](#LenderTheme)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | iconUrl | string |  no  |  |
+ | logoUrl | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [LenderDetails](#LenderDetails)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | slug | string |  no  |  |
+ | name | string |  no  |  |
+ | id | string |  no  |  |
+ | theme | [LenderTheme](#LenderTheme) |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [OutstandingData](#OutstandingData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | lenderDetails | [LenderDetails](#LenderDetails) |  no  |  |
+ | availableLimit | number |  no  |  |
+ | creditLimit | number |  no  |  |
+ | dueAmount | number |  no  |  |
+ | outstandingAmount | number |  no  |  |
+ | dueDate | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [OutstandingDetailsResponse](#OutstandingDetailsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | outstandingDetails | [[OutstandingData](#OutstandingData)] |  no  |  |
 
 ---
 

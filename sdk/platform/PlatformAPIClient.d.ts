@@ -5,9 +5,9 @@ declare class APIClient {
      * @param {string} method
      * @param {string} url
      * @param {object} query
-     * @param {string} session
      * @param {object} body
+     * @param {object} headers
      */
-    static execute(conf: object, method: string, url: string, query: object, body: object, session: string): Promise<any>;
+    static execute(conf: object, method: string, url: string, query: object, body: object, headers?: object): Promise<any>;
     get(url: any, config: any): Promise<any>;
 }

@@ -7,7 +7,6 @@
 ## MultiKyc Methods
 Will deprecate Hawkeye
 * [approvedLenders](#approvedlenders)
-* [getLimit](#getlimit)
 
 
 
@@ -49,72 +48,6 @@ const data = await
 
 
 [ApprovedLendersTransaction](#ApprovedLendersTransaction)
-
-
-
-
-
-
-<details>
-<summary><i>&nbsp; Example:</i></summary>
-
-```json
-
-```
-</details>
-
-
-
-
-
-
-
-
-
----
-
-
-### getLimit
-Get limit
-
-
-
-```javascript
-// Promise
-const promise =  
-        multiKyc.getLimit(
-            { 
-              body : value
-            
-         }
-        );
-
-// Async/Await
-const data = await 
-                    multiKyc.getLimit(
-                    { 
-                       body : value
-                    
-                     });
-```
-
-
-
-
-
-| Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
-| body | [GetLimitRequest](#GetLimitRequest) | yes | Request body |
-
-
-
-
-*Returned Response:*
-
-
-
-
-[IntgrCreditLimit](#IntgrCreditLimit)
 
 
 
@@ -1129,6 +1062,20 @@ const data = await
 
  
  
+ #### [RetriggerLenderOnboardRequestV2](#RetriggerLenderOnboardRequestV2)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | lenderUserId | string |  yes  |  |
+ | stepName | string |  yes  |  |
+ | data | any |  yes  |  |
+ | entityMapId | string |  yes  |  |
+
+---
+
+
+ 
+ 
  #### [BusinessDetail](#BusinessDetail)
 
  | Properties | Type | Nullable | Description |
@@ -1179,18 +1126,33 @@ const data = await
 
  
  
- #### [CheckEligibilityRequest](#CheckEligibilityRequest)
+ #### [AddVintageRequest](#AddVintageRequest)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | user | any |  yes  |  |
- | entity | [EntityDto](#EntityDto) |  no  |  |
  | businessDetails | [BusinessDetail](#BusinessDetail) |  yes  |  |
  | vintageData | [VintageData](#VintageData) |  yes  |  |
  | documents | [DocumentObjects](#DocumentObjects) |  yes  |  |
- | isPreApproved | boolean |  yes  |  |
  | merchant | [MerchantSchema](#MerchantSchema) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [CheckEligibilityRequest](#CheckEligibilityRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | entity | [EntityDto](#EntityDto) |  no  |  |
+ | isPreApproved | boolean |  yes  |  |
  | fetchLimit | boolean |  no  |  |
+ | user | any |  yes  |  |
+ | businessDetails | [BusinessDetail](#BusinessDetail) |  yes  |  |
+ | vintageData | [VintageData](#VintageData) |  yes  |  |
+ | documents | [DocumentObjects](#DocumentObjects) |  yes  |  |
+ | merchant | [MerchantSchema](#MerchantSchema) |  yes  |  |
 
 ---
 
@@ -1582,6 +1544,10 @@ const data = await
  | id | string |  yes  |  |
  | name | string |  yes  |  |
  | active | boolean |  yes  |  |
+ | baseUrl | string |  no  |  |
+ | config | any |  no  |  |
+ | paymentOptions | [any] |  no  |  |
+ | credentialsSchema | any |  no  |  |
 
 ---
 
@@ -1599,6 +1565,8 @@ const data = await
  | lenderId | string |  yes  |  |
  | pgId | string |  yes  |  |
  | active | boolean |  yes  |  |
+ | config | any |  no  |  |
+ | paymentOptions | [any] |  no  |  |
 
 ---
 
@@ -1661,6 +1629,23 @@ const data = await
  | createdAt | string |  no  |  |
  | updatedAt | string |  no  |  |
  | deletedAt | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [Commercial](#Commercial)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  no  |  |
+ | lenderId | string |  yes  |  |
+ | merchantId | string |  yes  |  |
+ | commercial | any |  yes  |  |
+ | active | boolean |  yes  |  |
+ | createdAt | string |  no  |  |
+ | updatedAt | string |  no  |  |
 
 ---
 
@@ -1842,7 +1827,6 @@ const data = await
  | updatedAt | any |  yes  |  |
  | deletedAt | any |  no  |  |
  | isDefault | boolean |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2103,7 +2087,6 @@ const data = await
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | limit | [IngtrAvailableLimit](#IngtrAvailableLimit) |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2487,6 +2470,29 @@ const data = await
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | data | [UserKycLenderStepMap](#UserKycLenderStepMap) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [PlatformFees](#PlatformFees)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | customerAcquisitionFee | number |  yes  |  |
+ | transactionFee | number |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [CommercialResponse](#CommercialResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | data | [Commercial](#Commercial) |  yes  |  |
 
 ---
 
