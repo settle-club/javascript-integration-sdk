@@ -6,29 +6,32 @@
 
 ## Customer Methods
 Authentication Service
-* [verify](#verify)
-* [resendPaymentRequest](#resendpaymentrequest)
-* [createOrder](#createorder)
+* [validate](#validate)
+* [createTransaction](#createtransaction)
 * [link](#link)
 * [unlink](#unlink)
 * [refund](#refund)
 * [refundStatus](#refundstatus)
 * [getSchemes](#getschemes)
+* [checkEligibility](#checkeligibility)
+* [getRepaymentLink](#getrepaymentlink)
+* [getAllCustomers](#getallcustomers)
+* [addVintageData](#addvintagedata)
 
 
 
 ## Methods with example and description
 
 
-### verify
-Verify Customer
+### validate
+Validate Customer
 
 
 
 ```javascript
 // Promise
 const promise =  
-        customer.verify(
+        customer.validate(
             { 
               body : value
             
@@ -37,7 +40,7 @@ const promise =
 
 // Async/Await
 const data = await 
-                    customer.verify(
+                    customer.validate(
                     { 
                        body : value
                     
@@ -50,55 +53,29 @@ const data = await
 
 | Argument  |  Type  | Required | Description |
 | --------- | -----  | -------- | ----------- |
-| body | [VerifyCustomer](#VerifyCustomer) | yes | Request body |
+| body | [ValidateCustomer](#ValidateCustomer) | yes | Request body |
 
 
-Use this API to verify the customer based on  mobile number and countryCode.
+The Validate Customer API processes validity checks using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. It returns `Enabled` if the transaction is allowed.
 
 *Returned Response:*
 
 
 
 
-[VerifyCustomerSuccess](#VerifyCustomerSuccess)
+[ValidateCustomerSuccess](#ValidateCustomerSuccess)
 
-Success. Returns a JSON object as shown below. Refer `VerifyCustomerSuccess` for more details.
-
-
+Success. Returns a JSON object as shown below. Refer `ValidateCustomerSuccess` for more details.
 
 
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
 
 
 <details>
-<summary><i>&nbsp; VerifyCustomerEnabledResponseExample</i></summary>
+<summary><i>&nbsp; Example:</i></summary>
 
 ```json
-{
-  "value": {
-    "status": "ENABLED",
-    "userStatus": "USER_AUTHORISED",
-    "message": "Kindly proceed to complete your order"
-  }
-}
+
 ```
-</details>
-
-<details>
-<summary><i>&nbsp; VerifyCustomerDisabledResponseExample</i></summary>
-
-```json
-{
-  "value": {
-    "status": "DISABLED",
-    "userStatus": "CREDIT_EXAHUSTED",
-    "message": "Order value exceeds the available limit of ₹36,452"
-  }
-}
-```
-</details>
-
 </details>
 
 
@@ -112,26 +89,28 @@ Success. Returns a JSON object as shown below. Refer `VerifyCustomerSuccess` for
 ---
 
 
-### resendPaymentRequest
-Resend Payment Request
+### createTransaction
+Create Transaction
 
 
 
 ```javascript
 // Promise
 const promise =  
-        customer.resendPaymentRequest(
+        customer.createTransaction(
             { 
-              body : value
+              body : value,
+             session : value
             
          }
         );
 
 // Async/Await
 const data = await 
-                    customer.resendPaymentRequest(
+                    customer.createTransaction(
                     { 
-                       body : value
+                       body : value,
+                      session : value
                     
                      });
 ```
@@ -141,99 +120,12 @@ const data = await
 
 
 | Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
-| body | [ResendPaymentRequest](#ResendPaymentRequest) | yes | Request body |
-
-
-Use this API to resend payment request to user
-
-*Returned Response:*
-
-
-
-
-[CreateTransactionSuccess](#CreateTransactionSuccess)
-
-Success. Returns a JSON object as shown below. Refer `CreateTransactionSuccess` for more details.
-
-
-
-
-<details>
-<summary><i>&nbsp; Examples:</i></summary>
-
-
-<details>
-<summary><i>&nbsp; redirectUrl</i></summary>
-
-```json
-"https://account.potleex0.de/auth/login?onboardingToken=e738521b-a763-460d-a440-d9570e79be47&redirectUrl=https://local.potleex0.de:3003/callback?apiKey=0c8e7bbf-6c0c-41b1-8a37-7e066e8fbd4a&apiSecret=48a7d96f46868f78297be845b6afb5da50893d0b&domain=https://api.potleex0.de"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; message</i></summary>
-
-```json
-"Payment Authorised"
-```
-</details>
-
-<details>
-<summary><i>&nbsp; userStatus</i></summary>
-
-```json
-"PAYMENT_AUTHORISED"
-```
-</details>
-
-</details>
-
-
-
-
-
-
-
-
-
----
-
-
-### createOrder
-Create Order
-
-
-
-```javascript
-// Promise
-const promise =  
-        customer.createOrder(
-            { 
-              body : value
-            
-         }
-        );
-
-// Async/Await
-const data = await 
-                    customer.createOrder(
-                    { 
-                       body : value
-                    
-                     });
-```
-
-
-
-
-
-| Argument  |  Type  | Required | Description |
-| --------- | -----  | -------- | ----------- |
+| --------- | -----  | -------- | ----------- |  
+| session | string | no | The user session. |  
 | body | [CreateTransaction](#CreateTransaction) | yes | Request body |
 
 
-Use this API to create transaction for user
+The Create Transaction API processes transactions using customer details, order information, a redirect URL, and device data. It returns `Disabled` if the transaction cannot proceed due to reasons such as the customer's limit being unavailable, already used, the customer being blocked, the pincode not being serviceable, or the SKU/product category not being serviceable by the lender. If the transaction is allowed, it returns `Enabled` along with the redirect URL and the user status as authorized.
 
 *Returned Response:*
 
@@ -311,7 +203,7 @@ const data = await
 | body | [LinkAccount](#LinkAccount) | yes | Request body |
 
 
-Use this API to link account with merchant
+The Link API generates a merchant-linked session for the user, enabling automatic login to complete payment or repayment activities seamlessly. This session ensures a smooth and secure transaction process without requiring the user to manually log in.
 
 *Returned Response:*
 
@@ -383,7 +275,7 @@ const data = await
 | body | [UnlinkAccount](#UnlinkAccount) | yes | Request body |
 
 
-Use this API to unlink account from merchant
+The Unlink API serves as the reverse of the Link API. It terminates the merchant-linked session for the user, effectively logging them out and preventing any further automatic login for payment or repayment activities. This ensures security and control over session management.
 
 *Returned Response:*
 
@@ -423,7 +315,7 @@ true
 
 
 ### refund
-Refund customer order amount
+Refund Order
 
 
 
@@ -455,7 +347,7 @@ const data = await
 | body | [Refund](#Refund) | yes | Request body |
 
 
-Use this API to verify the refund customer order amount
+The Refund API processes refunds based on business arrangements and returns the corresponding status of the refund request. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
 
 *Returned Response:*
 
@@ -519,7 +411,7 @@ Success. Returns a JSON object as shown below. Refer `RefundResponse` for more d
 
 
 ### refundStatus
-Refund status
+Check Refund status
 
 
 
@@ -555,7 +447,7 @@ const data = await
 
 
 
-Use this API to fetch the refund status
+The Refund Status API returns the current status of a refund request based on business arrangements. The possible statuses include: - SUCCESS: The refund was processed successfully. - FAILED: The refund request failed. - PENDING: The refund request is still being processed and is awaiting completion.
 
 *Returned Response:*
 
@@ -646,7 +538,7 @@ Success. Returns a JSON object as shown below. Refer `RefundStatus` for more det
 
 
 ### getSchemes
-Fetch schemes
+Get schemes
 
 
 
@@ -678,7 +570,7 @@ const data = await
 | body | [GetSchemesRequest](#GetSchemesRequest) | yes | Request body |
 
 
-Use this API to fetch available schemes for user order.
+The Schemes API returns Buy Now, Pay Later (BNPL) and EMI plans offered by lenders for the user. It provides details on available financing options, including terms and conditions for both BNPL and EMI arrangements.
 
 *Returned Response:*
 
@@ -782,8 +674,463 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 ---
 
 
+### checkEligibility
+Check Credit Eligibility
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.checkEligibility(
+            { 
+              body : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.checkEligibility(
+                    { 
+                       body : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- |
+| body | [CheckEligibilityRequest](#CheckEligibilityRequest) | yes | Request body |
+
+
+Use this API to pre approve by checking the customer's credit eligibility based on mobile number and countryCode and vintage data of monthly transactions.
+
+*Returned Response:*
+
+
+
+
+[EligibilitySuccess](#EligibilitySuccess)
+
+Success. Returns a JSON object as shown below. Refer `EligibilitySuccess` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; EligibilitySuccess</i></summary>
+
+```json
+{
+  "value": {
+    "status": "ENABLED",
+    "message": "User is eligible to transact",
+    "redirectUrl": "https://account.potlee.co.in",
+    "creditLimit": [
+      {
+        "availableLimit": 300000,
+        "possibleLimit": 500000,
+        "lender": {
+          "slug": "ugro",
+          "name": "UGRO",
+          "logo": "https://cdn.pixelbin.io/v2/potlee/original/public/ugro/ugro_logo"
+        }
+      }
+    ]
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
+### getRepaymentLink
+Get Repayment link
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.getRepaymentLink(
+            { 
+              body : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.getRepaymentLink(
+                    { 
+                       body : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- |
+| body | [RepaymentRequest](#RepaymentRequest) | yes | Request body |
+
+
+The Repayment Link API generates a repayment link based on the current outstanding balance. The URL provided allows users to make payments and settle their outstanding amounts directly.
+
+*Returned Response:*
+
+
+
+
+[RepaymentResponse](#RepaymentResponse)
+
+Success. The request has been processed successfully and the response contains the requested data.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; RepaymentUrlResponseExample</i></summary>
+
+```json
+{
+  "value": {
+    "message": "The request has been processed successfully.",
+    "data": {
+      "repaymentUrl": "https://account.settle.club/magic-link/65bafe6a-f665-4378-964f-fc7457585ac7"
+    },
+    "meta": {
+      "timestamp": "2024-07-16T13:30:10.663Z",
+      "version": "v1.0",
+      "product": "Settle Checkout"
+    }
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
+### getAllCustomers
+Get List of Users
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.getAllCustomers(
+            { 
+             page : value,
+             limit : value,
+             name : value,
+             mobile : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.getAllCustomers(
+                    { 
+                      page : value,
+                      limit : value,
+                      name : value,
+                      mobile : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- | 
+| page | number | yes | This is page number |   
+| limit | number | yes | This is no of transaction |    
+| name | string | no | This is name for filter |    
+| mobile | string | no | This is Mobile Number for filter |  
+
+
+
+The Customer Listing API returns a paginated list of users associated with the specified organization. Supports filtering by various query parameters such as name, ID, and mobile number.
+
+*Returned Response:*
+
+
+
+
+[UserResponse](#UserResponse)
+
+Success. Returns a JSON object as shown below. Refer `UserResponse` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; UserResponseExample</i></summary>
+
+```json
+{
+  "message": "The request has been processed successfully.",
+  "data": {
+    "listOfUsers": [
+      {
+        "id": "07c5e487-e017-43b7-9c4e-e8f4010b4f88",
+        "firstName": "Avula",
+        "lastName": "Josh",
+        "gender": "male",
+        "dob": "2004-05-08",
+        "email": "1020d1b57b16aa0d4edcbe7e97557ada4eb7b015b448073bc8c684dffc7a4db6",
+        "mobile": "df20c2fc3c0a4df8429a598c61975a04",
+        "profilePictureUrl": null,
+        "active": true,
+        "createdAt": "2024-06-23T09:12:05.274Z",
+        "updatedAt": "2024-06-23T10:06:26.258Z"
+      }
+    ],
+    "page": {
+      "type": "number",
+      "current": 1,
+      "hasPrevious": false,
+      "hasNext": false,
+      "size": null,
+      "itemTotal": 178
+    },
+    "filters": [
+      {
+        "key": {
+          "display": "Search",
+          "name": "search",
+          "kind": "multivalued"
+        },
+        "values": [
+          {
+            "display": "Name",
+            "isSelected": false,
+            "value": "FIRSTNAME"
+          },
+          {
+            "display": "Name",
+            "isSelected": false,
+            "value": "LASTNAME"
+          },
+          {
+            "display": "Id",
+            "isSelected": false,
+            "value": "ID"
+          },
+          {
+            "display": "Mobile",
+            "isSelected": false,
+            "value": "MOBILE"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "timestamp": "2024-08-14T05:23:51.794Z",
+    "version": "v1.0",
+    "product": "Settle Checkout"
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
+### addVintageData
+Add user vintage details
+
+
+
+```javascript
+// Promise
+const promise =  
+        customer.addVintageData(
+            { 
+              body : value
+            
+         }
+        );
+
+// Async/Await
+const data = await 
+                    customer.addVintageData(
+                    { 
+                       body : value
+                    
+                     });
+```
+
+
+
+
+
+| Argument  |  Type  | Required | Description |
+| --------- | -----  | -------- | ----------- |
+| body | [VintageData](#VintageData) | yes | Request body |
+
+
+Use this API to add vintage details of the user.
+
+*Returned Response:*
+
+
+
+
+[AddVintageResponse](#AddVintageResponse)
+
+Success. Returns a JSON object as shown below. Refer `AddVintageResponse` for more details.
+
+
+
+
+<details>
+<summary><i>&nbsp; Examples:</i></summary>
+
+
+<details>
+<summary><i>&nbsp; AddVintageResponse</i></summary>
+
+```json
+{
+  "value": {
+    "message": "Request Processed Successfully.",
+    "meta": {
+      "timestamp": "2024-07-10T13:56:46.396Z",
+      "version": "v1.0",
+      "product": "Settle Checkout"
+    },
+    "data": {}
+  }
+}
+```
+</details>
+
+</details>
+
+
+
+
+
+
+
+
+
+---
+
+
 
 ### Schemas
+
+ 
+ 
+ #### [IntegrationResponseMeta](#IntegrationResponseMeta)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | timestamp | string |  yes  | The timestamp when the response was generated. |
+ | version | string |  yes  | The version of the API. |
+ | product | string |  yes  | The name of the product or service. |
+ | requestId | string |  no  | An optional request identifier. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationResponseError](#IntegrationResponseError)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | code | string |  yes  | Error code representing the type of error. |
+ | message | string |  yes  | A human-readable message providing more details about the error. |
+ | exception | string |  yes  | The exception name or type. |
+ | field | string |  no  | The field associated with the error, if applicable. |
+ | location | string |  no  | The location of the field, such as 'query', 'param' or 'body'. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationSuccessResponse](#IntegrationSuccessResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the success of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | string |  yes  | The data payload of the response. The structure of this object will vary depending on the specific API endpoint. |
+
+---
+
+
+ 
+ 
+ #### [IntegrationErrorResponse](#IntegrationErrorResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | A message indicating the failure of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | errors | [[IntegrationResponseError](#IntegrationResponseError)] |  no  |  |
+
+---
+
 
  
  
@@ -795,7 +1142,6 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | message | string |  no  |  |
  | transactionId | string |  no  |  |
  | refundId | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1260,7 +1606,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | ---------- | ---- | -------- | ----------- |
  | countryCode | string |  no  |  |
  | mobile | string |  yes  |  |
- | uid | string |  yes  |  |
+ | uid | string |  no  |  |
  | email | string |  no  |  |
  | firstname | string |  no  |  |
  | middleName | string |  no  |  |
@@ -1277,6 +1623,21 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | ---------- | ---- | -------- | ----------- |
  | valueInPaise | number |  yes  |  |
  | uid | string |  yes  |  |
+ | items | [[Items](#Items)] |  no  |  |
+ | shippingAddress | [OrderAddress](#OrderAddress) |  no  |  |
+ | billingAddress | [OrderAddress](#OrderAddress) |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [VerifyOrder](#VerifyOrder)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | valueInPaise | number |  yes  |  |
+ | uid | string |  no  |  |
  | items | [[Items](#Items)] |  no  |  |
  | shippingAddress | [OrderAddress](#OrderAddress) |  no  |  |
  | billingAddress | [OrderAddress](#OrderAddress) |  no  |  |
@@ -1330,12 +1691,12 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 
  
  
- #### [VerifyCustomer](#VerifyCustomer)
+ #### [ValidateCustomer](#ValidateCustomer)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | customer | [CustomerObject](#CustomerObject) |  yes  |  |
- | order | [Order](#Order) |  yes  |  |
+ | order | [VerifyOrder](#VerifyOrder) |  yes  |  |
  | device | [Device](#Device) |  yes  |  |
  | meta | string |  no  |  |
  | fetchLimitOptions | boolean |  no  |  |
@@ -1357,7 +1718,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | meta | string |  no  | Any additional details |
  | emiTenure | number |  no  | EMI tenure selected by customer |
  | lenderSlug | string |  no  | slug of lender selected by customer |
- | consents | [[Consents](#Consents)] |  no  | Consent for AUTO_DISBURSAL is mandatory while calling createOrder API. |
+ | consents | [[Consents](#Consents)] |  no  | Consent for AUTO_DISBURSAL is mandatory while calling createTransaction API. |
 
 ---
 
@@ -1377,7 +1738,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 
  
  
- #### [VerifyCustomerSuccess](#VerifyCustomerSuccess)
+ #### [ValidateCustomerSuccess](#ValidateCustomerSuccess)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
@@ -1386,7 +1747,6 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | message | string |  yes  | Message to be displayed to the user |
  | schemes | [[SchemeResponse](#SchemeResponse)] |  no  | An array of possible schemes of lenders available for a transaction. |
  | limit | [LimitResponse](#LimitResponse) |  no  | Limit details of available and possible lenders for a transaction. |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1403,7 +1763,6 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | transactionId | string |  no  | A unique identifier for the transaction. This is received only if session is passed and auto capture is true in request. ASP merchants do not receive transaction ID in this response. |
  | status | string |  no  | Indicates transaction status in case of auto disbursal. |
  | userStatus | string |  no  | Represents the status of the user for transaction eligibility |
- | __headers | string |  no  |  |
 
 ---
 
@@ -1453,6 +1812,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | token | string |  yes  |  |
+ | intent | string |  no  |  |
 
 ---
 
@@ -1505,6 +1865,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | order | [Order](#Order) |  no  |  |
  | isAsp | boolean |  no  |  |
  | merchant | [MerchantDetails](#MerchantDetails) |  no  |  |
+ | redirectUrl | string |  no  |  |
 
 ---
 
@@ -1872,6 +2233,26 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 
  
  
+ #### [MerchantDetailsResponse](#MerchantDetailsResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | id | string |  no  | Unique identifier for the business |
+ | website | string |  no  | Website URL of the business |
+ | businessAddress | string |  no  | Physical address of the business |
+ | pincode | string |  no  | Pincode for the business address |
+ | logo | string |  no  | URL to the business logo |
+ | gstIn | string |  no  | GST number of the business, can be null |
+ | businessName | string |  no  | Business name of the merchant |
+ | name | string |  no  | Name of the merchant |
+ | supportEmail | string |  no  | Support email of the merchant |
+ | description | string |  no  | Description of the Merchant. |
+
+---
+
+
+ 
+ 
  #### [NavigationsMobileResponse](#NavigationsMobileResponse)
 
  | Properties | Type | Nullable | Description |
@@ -1889,6 +2270,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | title | string |  yes  |  |
+ | action | [ActionSchema](#ActionSchema) |  no  |  |
  | page | [PageSchema](#PageSchema) |  yes  |  |
  | icon | string |  yes  |  |
  | activeIcon | string |  yes  |  |
@@ -2235,7 +2617,6 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | status | string |  no  |  |
  | message | string |  no  |  |
  | errorCode | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2263,7 +2644,6 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | statusCode | number |  yes  |  |
  | userStatus | string |  no  |  |
  | errorCode | string |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2352,13 +2732,26 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 
  
  
- #### [UserResponse](#UserResponse)
+ #### [UserResponseData](#UserResponseData)
 
  | Properties | Type | Nullable | Description |
  | ---------- | ---- | -------- | ----------- |
  | filters | [[Filters](#Filters)] |  yes  |  |
  | page | [PageResponse](#PageResponse) |  yes  |  |
  | listOfUsers | [[UserSchema](#UserSchema)] |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [UserResponse](#UserResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [UserResponseData](#UserResponseData) |  yes  |  |
 
 ---
 
@@ -2535,7 +2928,6 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | lenderId | string |  no  |  |
  | loanAccountNumber | string |  no  |  |
  | refund | [[RefundStatusList](#RefundStatusList)] |  no  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2548,7 +2940,6 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | ---------- | ---- | -------- | ----------- |
  | userId | string |  no  |  |
  | lenders | [[SchemeResponse](#SchemeResponse)] |  yes  |  |
- | __headers | string |  no  |  |
 
 ---
 
@@ -2880,10 +3271,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | ---------- | ---- | -------- | ----------- |
  | customer | [CustomerObject](#CustomerObject) |  yes  |  |
  | order | [Order](#Order) |  no  |  |
- | businessDetails | [BusinessDetails](#BusinessDetails) |  no  |  |
- | documents | [[DocumentItems](#DocumentItems)] |  no  |  |
  | device | [Device](#Device) |  yes  |  |
- | vintage | [[VintageItems](#VintageItems)] |  no  |  |
  | meta | string |  no  |  |
  | fetchLimitOptions | boolean |  no  |  |
 
@@ -2991,6 +3379,100 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
 ---
 
 
+ 
+ 
+ #### [RepaymentRequest](#RepaymentRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | mobile | string |  yes  |  |
+ | countryCode | string |  no  |  |
+ | target | string |  no  |  |
+ | callbackUrl | string |  yes  |  |
+ | lenderSlug | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [RepaymentResponse](#RepaymentResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | message | string |  yes  | Response message indicating the result of the operation. |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  yes  |  |
+ | data | [RepaymentResponseData](#RepaymentResponseData) |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [RepaymentResponseData](#RepaymentResponseData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | repaymentUrl | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [VerifyMagicLinkResponse](#VerifyMagicLinkResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | user | [UserSchema](#UserSchema) |  yes  |  |
+ | scope | [string] |  no  |  |
+ | redirectPath | string |  yes  |  |
+ | callbackUrl | string |  no  |  |
+ | meta | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [VerifyMagicLinkRequest](#VerifyMagicLinkRequest)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | token | string |  yes  |  |
+
+---
+
+
+ 
+ 
+ #### [VintageData](#VintageData)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | customer | [CustomerObject](#CustomerObject) |  no  |  |
+ | businessDetails | [BusinessDetails](#BusinessDetails) |  yes  |  |
+ | documents | [[DocumentItems](#DocumentItems)] |  no  |  |
+ | device | [Device](#Device) |  no  |  |
+ | vintage | [[VintageItems](#VintageItems)] |  yes  |  |
+ | meta | string |  no  |  |
+
+---
+
+
+ 
+ 
+ #### [AddVintageResponse](#AddVintageResponse)
+
+ | Properties | Type | Nullable | Description |
+ | ---------- | ---- | -------- | ----------- |
+ | mesasge | string |  no  |  |
+ | meta | [IntegrationResponseMeta](#IntegrationResponseMeta) |  no  |  |
+ | data | string |  no  |  |
+
+---
+
+
 
 
 ### Enums
@@ -3034,6 +3516,7 @@ Success. Returns a JSON object as shown below. Refer `GetSchemesSuccess` for mor
  | upiRepayment | upiRepayment | Symbolic link for UPI Repayment: /repayment/upi |
  | sanctionLetter | sanctionLetter | Symbolic link for Sanction Letter: /sanction/:userId |
  | kfs | kfs | Symbolic link for KFS: /kfs/:userId |
+ | dynamicPage | dynamicPage | Symbolic link for Dynamic Page: /page/:slug |
 
 ---
 

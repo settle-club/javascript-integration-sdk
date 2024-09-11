@@ -72,7 +72,8 @@ function requestInterceptorFn() {
       secret: headers["x-merchant-secret"],
     };
     delete headers["x-merchant-secret"];
-    sign(signingOptions);
+    sign(signingOptions, headers["x-source"]);
+    delete headers["x-source"];
 
     config.headers["x-ptl-date"] = signingOptions.headers["x-ptl-date"];
     config.headers["x-ptl-signature"] =
