@@ -101,7 +101,6 @@ fdkAxios.interceptors.response.use(
     return response.data; // IF 2XX then return response.data only
   },
   function (error) {
-    console.log(error);
     if (error.response) {
       // Request made and server responded
       throw new FDKServerResponseError(
